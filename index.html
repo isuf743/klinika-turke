@@ -23,11 +23,11 @@ body{font-family:'Inter',sans-serif;background:#fff;color:var(--text);overflow-x
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:300;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 4%;background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(30,93,184,.08),0 4px 24px rgba(13,43,94,.06)}
-.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-logo{display:flex;align-items:center;gap:6px;text-decoration:none}
 .logo-cross{color:var(--bm);font-size:1.55rem;font-weight:900;line-height:1}
-.logo-name{font-family:'Poppins',sans-serif;font-size:.98rem;font-weight:800;color:var(--bd)}
+.logo-name{font-family:'Poppins',sans-serif;font-size:.98rem;font-weight:800;color:var(--bd);display:flex;align-items:center;gap:5px}
 .logo-name span{color:var(--bm)}
-.logo-flag{width:26px;height:17px;display:inline-block;vertical-align:middle;margin-left:2px}
+.logo-flag{width:22px;height:15px;display:inline-block;vertical-align:middle;margin-left:0}
 .nav-links{display:flex;align-items:center;gap:.1rem}
 .nav-links a{font-size:.875rem;font-weight:600;color:var(--tx);text-decoration:none;padding:.38rem .9rem;border-radius:7px;transition:color .2s,background .2s}
 .nav-links a:hover{color:var(--bm);background:var(--bl)}
@@ -36,18 +36,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:66px;display:flex;ali
 /* Language dropdown */
 .lang-dropdown{position:relative}
 .lang-trigger{
-  display:flex;align-items:center;gap:7px;
+  display:flex;align-items:center;gap:5px;
   background:#F3F4F6;border:1.5px solid #E5E7EB;
-  border-radius:9px;padding:.42rem .8rem;
-  cursor:pointer;font-size:.8rem;font-weight:600;
+  border-radius:8px;padding:.32rem .65rem;
+  cursor:pointer;font-size:.72rem;font-weight:600;
   color:var(--text);font-family:'Poppins',sans-serif;
   transition:all .18s;white-space:nowrap;
 }
 .lang-trigger:hover{border-color:#2563EB;background:#EFF6FF}
-.lang-trigger .lang-flag{font-size:1.05rem}
-.lang-trigger .lang-code{font-weight:700;font-size:.78rem}
+.lang-trigger .lang-flag{font-size:.9rem}
+.lang-trigger .lang-code{font-weight:700;font-size:.7rem}
 .lang-trigger .lang-arrow{
-  font-size:.65rem;color:#9CA3AF;margin-left:2px;
+  font-size:.55rem;color:#9CA3AF;margin-left:1px;
   transition:transform .2s;
 }
 .lang-dropdown.open .lang-arrow{transform:rotate(180deg)}
@@ -844,13 +844,14 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 <nav>
   <a href="#" class="nav-logo">
     <span class="logo-cross">&#10010;</span>
-    <span class="logo-name">Klinika Kardiologjike <span>Turke</span></span>
-    <svg class="logo-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
-      <rect width="30" height="20" fill="#E30A17"/>
-      <circle cx="11" cy="10" r="6" fill="white"/>
-      <circle cx="13" cy="10" r="4.8" fill="#E30A17"/>
-      <polygon points="18.5,10 17,7.5 20,8.8 17.5,8.5 20,11.5 18.5,8.8 20.5,11.5 17.8,11.2 20,8.5" fill="white"/>
-    </svg>
+    <span class="logo-name">Klinika Kardiologjike <span>Turke</span>
+      <svg class="logo-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+        <rect width="30" height="20" fill="#E30A17"/>
+        <circle cx="11" cy="10" r="6" fill="white"/>
+        <circle cx="13" cy="10" r="4.8" fill="#E30A17"/>
+        <polygon points="18.5,10 17,7.5 20,8.8 17.5,8.5 20,11.5 18.5,8.8 20.5,11.5 17.8,11.2 20,8.5" fill="white"/>
+      </svg>
+    </span>
   </a>
   <div class="nav-links">
     <a href="#">Rreth Nesh</a>
