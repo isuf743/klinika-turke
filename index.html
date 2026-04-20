@@ -594,8 +594,96 @@ section.ct.wh{background:#fff}
 .ii svg{width:20px;height:20px;fill:#fff}
 .il{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);font-weight:700}
 .iv{font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:800;color:var(--bd);margin-top:2px}
-/* CTA */
-.cta{
+/* ── TESTIMONIALS ── */
+.testi-section{
+  background:var(--bg);
+  padding:5rem 4.5%;
+  position:relative;overflow:hidden;
+}
+.testi-section::before{
+  content:'';position:absolute;top:-80px;left:-80px;
+  width:350px;height:350px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,235,.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.testi-label{
+  font-size:.7rem;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--primary);
+  margin-bottom:.75rem;text-align:center;
+}
+.testi-title{
+  font-family:'Poppins',sans-serif;
+  font-size:clamp(1.5rem,2.4vw,2rem);
+  font-weight:800;color:var(--text);
+  text-align:center;margin-bottom:3rem;
+}
+.testi-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.testi-card{
+  background:#fff;
+  border-radius:16px;
+  padding:1.8rem;
+  border:1.5px solid #E5E7EB;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+  display:flex;flex-direction:column;gap:1rem;
+  transition:transform .22s,box-shadow .22s,border-color .22s;
+  position:relative;
+}
+.testi-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 32px rgba(37,99,235,.1);
+  border-color:rgba(37,99,235,.2);
+}
+.testi-card-featured{
+  border-color:rgba(37,99,235,.25);
+  background:linear-gradient(160deg,#fff 0%,#F0F7FF 100%);
+}
+.testi-card-featured::before{
+  content:'🇹🇷';
+  position:absolute;top:1.2rem;right:1.2rem;
+  font-size:1.2rem;
+}
+.testi-stars{color:#F59E0B;font-size:1rem;letter-spacing:2px}
+.testi-text{
+  font-size:.88rem;color:var(--secondary);
+  line-height:1.78;flex:1;
+  font-style:italic;
+}
+.testi-text::before{
+  content:'"';
+  font-size:2.5rem;color:rgba(37,99,235,.15);
+  font-family:'Poppins',sans-serif;font-weight:900;
+  line-height:0;vertical-align:-0.6rem;
+  margin-right:4px;
+}
+.testi-author{display:flex;align-items:center;gap:.9rem}
+.testi-avatar{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Poppins',sans-serif;font-weight:800;
+  font-size:.85rem;color:#fff;flex-shrink:0;
+}
+.testi-av1{background:linear-gradient(135deg,#2563EB,#1D4ED8)}
+.testi-av2{background:linear-gradient(135deg,#0891B2,#0E7490)}
+.testi-av3{background:linear-gradient(135deg,#E30A17,#B91C1C)}
+.testi-name{font-family:'Poppins',sans-serif;font-size:.86rem;font-weight:700;color:var(--text)}
+.testi-loc{font-size:.72rem;color:var(--secondary);margin-top:2px}
+
+/* Testimonials mobile */
+@media(max-width:900px){
+  .testi-grid{grid-template-columns:1fr}
+  .testi-section{padding:3.5rem 4.5%}
+}
+@media(max-width:480px){
+  .testi-section{padding:2.5rem 4%}
+  .testi-title{font-size:1.35rem;margin-bottom:2rem}
+  .testi-card{padding:1.4rem}
+}
+
+/* ── CTA ── */
   background:linear-gradient(110deg,#060F1E 0%,#0A2540 35%,#1040A0 70%,#2563EB 100%);
   padding:4.5rem 5%;
   display:grid;grid-template-columns:1fr auto;
@@ -1341,6 +1429,51 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
             <strong>Klinika Kardiologjike Turke</strong>
             <span>Rruga Kavajës, Tiranë</span>
           </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="testi-section">
+  <div class="testi-label">Çfarë Thonë Pacientët</div>
+  <h2 class="testi-title">Besimi i Tyre, Krenaria Jonë</h2>
+  <div class="testi-grid">
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The best clinic in Tirana for heart problems. Professional, fast and caring — I felt in safe hands from the first minute."</p>
+      <div class="testi-author">
+        <div class="testi-avatar testi-av1">HM</div>
+        <div>
+          <div class="testi-name">Haziz Mani</div>
+          <div class="testi-loc">🇦🇱 Tiranë, Shqipëri</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Trust your heart in safe hands! Dr. Selishta is incredibly knowledgeable and kind. The diagnosis was accurate and the treatment worked perfectly."</p>
+      <div class="testi-author">
+        <div class="testi-avatar testi-av2">FL</div>
+        <div>
+          <div class="testi-name">Fatjon Lami</div>
+          <div class="testi-loc">🇦🇱 Tiranë, Shqipëri</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card testi-card-featured">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Dr. Selishta'yı İstanbul'daki eğitiminden tanıyorum. Tirane'de kliniğini açtığını öğrenince hemen ziyaret ettim. Kalp sorunlarıma yaklaşımı son derece profesyoneldi — teşhisi kesin, tedavisi etkili. Türkiye'deki kalitesini Arnavutluk'a taşımış, bu bölgede nadir bulunan bir uzman."</p>
+      <div class="testi-author">
+        <div class="testi-avatar testi-av3">AK</div>
+        <div>
+          <div class="testi-name">Ahmet Kaya</div>
+          <div class="testi-loc">🇹🇷 İstanbul, Türkiye</div>
         </div>
       </div>
     </div>
