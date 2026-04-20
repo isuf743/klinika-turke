@@ -32,18 +32,54 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:66px;display:flex;ali
 .nav-links a{font-size:.875rem;font-weight:600;color:var(--tx);text-decoration:none;padding:.38rem .9rem;border-radius:7px;transition:color .2s,background .2s}
 .nav-links a:hover{color:var(--bm);background:var(--bl)}
 .nav-right{display:flex;align-items:center;gap:.9rem}
-.lang-switcher{display:flex;align-items:center;gap:3px;background:rgba(243,244,246,0.8);border:1px solid #E5E7EB;border-radius:10px;padding:4px}
-.lang-btn{
-  display:flex;align-items:center;gap:5px;
-  background:none;border:none;cursor:pointer;
-  font-size:.72rem;font-weight:600;color:#6B7280;
-  padding:.3rem .6rem;border-radius:7px;
-  transition:all .18s;font-family:'Poppins',sans-serif;
-  white-space:nowrap;
+
+/* Language dropdown */
+.lang-dropdown{position:relative}
+.lang-trigger{
+  display:flex;align-items:center;gap:7px;
+  background:#F3F4F6;border:1.5px solid #E5E7EB;
+  border-radius:9px;padding:.42rem .8rem;
+  cursor:pointer;font-size:.8rem;font-weight:600;
+  color:var(--text);font-family:'Poppins',sans-serif;
+  transition:all .18s;white-space:nowrap;
 }
-.lang-btn:hover{color:var(--primary);background:#fff}
-.lang-btn.active{background:#fff;color:var(--primary);box-shadow:0 1px 4px rgba(0,0,0,.1)}
-.lang-flag{font-size:1rem;line-height:1}
+.lang-trigger:hover{border-color:#2563EB;background:#EFF6FF}
+.lang-trigger .lang-flag{font-size:1.05rem}
+.lang-trigger .lang-code{font-weight:700;font-size:.78rem}
+.lang-trigger .lang-arrow{
+  font-size:.65rem;color:#9CA3AF;margin-left:2px;
+  transition:transform .2s;
+}
+.lang-dropdown.open .lang-arrow{transform:rotate(180deg)}
+.lang-dropdown.open .lang-trigger{border-color:#2563EB;background:#EFF6FF}
+
+.lang-menu{
+  position:absolute;top:calc(100% + 8px);right:0;
+  background:#fff;border:1.5px solid #E5E7EB;
+  border-radius:14px;padding:6px;
+  box-shadow:0 8px 30px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);
+  z-index:500;min-width:190px;
+  opacity:0;transform:translateY(-6px);pointer-events:none;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+}
+.lang-dropdown.open .lang-menu{
+  opacity:1;transform:translateY(0);pointer-events:all;
+}
+.lang-option{
+  display:flex;align-items:center;gap:10px;
+  padding:.65rem .85rem;border-radius:9px;
+  cursor:pointer;transition:background .15s;
+  border:none;background:none;width:100%;text-align:left;
+}
+.lang-option:hover{background:#F3F4F6}
+.lang-option.active{background:#EFF6FF}
+.lang-option .lo-flag{font-size:1.2rem;flex-shrink:0}
+.lang-option .lo-texts{flex:1}
+.lang-option .lo-name{font-size:.88rem;font-weight:700;color:var(--text);font-family:'Poppins',sans-serif;display:block}
+.lang-option .lo-native{font-size:.75rem;color:#9CA3AF;font-family:'Poppins',sans-serif}
+.lang-option .lo-check{font-size:.85rem;color:#2563EB;margin-left:auto;opacity:0}
+.lang-option.active .lo-check{opacity:1}
+
 .nav-sep{width:1px;height:22px;background:#E5E7EB}
 /* Instagram real gradient */
 .sc-icon.ig{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
@@ -666,180 +702,140 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 }
 
 /* ═══════════════════════════════
-   RESPONSIVE — TABLET 900px
+   RESPONSIVE — 900px
    ═══════════════════════════════ */
+
+/* Mini lang flags next to hamburger — hidden by default */
+.nav-lang-mini{display:none}
+/* On mobile the full dropdown still shows — just reposition */
+
 @media(max-width:900px){
   .nav-links{display:none}
   .lang-switcher{display:none}
   .nav-sep{display:none}
   .btn-nav{display:none}
   .hamburger{display:flex}
+  .nav-lang-mini{display:none}
 
-  /* HERO */
-  .h-inner{
-    grid-template-columns:1fr;
-    padding:2rem 5% 0;
-    padding-right:5%;
-    min-height:calc(100vh - 66px);
-    grid-template-rows:auto 1fr;
-    align-items:start;
-  }
-  .h-content{
-    padding:2.5rem 0 1rem;
-    text-align:center;
-    align-items:center;
-    order:1;
-  }
+  .h-inner{grid-template-columns:1fr;padding:2rem 5% 0;padding-right:5%;align-items:start}
+  .h-content{padding:2.5rem 0 1rem;text-align:center;align-items:center;order:1}
   .h-title{font-size:clamp(1.7rem,4.5vw,2.2rem);text-align:center}
   .h-sub{text-align:center;max-width:100%;font-size:.95rem}
   .h-actions{justify-content:center;gap:.8rem}
-  .h-img-wrap{
-    order:2;
-    height:350px;max-height:350px;
-    width:100%;
-    justify-content:center;
-    align-items:flex-end;
-  }
-  .dr-img{
-    height:350px;max-height:350px;
-    width:auto;max-width:300px;
-    display:block;
-  }
+  .h-img-wrap{order:2;height:340px;max-height:340px;width:100%;justify-content:center;align-items:flex-end}
+  .dr-img{height:340px;max-height:340px;width:auto;max-width:280px;display:block}
   .chip1,.chip2{display:none}
-  .dr-tag{
-    right:auto;left:50%;transform:translateX(-50%);
-    top:auto;bottom:12px;
-  }
+  .dr-tag{right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:12px}
   .social-bar{display:none}
 
-  /* TRUST BAR */
-  .trust-bar{
-    flex-wrap:wrap;gap:1rem;
-    justify-content:center;
-    padding:1.2rem 4%;
-  }
+  .trust-bar{flex-wrap:wrap;gap:1rem;justify-content:center;padding:1.2rem 4%}
   .trust-sep{display:none}
   .trust-item{align-items:center;text-align:center}
 
-  /* SERVICES — keep 3D, 2 columns */
+  /* SERVICES — 1 col, no 3D flip, direct button */
   .services{padding:2.5rem 4%}
-  .svc-grid{grid-template-columns:1fr 1fr;gap:1.2rem}
-  .svc-card{height:300px}
+  .svc-grid{grid-template-columns:1fr;gap:1rem}
+  .svc-card{height:auto;perspective:none}
+  .svc-card-inner{transform-style:flat;transition:none}
+  .svc-card:hover .svc-card-inner{transform:none}
+  .svc-back{display:none}
+  .svc-front{position:relative;height:auto;display:flex;flex-direction:column;padding:1.5rem 1.3rem}
+  .svc-learn-hint{display:none}
+  .svc-mobile-btn{
+    display:flex!important;margin-top:1rem;
+    align-items:center;justify-content:center;gap:6px;
+    background:var(--primary);color:#fff;border:none;
+    border-radius:9px;padding:.7rem 1.2rem;
+    font-size:.84rem;font-family:'Poppins',sans-serif;font-weight:700;
+    cursor:pointer;width:100%;box-shadow:0 3px 12px rgba(37,99,235,.28);
+  }
 
-  /* WHY US */
   section.ct{padding:4rem 5%}
   .why-g{grid-template-columns:1fr;gap:2.5rem}
   .why-fs{grid-template-columns:1fr}
   .stats-b{padding:2rem}
 
-  /* DOCTOR */
+  /* DOCTOR — badges in a row, photo clean */
   .doc-inner{grid-template-columns:1fr;gap:2rem}
-  .doc-photo-wrap{max-width:360px;margin:0 auto}
-  .doc-photo-img{height:360px}
-  .doc-cert-badge{right:0}
+  .doc-photo-wrap{max-width:340px;margin:0 auto}
+  .doc-photo-bg{border-radius:20px}
+  .doc-photo-img{height:320px}
+  .doc-country-badge{
+    position:static;display:inline-flex;
+    margin-bottom:.5rem;
+  }
+  .doc-cert-badge{
+    position:static;display:inline-flex;
+    flex-direction:row;align-items:center;gap:.5rem;
+    padding:.55rem .9rem;margin-left:.4rem;
+  }
+  .doc-cert-num{font-size:1.2rem}
+  .doc-cert-lbl{font-size:.65rem;line-height:1.3;margin-top:0;text-align:left}
+  .doc-badges-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}
 
-  /* LOCATION */
   .loc-inner{grid-template-columns:1fr;gap:2rem}
   .loc-map-frame{height:300px}
   .loc-map-wrap{order:2}
   .loc-panel{order:1}
 
-  /* CTA */
-  .cta{
-    grid-template-columns:1fr;
-    gap:2rem;
-    padding:3.5rem 5%;
-  }
+  .cta{grid-template-columns:1fr;gap:2rem;padding:3.5rem 5%}
   .cta-right{align-items:stretch}
-  .btn-cta-primary,.btn-cta-secondary{
-    width:100%;justify-content:center;
-  }
+  .btn-cta-primary,.btn-cta-secondary{width:100%;justify-content:center}
 }
 
-/* ═══════════════════════════════
-   RESPONSIVE — MOBILE 480px
-   ═══════════════════════════════ */
 @media(max-width:480px){
   nav{padding:0 4%;height:60px}
-  .logo-name{font-size:.82rem}
+  .logo-name{font-size:.76rem}
   .mobile-menu{top:60px}
 
-  /* HERO */
   .hero{padding-top:60px}
   .h-inner{padding:1.5rem 4% 0}
-  .h-title{font-size:clamp(1.4rem,6vw,1.9rem)}
-  .h-sub{font-size:.88rem}
-  .h-actions{flex-direction:column;width:100%;gap:.7rem}
-  .btn-p,.btn-ph{
-    width:100%;justify-content:center;
-    text-align:center;padding:.9rem 1rem;
-  }
-  .h-img-wrap{height:280px;max-height:280px}
-  .dr-img{height:280px;max-height:280px;max-width:240px}
+  .h-title{font-size:clamp(1.35rem,6vw,1.8rem)}
+  .h-sub{font-size:.87rem}
+  .h-actions{flex-direction:column;width:100%;gap:.65rem}
+  .btn-p,.btn-ph{width:100%;justify-content:center;text-align:center;padding:.88rem 1rem}
+  .h-img-wrap{height:260px;max-height:260px}
+  .dr-img{height:260px;max-height:260px;max-width:220px}
 
-  /* TRUST BAR */
-  .trust-bar{
-    flex-direction:column;align-items:flex-start;
-    gap:.9rem;padding:1.2rem 4%;
-  }
+  .trust-bar{flex-direction:column;align-items:flex-start;gap:.85rem;padding:1.1rem 4%}
   .trust-item{flex-direction:row;align-items:center;gap:10px;text-align:left}
-  .trust-icon{font-size:1.5rem;flex-shrink:0}
+  .trust-icon{font-size:1.35rem;flex-shrink:0}
 
-  /* SERVICES — 1 column, keep 3D */
   .services{padding:2rem 4%}
-  .svc-grid{grid-template-columns:1fr;gap:1rem}
-  .svc-card{height:260px}
-  .svc-section-label h2{font-size:1.3rem}
+  .svc-section-label h2{font-size:1.25rem}
+  .svc-grid{gap:.85rem}
 
-  /* WHY US */
   section.ct{padding:2.5rem 4%}
-  .s-ttl{font-size:1.4rem}
-  .why-fs{grid-template-columns:1fr}
-  .stats-b{
-    grid-template-columns:1fr 1fr;
-    padding:1.5rem 1.2rem;gap:0;
-  }
-  .si{padding:.9rem .6rem}
-  .sn{font-size:1.9rem}
-  .sl{font-size:.68rem}
+  .s-ttl{font-size:1.3rem}
+  .stats-b{grid-template-columns:1fr 1fr;padding:1.3rem .9rem;gap:0}
+  .si{padding:.8rem .5rem}
+  .sn{font-size:1.65rem}
+  .sl{font-size:.64rem}
 
-  /* DOCTOR */
   .doc-section{padding:2.5rem 4%}
-  .doc-photo-wrap{max-width:280px}
-  .doc-photo-img{height:280px}
-  .doc-name{font-size:1.5rem}
-  .doc-bio{font-size:.88rem}
-  .doc-country-badge{top:10px;left:10px}
-  .doc-cert-badge{right:0;bottom:20px}
+  .doc-photo-wrap{max-width:100%}
+  .doc-photo-img{height:250px;width:100%;object-fit:contain}
+  .doc-name{font-size:1.45rem}
+  .doc-bio{font-size:.87rem}
 
-  /* LOCATION */
   .loc-section{padding:2.5rem 4%}
-  .loc-title{font-size:1.4rem}
-  .loc-map-frame{height:240px}
+  .loc-title{font-size:1.3rem}
+  .loc-map-frame{height:230px}
   .loc-btns{flex-direction:column}
-  .loc-btn-primary,.loc-btn-secondary{
-    width:100%;justify-content:center;
-  }
+  .loc-btn-primary,.loc-btn-secondary{width:100%;justify-content:center}
 
-  /* CTA */
   .cta{padding:2.5rem 4%}
-  .cta h2{font-size:1.25rem}
-  .cta p{font-size:.88rem}
-  .cta-badges{flex-direction:column;gap:.5rem}
-  .btn-cta-primary{font-size:.92rem;padding:1rem}
+  .cta h2{font-size:1.15rem}
+  .cta p{font-size:.85rem}
+  .cta-badges{flex-direction:column;gap:.45rem}
 
-  /* FOOTER */
-  footer{
-    flex-direction:column;align-items:flex-start;
-    gap:.8rem;padding:1.5rem 4%;
-  }
-  .fl{flex-wrap:wrap;gap:.8rem}
+  footer{flex-direction:column;align-items:flex-start;gap:.8rem;padding:1.4rem 4%}
+  .fl{flex-wrap:wrap;gap:.7rem}
 
-  /* MODAL */
-  .modal-box{margin:0;border-radius:16px 16px 0 0}
   .modal-overlay{align-items:flex-end;padding:0}
-  .modal-head{padding:1.3rem 1.2rem 1rem}
-  .modal-body{padding:1.2rem}
+  .modal-box{border-radius:20px 20px 0 0;max-width:100%}
+  .modal-head{padding:1.2rem 1.1rem .9rem}
+  .modal-body{padding:1.1rem 1.1rem 2rem}
 }
 </style>
 </head>
@@ -863,19 +859,44 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
     <a href="#">Kontakt</a>
   </div>
   <div class="nav-right">
-    <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('sq')">
-        <span class="lang-flag">🇦🇱</span> SQ
+    <!-- Language Dropdown -->
+    <div class="lang-dropdown" id="langDropdown">
+      <button class="lang-trigger" onclick="toggleLang(event)" id="langTrigger">
+        <span class="lang-flag" id="triggerFlag">🇦🇱</span>
+        <span class="lang-code" id="triggerCode">SQ</span>
+        <span class="lang-arrow">▲</span>
       </button>
-      <button class="lang-btn" onclick="setLang('en')">
-        <span class="lang-flag">🇬🇧</span> EN
-      </button>
-      <button class="lang-btn" onclick="setLang('tr')">
-        <span class="lang-flag">🇹🇷</span> TR
-      </button>
+      <div class="lang-menu" id="langMenu">
+        <button class="lang-option active" onclick="selectLang('sq','🇦🇱','SQ')">
+          <span class="lo-flag">🇦🇱</span>
+          <span class="lo-texts">
+            <span class="lo-name">Shqip</span>
+            <span class="lo-native">Albanian</span>
+          </span>
+          <span class="lo-check">✓</span>
+        </button>
+        <button class="lang-option" onclick="selectLang('en','🇬🇧','EN')">
+          <span class="lo-flag">🇬🇧</span>
+          <span class="lo-texts">
+            <span class="lo-name">English</span>
+            <span class="lo-native">English</span>
+          </span>
+          <span class="lo-check">✓</span>
+        </button>
+        <button class="lang-option" onclick="selectLang('tr','🇹🇷','TR')">
+          <span class="lo-flag">🇹🇷</span>
+          <span class="lo-texts">
+            <span class="lo-name">Türkçe</span>
+            <span class="lo-native">Turkish</span>
+          </span>
+          <span class="lo-check">✓</span>
+        </button>
+      </div>
     </div>
     <div class="nav-sep"></div>
     <button class="btn-nav" id="nav-cta">Rezervo Vizitë</button>
+    <!-- Mini flags for mobile — hidden, dropdown replaces -->
+    <div class="nav-lang-mini" style="display:none"></div>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -890,9 +911,9 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   <a href="#" onclick="toggleMenu()">Kontakt</a>
   <div class="mobile-menu-divider"></div>
   <div class="mobile-lang">
-    <button class="lang-btn active" onclick="setLang('sq');toggleMenu()">🇦🇱 SQ</button>
-    <button class="lang-btn" onclick="setLang('en');toggleMenu()">🇬🇧 EN</button>
-    <button class="lang-btn" onclick="setLang('tr');toggleMenu()">🇹🇷 TR</button>
+    <button class="lang-btn active" onclick="selectLang('sq','🇦🇱','SQ');toggleMenu()">🇦🇱 SQ</button>
+    <button class="lang-btn" onclick="selectLang('en','🇬🇧','EN');toggleMenu()">🇬🇧 EN</button>
+    <button class="lang-btn" onclick="selectLang('tr','🇹🇷','TR');toggleMenu()">🇹🇷 TR</button>
   </div>
   <button class="btn-nav-mobile" onclick="toggleMenu()">Rezervo Vizitën Tani</button>
 </div>
@@ -990,6 +1011,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
           <div class="svc-s">Elektrokardiogram</div>
           <div class="svc-d">Regjistrim i aktivitetit elektrik të zemrës — i shpejtë, i saktë dhe pa dhimbje.</div>
           <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <button class="svc-mobile-btn" style="display:none" onclick="openModal('ekg')">Mëso më shumë →</button>
         </div>
         <div class="svc-back">
           <div>
@@ -1014,6 +1036,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
           <div class="svc-s">Ekokardiogram</div>
           <div class="svc-d">Imazhe me ultratinguj të zemrës — strukturë, valvula dhe funksion sistolic.</div>
           <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <button class="svc-mobile-btn" style="display:none" onclick="openModal('eko')">Mëso më shumë →</button>
         </div>
         <div class="svc-back">
           <div>
@@ -1038,6 +1061,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
           <div class="svc-s">Monitorim 24/48 orë</div>
           <div class="svc-d">Regjistrim i pandërprerë i ritmit kardiak gjatë aktiviteteve të përditshme.</div>
           <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <button class="svc-mobile-btn" style="display:none" onclick="openModal('holter')">Mëso më shumë →</button>
         </div>
         <div class="svc-back">
           <div>
@@ -1062,6 +1086,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
           <div class="svc-s">Stres Test Kardiak</div>
           <div class="svc-d">Vlerëson reagimin e zemrës ndaj ngarkesës fizike progresive mbi tapiseri.</div>
           <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <button class="svc-mobile-btn" style="display:none" onclick="openModal('test')">Mëso më shumë →</button>
         </div>
         <div class="svc-back">
           <div>
@@ -1144,24 +1169,26 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
     <div class="doc-photo-wrap">
       <div class="doc-photo-bg"></div>
 
-      <!-- Turkey badge -->
-      <div class="doc-country-badge">
-        <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
-          <rect width="30" height="20" fill="#E30A17"/>
-          <circle cx="11" cy="10" r="6" fill="white"/>
-          <circle cx="13" cy="10" r="4.8" fill="#E30A17"/>
-          <polygon points="18.5,10 17,7.5 20,8.8 17.5,8.5 20,11.5 18.5,8.8 20.5,11.5 17.8,11.2 20,8.5" fill="white"/>
-        </svg>
-        <div class="doc-country-text">
-          Specializim në Turqi
-          <span>Stamboll, Turqia</span>
+      <!-- Badges row -->
+      <div class="doc-badges-row">
+        <!-- Turkey badge -->
+        <div class="doc-country-badge">
+          <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+            <rect width="30" height="20" fill="#E30A17"/>
+            <circle cx="11" cy="10" r="6" fill="white"/>
+            <circle cx="13" cy="10" r="4.8" fill="#E30A17"/>
+            <polygon points="18.5,10 17,7.5 20,8.8 17.5,8.5 20,11.5 18.5,8.8 20.5,11.5 17.8,11.2 20,8.5" fill="white"/>
+          </svg>
+          <div class="doc-country-text">
+            Specializim në Turqi
+            <span>Stamboll, Turqia</span>
+          </div>
         </div>
-      </div>
-
-      <!-- Cert badge -->
-      <div class="doc-cert-badge">
-        <div class="doc-cert-num">15+</div>
-        <div class="doc-cert-lbl">Vite<br>Eksperiencë</div>
+        <!-- Cert badge -->
+        <div class="doc-cert-badge">
+          <div class="doc-cert-num">15+</div>
+          <div class="doc-cert-lbl">Vite<br>Eksperiencë</div>
+        </div>
       </div>
 
       <img class="doc-photo-img" src="fati_nobg.png" alt="Dr. Mefat Selishta — Kardiolog"/>
@@ -1804,6 +1831,32 @@ const translations = {
   }
 };
 
+function toggleLang(e) {
+  e.stopPropagation();
+  document.getElementById('langDropdown').classList.toggle('open');
+}
+
+function selectLang(lang, flag, code) {
+  // Update trigger button
+  document.getElementById('triggerFlag').textContent = flag;
+  document.getElementById('triggerCode').textContent = code;
+  // Update active state on options
+  document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  // Close dropdown
+  document.getElementById('langDropdown').classList.remove('open');
+  // Apply translations
+  setLang(lang);
+  // Sync mobile menu lang buttons
+  document.querySelectorAll('.mobile-menu .lang-btn').forEach(b => b.classList.remove('active'));
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  const dd = document.getElementById('langDropdown');
+  if(dd && !dd.contains(e.target)) dd.classList.remove('open');
+});
+
 function toggleMenu() {
   const menu = document.getElementById('mobile-menu');
   const ham  = document.getElementById('hamburger');
@@ -1820,6 +1873,16 @@ document.addEventListener('click', function(e) {
     ham.classList.remove('open');
   }
 });
+
+// Show mobile buttons on small screens
+function checkMobile() {
+  const isMobile = window.innerWidth <= 900;
+  document.querySelectorAll('.svc-mobile-btn').forEach(btn => {
+    btn.style.display = isMobile ? 'flex' : 'none';
+  });
+}
+checkMobile();
+window.addEventListener('resize', checkMobile);
 
 function setLang(lang) {
   const t = translations[lang];
