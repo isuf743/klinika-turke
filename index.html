@@ -1810,7 +1810,8 @@ function toggleMenu() {
   menu.classList.toggle('open');
   ham.classList.toggle('open');
 }
-document.addEventListener('click', e => {
+
+document.addEventListener('click', function(e) {
   const menu = document.getElementById('mobile-menu');
   const ham  = document.getElementById('hamburger');
   if(!menu || !ham) return;
@@ -1820,15 +1821,13 @@ document.addEventListener('click', e => {
   }
 });
 
+function setLang(lang) {
   const t = translations[lang];
 
-  // Update buttons active state
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll(`.lang-btn[onclick*="setLang('${lang}')"]`).forEach(b => b.classList.add('active'));
 
-  // Apply translations by id
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
-  const setTxt = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
 
   set('nav-cta',    t['nav-cta']);
   set('hero-title', t['hero-title']);
