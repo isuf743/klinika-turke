@@ -3,162 +3,1133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kontakt — Klinika Kardiologjike Turke</title>
+<title>Klinika Kardiologjike Turke</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --primary:#2563EB;--primary-dark:#1D4ED8;
-  --bg:#F9FAFB;--text:#111827;--secondary:#6B7280;
-  --bd:#0A2540;--bm:#2563EB;--bl:#EFF6FF;
+  --primary:#2563EB;
+  --primary-dark:#1D4ED8;
+  --primary-light:#EFF6FF;
+  --bg:#F9FAFB;
+  --text:#111827;
+  --secondary:#6B7280;
+  --bd:#0A2540;--bm:#2563EB;--bb:#2563EB;
+  --bl:#EFF6FF;--bp:#F0F9FF;
+  --mu:#6B7280;--tx:#111827;--cb:#EFF6FF;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:#fff;color:var(--text);overflow-x:hidden}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:300;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 4%;background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(30,93,184,.08),0 4px 24px rgba(13,43,94,.06)}
 .nav-logo{display:flex;align-items:center;gap:6px;text-decoration:none}
 .logo-cross{color:var(--bm);font-size:1.55rem;font-weight:900;line-height:1}
-.logo-name{font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:800;color:var(--bd);display:flex;align-items:center;gap:5px}
+.logo-name{font-family:'Poppins',sans-serif;font-size:.98rem;font-weight:800;color:var(--bd);display:flex;align-items:center;gap:5px}
 .logo-name span{color:var(--bm)}
-.logo-flag{width:22px;height:15px;display:inline-block;vertical-align:middle}
+.logo-flag{width:22px;height:15px;display:inline-block;vertical-align:middle;margin-left:0}
 .nav-links{display:flex;align-items:center;gap:.1rem}
-.nav-links a{font-size:.875rem;font-weight:600;color:var(--text);text-decoration:none;padding:.38rem .9rem;border-radius:7px;transition:color .2s,background .2s}
+.nav-links a{font-size:.875rem;font-weight:600;color:var(--tx);text-decoration:none;padding:.38rem .9rem;border-radius:7px;transition:color .2s,background .2s}
 .nav-links a:hover{color:var(--bm);background:var(--bl)}
-.nav-links a.active{color:var(--bm)}
 .nav-right{display:flex;align-items:center;gap:.9rem}
-.btn-nav{background:var(--bm);color:#fff;border:none;padding:.58rem 1.35rem;border-radius:8px;font-size:.875rem;font-family:'Poppins',sans-serif;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s}
-.btn-nav:hover{background:var(--bd)}
-.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
-.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s ease}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{position:fixed;top:66px;left:0;right:0;background:#fff;z-index:299;padding:0 5%;border-bottom:1px solid #E5E7EB;box-shadow:0 8px 30px rgba(0,0,0,.08);flex-direction:column;gap:.3rem;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;display:flex}
-.mobile-menu.open{max-height:400px;padding:1rem 5% 1.5rem}
-.mobile-menu a{font-size:1rem;font-weight:600;color:var(--text);text-decoration:none;padding:.9rem 1rem;border-radius:10px;display:block;border-bottom:1px solid #F9FAFB}
-.mobile-menu .btn-nav-mobile{background:var(--primary);color:#fff;border:none;padding:1rem;border-radius:10px;font-size:.95rem;font-family:'Poppins',sans-serif;font-weight:700;cursor:pointer;text-align:center;width:100%;margin-top:.5rem}
+
+/* Language dropdown */
+.lang-dropdown{position:relative}
+.lang-trigger{
+  display:flex;align-items:center;gap:5px;
+  background:#F3F4F6;border:1.5px solid #E5E7EB;
+  border-radius:8px;padding:.32rem .65rem;
+  cursor:pointer;font-size:.72rem;font-weight:600;
+  color:var(--text);font-family:'Poppins',sans-serif;
+  transition:all .18s;white-space:nowrap;
+}
+.lang-trigger:hover{border-color:#2563EB;background:#EFF6FF}
+.lang-trigger .lang-flag{font-size:.9rem}
+.lang-trigger .lang-code{font-weight:700;font-size:.7rem}
+.lang-trigger .lang-arrow{
+  font-size:.55rem;color:#9CA3AF;margin-left:1px;
+  transition:transform .2s;
+}
+.lang-dropdown.open .lang-arrow{transform:rotate(180deg)}
+.lang-dropdown.open .lang-trigger{border-color:#2563EB;background:#EFF6FF}
+
+.lang-menu{
+  position:absolute;top:calc(100% + 8px);right:0;
+  background:#fff;border:1.5px solid #E5E7EB;
+  border-radius:14px;padding:6px;
+  box-shadow:0 8px 30px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);
+  z-index:500;min-width:190px;
+  opacity:0;transform:translateY(-6px);pointer-events:none;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+}
+.lang-dropdown.open .lang-menu{
+  opacity:1;transform:translateY(0);pointer-events:all;
+}
+.lang-option{
+  display:flex;align-items:center;gap:10px;
+  padding:.65rem .85rem;border-radius:9px;
+  cursor:pointer;transition:background .15s;
+  border:none;background:none;width:100%;text-align:left;
+}
+.lang-option:hover{background:#F3F4F6}
+.lang-option.active{background:#EFF6FF}
+.lang-option .lo-flag{font-size:1.2rem;flex-shrink:0}
+.lang-option .lo-texts{flex:1}
+.lang-option .lo-name{font-size:.88rem;font-weight:700;color:var(--text);font-family:'Poppins',sans-serif;display:block}
+.lang-option .lo-native{font-size:.75rem;color:#9CA3AF;font-family:'Poppins',sans-serif}
+.lang-option .lo-check{font-size:.85rem;color:#2563EB;margin-left:auto;opacity:0}
+.lang-option.active .lo-check{opacity:1}
+
+.nav-sep{width:1px;height:22px;background:#E5E7EB}
+/* Instagram real gradient */
+.sc-icon.ig{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
+.nav-search{background:none;border:none;cursor:pointer;color:var(--mu);padding:6px;display:flex;align-items:center}
+.nav-search svg{width:19px;height:19px}
+.nav-sep{width:1px;height:26px;background:#D0DDF0}
+.btn-nav{background:var(--bb);color:#fff;border:none;padding:.58rem 1.35rem;border-radius:8px;font-size:.875rem;font-family:'Poppins',sans-serif;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s,transform .15s}
+.btn-nav:hover{background:var(--bd);transform:translateY(-1px)}
 
 /* HERO */
-.contact-hero{
-  padding-top:66px;
-  background:linear-gradient(120deg,#0A2540 0%,#0D3A6E 40%,#1E6FCC 75%,#4AABFF 100%);
-  padding-bottom:5rem;
+.hero{min-height:100vh;padding-top:66px;position:relative;overflow:hidden;display:flex;align-items:stretch}
+
+/* Canvas-based background */
+#bgCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+
+/* Left overlay for text readability */
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to right, rgba(10,37,64,0.82) 0%, rgba(10,37,64,0.45) 50%, rgba(10,37,64,0.05) 100%);
+}
+
+/* ECG canvas layer */
+#ecgCanvas{position:absolute;bottom:0;left:0;width:100%;height:35%;z-index:4;pointer-events:none}
+
+/* Social */
+.social-bar{position:absolute;right:17px;top:50%;transform:translateY(-50%);z-index:20;display:flex;flex-direction:column;gap:9px}
+.sc-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 16px rgba(0,0,0,.2);text-decoration:none;transition:transform .22s,box-shadow .22s;border:none}
+.sc-icon:hover{transform:scale(1.15);box-shadow:0 5px 22px rgba(0,0,0,.3)}
+.sc-icon.fb{background:#1877F2}
+.sc-icon.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285AEB 90%)}
+.sc-icon.wa{background:#25D366}
+.sc-icon.tt{background:#000}
+.sc-icon svg{width:18px;height:18px;fill:#fff}
+
+/* Hero inner */
+.h-inner{position:relative;z-index:10;width:100%;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 4.5% 0 5%;padding-right:68px}
+.h-content{display:flex;flex-direction:column;padding:4% 0}
+.h-title{font-family:'Poppins',sans-serif;font-size:clamp(2rem,3.8vw,3.2rem);font-weight:800;line-height:1.12;color:#fff;margin-bottom:1.3rem;text-shadow:0 2px 20px rgba(0,0,0,.25)}
+.h-sub{font-size:1.05rem;color:rgba(255,255,255,.85);font-weight:400;line-height:1.72;margin-bottom:2.2rem;max-width:460px}
+.h-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:0}
+.btn-p{
+  background:#2563EB;color:#fff;border:none;
+  padding:1rem 2.2rem;border-radius:10px;
+  font-size:1rem;font-family:'Poppins',sans-serif;font-weight:700;
+  cursor:pointer;transition:all .22s;
+  box-shadow:0 4px 20px rgba(37,99,235,.45),0 1px 0 rgba(255,255,255,.1) inset;
+  letter-spacing:.01em;
+}
+.btn-p:hover{background:#1D4ED8;transform:translateY(-2px) scale(1.02);box-shadow:0 8px 30px rgba(37,99,235,.5)}
+.btn-ph{
+  display:flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
+  border:1.5px solid rgba(255,255,255,.35);border-radius:10px;
+  padding:.95rem 1.6rem;font-size:1rem;
+  font-family:'Poppins',sans-serif;font-weight:600;
+  color:#fff;cursor:pointer;text-decoration:none;transition:all .2s;
+}
+.btn-ph:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.6)}
+.btn-ph svg{width:17px;height:17px;stroke:#fff;fill:none;flex-shrink:0}
+
+/* TRUST BAR */
+.trust-bar{
+  position:relative;z-index:10;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+  border-top:1px solid rgba(37,99,235,.1);
+  padding:1.1rem 5%;
+  display:flex;align-items:center;justify-content:center;gap:3rem;
+  flex-wrap:wrap;
+}
+.trust-item{display:flex;align-items:center;gap:10px}
+.trust-icon{font-size:1.3rem;line-height:1}
+.trust-text strong{display:block;font-family:'Poppins',sans-serif;font-size:.88rem;font-weight:700;color:var(--text)}
+.trust-text span{font-size:.75rem;color:var(--secondary)}
+.trust-sep{width:1px;height:32px;background:#E5E7EB}
+
+/* Doctor */
+.h-img-wrap{position:relative;display:flex;align-items:flex-end;justify-content:center;height:calc(100vh - 66px);max-height:750px}
+.dr-shadow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:300px;height:55px;background:radial-gradient(ellipse 100% 100%,rgba(13,43,94,.17) 0%,transparent 70%);filter:blur(16px);z-index:1}
+.dr-glow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:420px;height:88%;background:radial-gradient(ellipse 55% 65% at 50% 55%,rgba(255,255,255,.72) 0%,rgba(225,244,255,.42) 35%,rgba(190,228,252,.18) 55%,transparent 72%);z-index:2;pointer-events:none;filter:blur(6px)}
+.dr-rim{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:360px;height:85%;background:radial-gradient(ellipse 20% 90% at 8% 50%,rgba(100,180,255,.15) 0%,transparent 60%),radial-gradient(ellipse 20% 90% at 92% 50%,rgba(100,180,255,.12) 0%,transparent 60%);z-index:2;pointer-events:none}
+.dr-img{height:100%;max-height:750px;width:auto;object-fit:contain;object-position:bottom center;display:block;position:relative;z-index:3;filter:drop-shadow(0 28px 48px rgba(13,43,94,.2)) drop-shadow(0 6px 14px rgba(13,43,94,.13)) drop-shadow(-6px 0 18px rgba(90,155,220,.1))}
+.dr-tag{
+  position:absolute;
+  right:-10px;
+  top:78% !important;
+  transform:translateY(-50%);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);
+  border-radius:12px;
+  padding:.7rem 1rem;
+  box-shadow:0 6px 24px rgba(13,43,94,.15);
+  border:1px solid rgba(200,220,245,.6);
+  z-index:15;pointer-events:none;
+  border-left:3px solid var(--primary);
+}
+.dr-tag-name{font-family:'Poppins',sans-serif;font-weight:800;font-size:.82rem;color:var(--bd);line-height:1.35}
+.chip{position:absolute;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-radius:14px;padding:.72rem 1.05rem;box-shadow:0 8px 32px rgba(13,43,94,.13),0 2px 8px rgba(13,43,94,.07);border:1px solid rgba(210,230,250,.7);z-index:15;pointer-events:none}
+.chip1{left:1%;top:20%;animation:cf 6s ease-in-out infinite}
+.chip2{left:-1%;bottom:26%;animation:cf 6s 2.2s ease-in-out infinite}
+@keyframes cf{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.chip-n{font-family:'Poppins',sans-serif;font-size:1.45rem;font-weight:900;color:var(--bd);line-height:1}
+.chip-n span{color:var(--bm);font-size:.95rem}
+.chip-l{font-size:.66rem;color:var(--mu);margin-top:2px;font-weight:600}
+
+/* SERVICES */
+.services{background:#fff;padding:0 4.5% 3rem;position:relative;z-index:10}
+/* ── 3D SERVICE CARDS ── */
+.services{background:linear-gradient(160deg,#f0f6ff 0%,#e8f2ff 40%,#f5f9ff 100%);padding:3.5rem 4.5%;position:relative;z-index:10}
+.services::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(255,255,255,.7) 0%,transparent 70%);pointer-events:none}
+.svc-section-label{text-align:center;margin-bottom:2.8rem}
+.svc-section-label span{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--bm);background:rgba(23,84,184,.08);border:1px solid rgba(23,84,184,.15);padding:.35rem 1rem;border-radius:100px;margin-bottom:.8rem}
+.svc-section-label h2{font-family:'Poppins',sans-serif;font-size:1.7rem;font-weight:900;color:var(--bd);line-height:1.2}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;perspective:1200px}
+
+/* Card wrapper — holds 3D flip context */
+.svc-card{height:280px;cursor:pointer;perspective:1000px;position:relative}
+.svc-card-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .65s cubic-bezier(.4,0,.2,1);
+  border-radius:20px;
+}
+.svc-card:hover .svc-card-inner{transform:rotateY(180deg)}
+
+/* FRONT face */
+.svc-front,.svc-back{
+  position:absolute;inset:0;border-radius:20px;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  overflow:hidden;
+}
+
+.svc-front{
+  background:#fff;
+  border:1px solid rgba(23,84,184,.1);
+  box-shadow:
+    0 2px 4px rgba(13,43,94,.04),
+    0 8px 24px rgba(13,43,94,.08),
+    0 20px 48px rgba(13,43,94,.06),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  display:flex;flex-direction:column;align-items:flex-start;padding:1.8rem 1.6rem;
+  /* subtle 3D depth via gradient */
+  background:linear-gradient(145deg,#ffffff 0%,#f4f9ff 60%,#eaf3ff 100%);
+}
+
+/* Shimmer line at top — premium feel */
+.svc-front::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent 0%,var(--bm) 30%,#6ab0f5 60%,transparent 100%);
+  opacity:.7;
+}
+
+/* Decorative circle behind icon */
+.svc-front::after{
+  content:'';position:absolute;bottom:-30px;right:-30px;
+  width:110px;height:110px;border-radius:50%;
+  background:radial-gradient(circle,rgba(23,84,184,.07) 0%,transparent 70%);
+}
+
+.svc-ico-3d{
+  width:56px;height:56px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.1rem;position:relative;z-index:1;
+  background:linear-gradient(135deg,#e8f2ff 0%,#d0e6ff 100%);
+  border:1px solid rgba(23,84,184,.15);
+  box-shadow:0 4px 16px rgba(23,84,184,.12),0 1px 0 rgba(255,255,255,.8) inset;
+}
+.svc-ico-3d svg{width:26px;height:26px}
+
+
+.svc-t{font-family:'Poppins',sans-serif;font-size:1.05rem;font-weight:900;color:var(--bd);margin-bottom:.25rem;position:relative;z-index:1}
+.svc-s{font-size:.72rem;font-weight:600;color:var(--bm);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.6rem;position:relative;z-index:1}
+.svc-d{font-size:.78rem;color:var(--mu);line-height:1.65;position:relative;z-index:1;flex:1}
+.svc-learn-hint{
+  margin-top:.9rem;display:inline-flex;align-items:center;gap:5px;
+  font-size:.72rem;font-weight:700;color:var(--bm);position:relative;z-index:1;
+  opacity:.7;
+}
+.svc-learn-hint svg{width:12px;height:12px;animation:hintBounce 1.8s ease-in-out infinite}
+@keyframes hintBounce{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+
+/* BACK face */
+.svc-back{
+  transform:rotateY(180deg);
+  background:linear-gradient(145deg,#0D2B5E 0%,#1240A0 50%,#1754B8 100%);
+  display:flex;flex-direction:column;justify-content:space-between;padding:1.8rem 1.6rem;
+  box-shadow:0 20px 60px rgba(13,43,94,.35);
+}
+
+/* Decorative rings on back */
+.svc-back::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:160px;height:160px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);
+}
+.svc-back::after{
+  content:'';position:absolute;top:-20px;right:-20px;
+  width:100px;height:100px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.svc-back-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.18);
+  margin-bottom:.8rem;
+}
+.svc-back-icon svg{width:22px;height:22px}
+
+.svc-back-title{font-family:'Poppins',sans-serif;font-size:1rem;font-weight:900;color:#fff;margin-bottom:.6rem;line-height:1.2}
+.svc-back-desc{font-size:.76rem;color:rgba(255,255,255,.72);line-height:1.7;flex:1}
+.svc-back-btn{
+  margin-top:1.1rem;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.3);
+  color:#fff;border-radius:9px;padding:.6rem 1.1rem;
+  font-size:.78rem;font-family:'Poppins',sans-serif;font-weight:700;
+  cursor:pointer;transition:background .2s,border-color .2s;width:100%;
+}
+.svc-back-btn:hover{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.5)}
+
+/* ── CONTACT SECTION ── */
+.loc-section{
+  background:var(--bg);
+  padding:5rem 4.5%;position:relative;overflow:hidden;
+}
+.loc-section::before{
+  content:'';position:absolute;top:-120px;right:-120px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,235,.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.loc-inner{
+  display:grid;grid-template-columns:1fr 1.2fr;
+  gap:4rem;align-items:start;position:relative;z-index:1;
+}
+.loc-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:.68rem;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--primary);
+  background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.15);
+  padding:.35rem 1rem;border-radius:100px;margin-bottom:1.2rem;
+}
+.loc-badge svg{width:13px;height:13px;stroke:var(--primary)}
+.loc-title{
+  font-family:'Poppins',sans-serif;
+  font-size:clamp(1.6rem,2.6vw,2.2rem);
+  font-weight:800;color:var(--text);line-height:1.2;margin-bottom:.9rem;
+}
+.loc-sub{font-size:.92rem;color:var(--secondary);line-height:1.75;margin-bottom:2rem;}
+
+.loc-cards{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+.loc-card{
+  display:flex;align-items:flex-start;gap:1.1rem;
+  background:#fff;border-radius:12px;padding:1.1rem 1.3rem;
+  border:1.5px solid #E5E7EB;
+  box-shadow:0 1px 3px rgba(0,0,0,.05),0 4px 12px rgba(0,0,0,.04);
+  transition:transform .2s,box-shadow .2s,border-color .2s;
+}
+.loc-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(37,99,235,.3);
+  box-shadow:0 6px 24px rgba(37,99,235,.1);
+}
+.loc-card-icon{
+  width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,#2563EB,#1D4ED8);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 10px rgba(37,99,235,.25);
+}
+.loc-card-icon svg{width:18px;height:18px}
+.loc-card-label{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--secondary);margin-bottom:3px}
+.loc-card-val{font-family:'Poppins',sans-serif;font-size:.88rem;font-weight:600;color:var(--text);line-height:1.5}
+
+.loc-btns{display:flex;gap:.9rem;flex-wrap:wrap}
+.loc-btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#2563EB;color:#fff;border:none;
+  border-radius:10px;padding:.85rem 1.6rem;
+  font-size:.88rem;font-family:'Poppins',sans-serif;font-weight:700;
+  cursor:pointer;text-decoration:none;transition:all .22s;
+  box-shadow:0 4px 16px rgba(37,99,235,.3);
+}
+.loc-btn-primary:hover{background:#1D4ED8;transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.4)}
+.loc-btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--text);
+  border:1.5px solid #E5E7EB;border-radius:10px;
+  padding:.85rem 1.5rem;font-size:.88rem;
+  font-family:'Poppins',sans-serif;font-weight:600;
+  cursor:pointer;text-decoration:none;transition:all .2s;
+}
+.loc-btn-secondary:hover{border-color:#2563EB;color:#2563EB;transform:translateY(-2px)}
+
+/* Map right side */
+.loc-map-wrap{display:flex;flex-direction:column;gap:1.2rem}
+.loc-map-frame{
+  position:relative;
+  height:360px;border-radius:16px;overflow:hidden;
+  box-shadow:0 4px 6px rgba(0,0,0,.04),0 12px 40px rgba(0,0,0,.1);
+  border:1.5px solid #E5E7EB;
+}
+.loc-map-frame iframe{position:absolute;inset:0;width:100%;height:100%;border-radius:16px}
+.map-pin-badge{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);
+  border-radius:12px;padding:.65rem 1rem;
+  display:flex;align-items:center;gap:9px;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);
+  border:1px solid rgba(37,99,235,.1);
+  white-space:nowrap;z-index:10;
+  animation:pinFloat 3s ease-in-out infinite;
+}
+@keyframes pinFloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
+.map-pin-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:#EF4444;flex-shrink:0;
+  box-shadow:0 0 0 4px rgba(239,68,68,.18);
+  animation:pinPulse 1.8s ease-in-out infinite;
+}
+@keyframes pinPulse{0%,100%{box-shadow:0 0 0 4px rgba(239,68,68,.18)}50%{box-shadow:0 0 0 8px rgba(239,68,68,.08)}}
+.map-pin-text strong{display:block;font-family:'Poppins',sans-serif;font-size:.79rem;font-weight:700;color:var(--text)}
+.map-pin-text span{font-size:.68rem;color:var(--secondary)}
+
+/* ── DOCTOR SECTION ── */
+.doc-section{
+  background:#fff;
+  padding:5.5rem 4.5%;
   position:relative;overflow:hidden;
 }
-.contact-hero::before{
+.doc-section::before{
+  content:'';position:absolute;right:-100px;top:50%;transform:translateY(-50%);
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,235,.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+.doc-inner{
+  display:grid;grid-template-columns:1fr 1.1fr;
+  gap:5rem;align-items:center;
+}
+
+/* LEFT — photo */
+.doc-photo-wrap{
+  position:relative;display:flex;justify-content:center;
+}
+.doc-photo-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);
+  border-radius:24px;
+  z-index:0;
+}
+.doc-photo-img{
+  position:relative;z-index:1;
+  width:100%;max-width:380px;
+  height:480px;
+  object-fit:contain;object-position:bottom center;
+  display:block;
+  filter:drop-shadow(0 20px 40px rgba(10,37,64,.18));
+}
+/* Turkey badge on photo */
+.doc-country-badge{
+  position:absolute;top:20px;left:20px;z-index:10;
+  background:#fff;border-radius:12px;padding:.6rem .9rem;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 20px rgba(0,0,0,.1);border:1px solid #E5E7EB;
+}
+.doc-country-badge svg{width:22px;height:15px}
+.doc-country-text{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:700;color:var(--text);line-height:1.2}
+.doc-country-text span{display:block;font-weight:400;color:var(--secondary);font-size:.65rem}
+
+/* Cert badge */
+.doc-cert-badge{
+  position:absolute;bottom:28px;right:-12px;z-index:10;
+  background:linear-gradient(135deg,#2563EB,#1D4ED8);
+  border-radius:14px;padding:.9rem 1.1rem;text-align:center;
+  box-shadow:0 8px 28px rgba(37,99,235,.35);
+  animation:cf 5s ease-in-out infinite;
+}
+.doc-cert-num{font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;color:#fff;line-height:1}
+.doc-cert-lbl{font-size:.62rem;color:rgba(255,255,255,.8);margin-top:2px;font-weight:500}
+
+/* RIGHT — info */
+.doc-info{display:flex;flex-direction:column;gap:0}
+.doc-label{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--primary);margin-bottom:.75rem}
+.doc-name{font-family:'Poppins',sans-serif;font-size:clamp(1.8rem,2.8vw,2.4rem);font-weight:800;color:var(--text);line-height:1.15;margin-bottom:.3rem}
+.doc-title{font-size:.92rem;color:var(--primary);font-weight:600;margin-bottom:1.5rem}
+.doc-divider{width:48px;height:3px;background:linear-gradient(90deg,#2563EB,#60A5FA);border-radius:2px;margin-bottom:1.5rem}
+.doc-bio{font-size:.95rem;color:var(--secondary);line-height:1.85;margin-bottom:2rem;max-width:480px}
+.doc-bullets{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2.5rem}
+.doc-bullet{
+  display:flex;align-items:center;gap:12px;
+  font-size:.88rem;color:var(--text);font-weight:500;
+}
+.doc-bullet-icon{
+  width:28px;height:28px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,#2563EB,#1D4ED8);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 10px rgba(37,99,235,.25);
+}
+.doc-bullet-icon svg{width:14px;height:14px;stroke:#fff;stroke-width:2.5}
+.doc-cta{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#2563EB;color:#fff;border:none;
+  border-radius:10px;padding:.95rem 2rem;
+  font-size:.95rem;font-family:'Poppins',sans-serif;font-weight:700;
+  cursor:pointer;transition:all .22s;text-decoration:none;width:fit-content;
+  box-shadow:0 4px 20px rgba(37,99,235,.35);
+}
+.doc-cta:hover{background:#1D4ED8;transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,99,235,.45)}
+.doc-cta svg{width:16px;height:16px;stroke:#fff;fill:none}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal-backdrop{position:absolute;inset:0;background:rgba(13,43,94,.45);backdrop-filter:blur(6px)}
+.modal-box{position:relative;z-index:1;background:#fff;border-radius:20px;max-width:520px;width:100%;box-shadow:0 24px 80px rgba(13,43,94,.22);transform:translateY(24px) scale(0.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .3s ease;opacity:0}
+.modal-overlay.active .modal-box{transform:translateY(0) scale(1);opacity:1}
+.modal-head{background:linear-gradient(120deg,#0D2B5E,#1754B8);border-radius:20px 20px 0 0;padding:1.8rem 2rem 1.4rem;display:flex;align-items:flex-start;gap:1rem}
+.modal-icon{width:54px;height:54px;background:rgba(255,255,255,.15);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.modal-icon svg{width:28px;height:28px}
+.modal-head-text{flex:1}
+.modal-title{font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:900;color:#fff}
+.modal-sub{font-size:.82rem;color:rgba(255,255,255,.7);margin-top:3px;font-weight:400}
+.modal-close{position:absolute;top:1rem;right:1rem;width:32px;height:32px;background:rgba(255,255,255,.15);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s}
+.modal-close:hover{background:rgba(255,255,255,.28)}
+.modal-close svg{width:16px;height:16px;stroke:#fff;stroke-width:2.5}
+.modal-body{padding:1.8rem 2rem 2rem}
+.modal-desc{font-size:.9rem;color:var(--mu);line-height:1.85;margin-bottom:1.4rem}
+.modal-points{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.6rem}
+.modal-point{display:flex;align-items:flex-start;gap:10px;font-size:.84rem;color:var(--tx);line-height:1.5}
+.modal-point-dot{width:20px;height:20px;border-radius:50%;background:var(--bl);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.modal-point-dot svg{width:11px;height:11px;stroke:var(--bm);stroke-width:2.5}
+.modal-cta{background:var(--bb);color:#fff;border:none;padding:.8rem 1.6rem;border-radius:9px;font-size:.88rem;font-family:'Poppins',sans-serif;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(26,95,204,.28)}
+.modal-cta:hover{background:var(--bd);transform:translateY(-1px)}
+
+/* WHY */
+section.ct{padding:6rem 4.5%;position:relative;overflow:hidden}
+section.ct.wh{background:#fff}
+.s-lbl{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--bm);margin-bottom:.75rem}
+.s-ttl{font-family:'Poppins',sans-serif;font-size:clamp(1.55rem,2.4vw,2.1rem);font-weight:900;color:var(--bd);margin-bottom:.8rem;line-height:1.2}
+.s-txt{font-size:.92rem;color:var(--mu);line-height:1.85;max-width:500px;margin-bottom:0}
+.why-g{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3.5rem}
+
+/* Heartbeat line behind section */
+.ct-hb{position:absolute;bottom:0;left:0;right:0;height:80px;opacity:.06;pointer-events:none}
+
+/* Feature list — upgraded */
+.why-fs{display:flex;flex-direction:column;gap:.75rem;margin-top:2rem}
+.wf{
+  display:flex;align-items:center;gap:14px;
+  background:#fff;border-radius:12px;
+  padding:1rem 1.3rem;
+  border:1.5px solid #E2EDF8;
+  transition:border-color .22s,box-shadow .22s,transform .22s;
+  cursor:default;
+}
+.wf:hover{
+  border-color:var(--bm);
+  box-shadow:0 4px 20px rgba(23,84,184,.1);
+  transform:translateX(5px);
+}
+.wf-check{
+  width:26px;height:26px;border-radius:8px;
+  background:linear-gradient(135deg,#1E90FF,#0A6ED1);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 3px 10px rgba(30,144,255,.3);
+}
+.wf-check svg{width:13px;height:13px;stroke:#fff;stroke-width:2.8}
+.wf-t{font-size:.86rem;color:var(--tx);font-weight:600;line-height:1.3}
+
+/* Stats card — premium upgrade */
+.stats-b{
+  background:linear-gradient(135deg,#0A2540 0%,#0D3A6E 45%,#1E90FF 100%);
+  border-radius:22px;padding:3rem 2.5rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  box-shadow:0 20px 60px rgba(10,37,64,.3),0 4px 16px rgba(30,144,255,.15);
+  position:relative;overflow:hidden;
+}
+/* Subtle radial glow inside card */
+.stats-b::before{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(to right,rgba(0,0,0,.4) 0%,rgba(0,0,0,.1) 60%,transparent 100%);
+  background:radial-gradient(ellipse 70% 60% at 20% 20%,rgba(255,255,255,.07) 0%,transparent 60%);
 }
-.hero-inner{position:relative;z-index:1;padding:4rem 5% 3rem}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:.35rem .9rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:1.2rem}
-.hero-title{font-family:'Poppins',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff;line-height:1.15;margin-bottom:.9rem}
-.hero-sub{font-size:1rem;color:rgba(255,255,255,.75);max-width:480px;line-height:1.7}
-
-/* MAIN CONTENT */
-.contact-main{padding:5rem 5%;max-width:1100px;margin:0 auto}
-.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:4rem;align-items:start}
-
-/* LEFT — Form */
-.form-card{background:#fff;border-radius:20px;padding:2.5rem;box-shadow:0 4px 6px rgba(0,0,0,.04),0 12px 40px rgba(0,0,0,.08);border:1px solid #E5E7EB}
-.form-title{font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:800;color:var(--bd);margin-bottom:.4rem}
-.form-sub{font-size:.88rem;color:var(--secondary);margin-bottom:2rem;line-height:1.6}
-.form-group{margin-bottom:1.3rem}
-.form-label{display:block;font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.45rem;letter-spacing:.02em}
-.form-input,.form-textarea,.form-select{
-  width:100%;padding:.8rem 1rem;
-  border:1.5px solid #E5E7EB;border-radius:10px;
-  font-size:.9rem;font-family:'Inter',sans-serif;
-  color:var(--text);background:#fff;
-  transition:border-color .2s,box-shadow .2s;
-  outline:none;
+/* Heartbeat SVG inside card */
+.stats-b::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:60px;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 30 L80 30 L100 30 L110 8 L122 52 L132 18 L142 42 L152 30 L240 30 L260 30 L270 8 L282 52 L292 18 L302 42 L312 30 L400 30' stroke='rgba(255,255,255,0.08)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") center/cover no-repeat;
 }
-.form-input:focus,.form-textarea:focus,.form-select:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(37,99,235,.1);
+.si{
+  padding:1.6rem 1.2rem;
+  position:relative;z-index:1;
+  border-right:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  transition:transform .22s,background .22s;
+  cursor:default;
 }
-.form-textarea{resize:vertical;min-height:120px;line-height:1.6}
-.form-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.btn-submit{
-  width:100%;background:var(--primary);color:#fff;border:none;
-  padding:1rem;border-radius:10px;font-size:.95rem;
-  font-family:'Poppins',sans-serif;font-weight:700;
-  cursor:pointer;transition:all .22s;
-  box-shadow:0 4px 20px rgba(37,99,235,.3);
-  margin-top:.5rem;
+.si:hover{transform:scale(1.03);background:rgba(255,255,255,.05)}
+.si:nth-child(2){border-right:none}
+.si:nth-child(4){border-right:none;border-bottom:none}
+.si:nth-child(3){border-bottom:none}
+.si-icon{font-size:1.4rem;margin-bottom:.5rem;display:block;line-height:1}
+.sn{font-family:'Poppins',sans-serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.3rem}
+.sn sup{font-size:1.1rem;vertical-align:super}
+.sl{font-size:.75rem;color:rgba(255,255,255,.65);font-weight:500;line-height:1.4}
+.inf-s{background:var(--bp);padding:2.4rem 4.5%;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;border-top:1px solid #D5E6F5}
+.ib{display:flex;align-items:flex-start;gap:13px}
+.ii{width:44px;height:44px;border-radius:11px;background:var(--bm);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(23,84,184,.25)}
+.ii svg{width:20px;height:20px;fill:#fff}
+.il{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);font-weight:700}
+.iv{font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:800;color:var(--bd);margin-top:2px}
+/* ── TESTIMONIALS ── */
+.testi-section{
+  background:var(--bg);
+  padding:5rem 4.5%;
+  position:relative;overflow:hidden;
 }
-.btn-submit:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:0 6px 28px rgba(37,99,235,.4)}
-.btn-submit:active{transform:translateY(0)}
+.testi-section::before{
+  content:'';position:absolute;top:-80px;left:-80px;
+  width:350px;height:350px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,235,.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.testi-label{
+  font-size:.7rem;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--primary);
+  margin-bottom:.75rem;text-align:center;
+}
+.testi-title{
+  font-family:'Poppins',sans-serif;
+  font-size:clamp(1.5rem,2.4vw,2rem);
+  font-weight:800;color:var(--text);
+  text-align:center;margin-bottom:3rem;
+}
+.testi-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.testi-card{
+  background:#fff;
+  border-radius:16px;
+  padding:1.8rem;
+  border:1.5px solid #E5E7EB;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+  display:flex;flex-direction:column;gap:1rem;
+  transition:transform .22s,box-shadow .22s,border-color .22s;
+  position:relative;
+}
+.testi-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 32px rgba(37,99,235,.1);
+  border-color:rgba(37,99,235,.2);
+}
+.testi-card-featured{
+  border-color:rgba(37,99,235,.25);
+  background:linear-gradient(160deg,#fff 0%,#F0F7FF 100%);
+}
+.testi-card-featured::before{
+  content:'🇹🇷';
+  position:absolute;top:1.2rem;right:1.2rem;
+  font-size:1.2rem;
+}
+.testi-stars{color:#F59E0B;font-size:1rem;letter-spacing:2px}
+.testi-text{
+  font-size:.88rem;color:var(--secondary);
+  line-height:1.78;flex:1;
+  font-style:italic;
+}
+.testi-text::before{
+  content:'"';
+  font-size:2.5rem;color:rgba(37,99,235,.15);
+  font-family:'Poppins',sans-serif;font-weight:900;
+  line-height:0;vertical-align:-0.6rem;
+  margin-right:4px;
+}
+.testi-author{display:flex;align-items:center;gap:.9rem}
+.testi-avatar{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Poppins',sans-serif;font-weight:800;
+  font-size:.85rem;color:#fff;flex-shrink:0;
+}
+.testi-av1{background:linear-gradient(135deg,#2563EB,#1D4ED8)}
+.testi-av2{background:linear-gradient(135deg,#0891B2,#0E7490)}
+.testi-av3{background:linear-gradient(135deg,#E30A17,#B91C1C)}
+.testi-name{font-family:'Poppins',sans-serif;font-size:.86rem;font-weight:700;color:var(--text)}
+.testi-loc{font-size:.72rem;color:var(--secondary);margin-top:2px}
 
-/* SUCCESS message */
-.form-success{display:none;text-align:center;padding:2rem;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;margin-top:1rem}
-.form-success .check{font-size:2.5rem;margin-bottom:.8rem}
-.form-success p{font-family:'Poppins',sans-serif;font-weight:700;color:#15803D;font-size:1rem}
-.form-success span{font-size:.85rem;color:#166534;font-weight:400}
-
-/* RIGHT — Info */
-.info-stack{display:flex;flex-direction:column;gap:1.2rem}
-.info-card{background:#fff;border-radius:16px;padding:1.4rem 1.5rem;border:1.5px solid #E5E7EB;box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:flex-start;gap:1.1rem;transition:transform .2s,box-shadow .2s,border-color .2s;text-decoration:none;color:inherit}
-.info-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(37,99,235,.1);border-color:rgba(37,99,235,.25)}
-.info-icon{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(37,99,235,.25)}
-.info-icon svg{width:20px;height:20px;fill:#fff}
-.info-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--secondary);margin-bottom:3px}
-.info-val{font-family:'Poppins',sans-serif;font-size:.92rem;font-weight:700;color:var(--bd);line-height:1.45}
-.info-hint{font-size:.75rem;color:var(--secondary);margin-top:2px}
-
-/* WhatsApp card special */
-.info-card.wa-card{background:linear-gradient(135deg,#dcfce7,#f0fdf4);border-color:#86efac}
-.info-card.wa-card .info-icon{background:linear-gradient(135deg,#16a34a,#15803d)}
-.info-card.wa-card .info-val{color:#15803d}
-
-/* MAP */
-.map-section{margin-top:1.5rem}
-.map-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--secondary);margin-bottom:.6rem}
-.map-frame{border-radius:16px;overflow:hidden;height:220px;box-shadow:0 4px 20px rgba(0,0,0,.1);border:1.5px solid #E5E7EB;position:relative}
-.map-frame iframe{width:100%;height:100%;border:0}
-
-/* HOURS */
-.hours-card{background:#fff;border-radius:16px;padding:1.4rem 1.5rem;border:1.5px solid #E5E7EB;margin-top:1.2rem}
-.hours-title{font-family:'Poppins',sans-serif;font-size:.88rem;font-weight:700;color:var(--bd);margin-bottom:.9rem;display:flex;align-items:center;gap:6px}
-.hours-row{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid #F3F4F6;font-size:.83rem}
-.hours-row:last-child{border-bottom:none}
-.hours-day{color:var(--secondary);font-weight:500}
-.hours-time{color:var(--text);font-weight:700;font-family:'Poppins',sans-serif}
-.hours-badge{background:#DCFCE7;color:#15803D;font-size:.65rem;font-weight:700;padding:.18rem .5rem;border-radius:100px;letter-spacing:.04em}
-.hours-badge.closed{background:#FEE2E2;color:#DC2626}
-
-/* FOOTER */
-footer{background:var(--bd);padding:1.5rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:5rem}
-footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
-.footer-social{display:flex;gap:.6rem}
-.footer-sc{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .2s}
-.footer-sc:hover{transform:scale(1.1)}
-.footer-sc svg{width:15px;height:15px;fill:#fff}
-.footer-sc.fb{background:#1877F2}.footer-sc.ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}.footer-sc.wa{background:#25D366}.footer-sc.tt{background:#000}
-
-/* RESPONSIVE */
+/* Testimonials mobile */
 @media(max-width:900px){
-  .nav-links{display:none}.btn-nav{display:none}.hamburger{display:flex}
-  .contact-grid{grid-template-columns:1fr;gap:2.5rem}
-  .form-row{grid-template-columns:1fr}
-  .contact-main{padding:3rem 4%}
+  .testi-grid{grid-template-columns:1fr}
+  .testi-section{padding:3.5rem 4.5%}
 }
 @media(max-width:480px){
+  .testi-section{padding:2.5rem 4%}
+  .testi-title{font-size:1.35rem;margin-bottom:2rem}
+  .testi-card{padding:1.4rem}
+}
+
+/* ── CTA ── */
+.cta{
+  background:linear-gradient(110deg,#060F1E 0%,#0A2540 35%,#1040A0 70%,#2563EB 100%);
+  padding:4.5rem 5%;
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:3rem;
+  position:relative;overflow:hidden;
+}
+.cta::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(0,0,0,.45) 0%,rgba(0,0,0,.1) 60%,transparent 100%);
+  pointer-events:none;
+}
+/* Decorative rings */
+.cta::after{
+  content:'';position:absolute;right:-80px;top:50%;transform:translateY(-50%);
+  width:340px;height:340px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.06);pointer-events:none;
+}
+.cta-left{position:relative;z-index:1}
+.cta-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  border-radius:100px;padding:.3rem .9rem;
+  font-size:.7rem;font-weight:600;color:rgba(255,255,255,.85);
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.1rem;
+}
+.cta h2{
+  font-family:'Poppins',sans-serif;
+  font-size:clamp(1.5rem,2.8vw,2.3rem);
+  font-weight:800;color:#fff;line-height:1.2;margin-bottom:.8rem;
+}
+.cta p{font-size:.97rem;color:rgba(255,255,255,.75);line-height:1.7;max-width:520px;margin-bottom:1.2rem}
+.cta-badges{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap}
+.cta-badge{font-size:.82rem;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:5px;font-weight:500}
+.cta-right{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.8rem;flex-shrink:0}
+.btn-cta-primary{
+  background:#fff;color:#1D4ED8;border:none;
+  padding:1.1rem 2.4rem;border-radius:12px;
+  font-size:1rem;font-family:'Poppins',sans-serif;font-weight:800;
+  cursor:pointer;transition:all .22s;white-space:nowrap;
+  box-shadow:0 6px 30px rgba(0,0,0,.25),0 1px 0 rgba(255,255,255,.5) inset;
+  letter-spacing:.01em;
+}
+.btn-cta-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.btn-cta-secondary{
+  background:transparent;color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.25);
+  padding:.75rem 1.8rem;border-radius:10px;
+  font-size:.88rem;font-family:'Poppins',sans-serif;font-weight:600;
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+  text-decoration:none;display:inline-flex;align-items:center;gap:7px;
+}
+.btn-cta-secondary:hover{border-color:rgba(255,255,255,.5);color:#fff;background:rgba(255,255,255,.08)}
+.btn-cta-secondary svg{width:15px;height:15px;stroke:currentColor;fill:none}
+footer{background:var(--bd);padding:1.8rem 4.5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
+/* Mobile social strip at very bottom */
+.mobile-social-strip{
+  display:none;
+  background:var(--bd);
+  padding:1rem 4.5%;
+  border-top:1px solid rgba(255,255,255,.06);
+  justify-content:center;
+  gap:.8rem;
+}
+.mobile-social-strip a{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;transition:transform .2s;
+}
+.mobile-social-strip a:hover{transform:scale(1.1)}
+.mobile-social-strip svg{width:18px;height:18px;fill:#fff}
+.ms-fb{background:#1877F2}
+.ms-ig{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
+.ms-wa{background:#25D366}
+.ms-tt{background:#000}
+.fl{display:flex;gap:1.4rem}
+.fl a{font-size:.77rem;color:rgba(255,255,255,.38);text-decoration:none}
+.fl a:hover{color:rgba(255,255,255,.75)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.h-content>*{animation:fadeUp .7s ease both}
+.h-content>*:nth-child(1){animation-delay:.1s}
+.h-content>*:nth-child(2){animation-delay:.23s}
+.h-content>*:nth-child(3){animation-delay:.36s}
+.h-img-wrap{animation:fadeUp .85s .15s ease both}
+
+/* ═══════════════════════════════
+   HAMBURGER MENU
+   ═══════════════════════════════ */
+.hamburger{
+  display:none;flex-direction:column;justify-content:center;
+  gap:5px;background:none;border:none;cursor:pointer;
+  padding:6px;border-radius:8px;transition:background .2s;
+}
+.hamburger:hover{background:#F3F4F6}
+.hamburger span{
+  display:block;width:22px;height:2px;
+  background:var(--text);border-radius:2px;
+  transition:all .3s ease;transform-origin:center;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Mobile menu drawer */
+.mobile-menu{
+  position:fixed;top:60px;left:0;right:0;
+  background:#fff;
+  z-index:299;padding:0 5%;
+  border-bottom:1px solid #E5E7EB;
+  box-shadow:0 8px 30px rgba(0,0,0,.1);
+  flex-direction:column;gap:.3rem;
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease, padding .35s ease;
+  display:flex;
+}
+.mobile-menu.open{
+  max-height:500px;
+  padding:1rem 5% 1.5rem;
+}
+.mobile-menu a{
+  font-size:1rem;font-weight:600;color:var(--text);
+  text-decoration:none;padding:.9rem 1rem;border-radius:10px;
+  transition:background .18s,color .18s;display:block;
+  border-bottom:1px solid #F9FAFB;
+}
+.mobile-menu a:last-of-type{border-bottom:none}
+.mobile-menu a:active{background:#EFF6FF;color:var(--primary)}
+.mobile-menu-divider{height:1px;background:#F3F4F6;margin:.5rem 0}
+.mobile-lang{display:flex;gap:.5rem;padding:.5rem 0}
+.mobile-menu .btn-nav-mobile{
+  background:var(--primary);color:#fff;border:none;
+  padding:1rem;border-radius:10px;font-size:.95rem;
+  font-family:'Poppins',sans-serif;font-weight:700;
+  cursor:pointer;text-align:center;width:100%;margin-top:.5rem;
+  box-shadow:0 4px 16px rgba(37,99,235,.3);
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE — 900px
+   ═══════════════════════════════ */
+
+/* Mini lang flags next to hamburger — hidden by default */
+.nav-lang-mini{display:none}
+/* On mobile the full dropdown still shows — just reposition */
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .lang-switcher{display:none}
+  .nav-sep{display:none}
+  .btn-nav{display:none}
+  .hamburger{display:flex}
+  .nav-lang-mini{display:none}
+
+  .h-inner{grid-template-columns:1fr;padding:2rem 5% 0;padding-right:5%;align-items:start}
+  .h-content{padding:2.5rem 0 1rem;text-align:center;align-items:center;order:1}
+  .h-title{font-size:clamp(1.7rem,4.5vw,2.2rem);text-align:center}
+  .h-sub{text-align:center;max-width:100%;font-size:.95rem}
+  .h-actions{justify-content:center;gap:.8rem}
+  .h-img-wrap{order:2;height:340px;max-height:340px;width:100%;justify-content:center;align-items:flex-end}
+  .dr-img{height:340px;max-height:340px;width:auto;max-width:280px;display:block}
+  .chip1,.chip2{display:none}
+  .dr-tag{right:-8px;left:auto;transform:translateY(-50%);top:78%!important;bottom:auto}
+  .social-bar{display:none}
+
+  .trust-bar{flex-wrap:wrap;gap:1rem;justify-content:center;padding:1.2rem 4%}
+  .trust-sep{display:none}
+  .trust-item{align-items:center;text-align:center}
+
+  /* SERVICES — 1 col, no 3D flip, direct button */
+  .services{padding:2.5rem 4%}
+  .svc-grid{grid-template-columns:1fr;gap:1rem}
+  .svc-card{height:auto;perspective:none}
+  .svc-card-inner{transform-style:flat;transition:none}
+  .svc-card:hover .svc-card-inner{transform:none}
+  .svc-back{display:none}
+  .svc-front{position:relative;height:auto;display:flex;flex-direction:column;padding:1.5rem 1.3rem}
+  .svc-learn-hint{display:none}
+  .svc-mobile-btn{
+    display:flex!important;margin-top:1rem;
+    align-items:center;justify-content:center;gap:6px;
+    background:var(--primary);color:#fff;border:none;
+    border-radius:9px;padding:.7rem 1.2rem;
+    font-size:.84rem;font-family:'Poppins',sans-serif;font-weight:700;
+    cursor:pointer;width:100%;box-shadow:0 3px 12px rgba(37,99,235,.28);
+  }
+
+  section.ct{padding:4rem 5%}
+  .why-g{grid-template-columns:1fr;gap:2.5rem}
+  .why-fs{grid-template-columns:1fr}
+  .stats-b{padding:2rem}
+
+  /* DOCTOR — badges in a row, photo clean */
+  .doc-inner{grid-template-columns:1fr;gap:2rem}
+  .doc-photo-wrap{max-width:340px;margin:0 auto}
+  .doc-photo-bg{border-radius:20px}
+  .doc-photo-img{height:320px}
+  .doc-country-badge{
+    position:static;display:inline-flex;
+    margin-bottom:.5rem;
+  }
+  .doc-cert-badge{
+    position:static;display:inline-flex;
+    flex-direction:row;align-items:center;gap:.5rem;
+    padding:.55rem .9rem;margin-left:.4rem;
+  }
+  .doc-cert-num{font-size:1.2rem}
+  .doc-cert-lbl{font-size:.65rem;line-height:1.3;margin-top:0;text-align:left}
+  .doc-badges-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}
+
+  .loc-inner{grid-template-columns:1fr;gap:2rem}
+  .loc-map-frame{height:300px}
+  .loc-map-wrap{order:2}
+  .loc-panel{order:1}
+
+  .cta{grid-template-columns:1fr;gap:2rem;padding:3.5rem 5%}
+  .cta-right{align-items:stretch}
+  .btn-cta-primary,.btn-cta-secondary{width:100%;justify-content:center}
+}
+
+@media(max-width:480px){
   nav{padding:0 4%;height:60px}
-  .logo-name{font-size:.78rem}
+  .logo-name{font-size:.76rem}
   .mobile-menu{top:60px}
-  .hero-inner{padding:2.5rem 4% 2rem}
-  .hero-title{font-size:1.7rem}
-  .form-card{padding:1.5rem}
-  footer{flex-direction:column;align-items:flex-start;padding:1.4rem 4%}
+
+  .hero{padding-top:60px}
+  .h-inner{padding:1.5rem 4% 0}
+  .h-title{font-size:clamp(1.35rem,6vw,1.8rem)}
+  .h-sub{font-size:.87rem}
+  .h-actions{flex-direction:column;width:100%;gap:.65rem}
+  .btn-p,.btn-ph{width:100%;justify-content:center;text-align:center;padding:.88rem 1rem}
+  .h-img-wrap{height:260px;max-height:260px}
+  .dr-img{height:260px;max-height:260px;max-width:220px}
+
+  .trust-bar{flex-direction:column;align-items:flex-start;gap:.85rem;padding:1.1rem 4%}
+  .trust-item{flex-direction:row;align-items:center;gap:10px;text-align:left}
+  .trust-icon{font-size:1.35rem;flex-shrink:0}
+
+  .services{padding:2rem 4%}
+  .svc-section-label h2{font-size:1.25rem}
+  .svc-grid{gap:.85rem}
+
+  section.ct{padding:2.5rem 4%}
+  .s-ttl{font-size:1.3rem}
+  .stats-b{grid-template-columns:1fr 1fr;padding:1.3rem .9rem;gap:0}
+  .si{padding:.8rem .5rem}
+  .sn{font-size:1.65rem}
+  .sl{font-size:.64rem}
+
+  .doc-section{padding:2.5rem 4%}
+  .doc-photo-wrap{max-width:100%}
+  .doc-photo-img{height:250px;width:100%;object-fit:contain}
+  .doc-name{font-size:1.45rem}
+  .doc-bio{font-size:.87rem}
+
+  .loc-section{padding:2.5rem 4%}
+  .loc-title{font-size:1.3rem}
+  .loc-map-frame{height:230px}
+  .loc-btns{flex-direction:column}
+  .loc-btn-primary,.loc-btn-secondary{width:100%;justify-content:center}
+
+  .cta{padding:2.5rem 4%}
+  .cta h2{font-size:1.15rem}
+  .cta p{font-size:.85rem}
+  .cta-badges{flex-direction:column;gap:.45rem}
+
+  footer{flex-direction:column;align-items:flex-start;gap:.8rem;padding:1.4rem 4%}
+  .fl{flex-wrap:wrap;gap:.7rem}
+  .mobile-social-strip{display:flex}
+
+  .modal-overlay{align-items:flex-end;padding:0}
+  .modal-box{border-radius:20px 20px 0 0;max-width:100%}
+  .modal-head{padding:1.2rem 1.1rem .9rem}
+  .modal-body{padding:1.1rem 1.1rem 2rem}
 }
 </style>
 </head>
 <body>
 
+<!-- ══ CINEMATIC INTRO ══ -->
+<div id="intro" style="
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#060E1C 0%,#0A2540 40%,#0D3A6E 70%,#0E4A8E 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;cursor:pointer;
+">
+  <canvas id="introParticles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.6"></canvas>
+  <canvas id="introEcg" style="position:absolute;bottom:38%;left:0;width:100%;height:120px;pointer-events:none"></canvas>
+
+  <div id="introLogo" style="
+    position:absolute;z-index:2;text-align:center;display:none;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;padding:2.2rem 3.5rem;
+    backdrop-filter:blur(16px);
+    box-shadow:0 8px 60px rgba(0,0,0,.4);
+    opacity:0;transform:translateY(14px) scale(.97);
+    transition:opacity .9s ease,transform .9s ease;
+  ">
+    <div style="font-size:2rem;color:#60A5FA;margin-bottom:.6rem;line-height:1">✚</div>
+    <div style="font-family:'Poppins',sans-serif;font-size:clamp(1rem,3vw,1.4rem);font-weight:800;color:#fff;letter-spacing:.02em;line-height:1.2">
+      Klinika Kardiologjike <span style="color:#60A5FA">Turke</span>
+    </div>
+    <div style="font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:.55rem;font-family:'Inter',sans-serif">
+      Kardiologji · Tiranë · Stamboll
+    </div>
+  </div>
+
+  <div id="introFade" style="position:absolute;inset:0;z-index:10;background:#fff;opacity:0;pointer-events:none;transition:opacity .7s ease"></div>
+</div>
+
+
+<script>
+(function(){
+  const pc=document.getElementById('introParticles');
+  const pctx=pc.getContext('2d');
+  function resizeP(){pc.width=window.innerWidth;pc.height=window.innerHeight;}
+  resizeP();
+  const particles=Array.from({length:55},()=>({
+    x:Math.random()*pc.width,y:Math.random()*pc.height,
+    r:Math.random()*1.4+.3,vx:(Math.random()-.5)*.25,vy:-Math.random()*.35-.1,a:Math.random()*.4+.1
+  }));
+  function drawP(){
+    pctx.clearRect(0,0,pc.width,pc.height);
+    particles.forEach(p=>{
+      pctx.beginPath();pctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      pctx.fillStyle=`rgba(150,210,255,${p.a})`;pctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.y<-5){p.y=pc.height+5;p.x=Math.random()*pc.width;}
+    });
+  }
+
+  const ec=document.getElementById('introEcg');
+  const ectx=ec.getContext('2d');
+  function resizeE(){ec.width=window.innerWidth;ec.height=120;}
+  resizeE();
+  function ecgY(p){
+    if(p<.28)return.5;if(p<.32)return.5-.05*Math.sin((p-.28)/.04*Math.PI);
+    if(p<.36)return.5;if(p<.39)return.5+.1*((p-.36)/.03);
+    if(p<.42)return.6-.85*((p-.39)/.03);if(p<.45)return-.25+.85*((p-.42)/.03);
+    if(p<.48)return.6-.1*((p-.45)/.03);if(p<.52)return.5;
+    if(p<.58)return.5-.11*Math.sin((p-.52)/.06*Math.PI);return.5;
+  }
+
+  function playHeartbeat(){
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    function thump(t,freq,vol){
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.type='sine';
+      o.frequency.setValueAtTime(freq,t);
+      o.frequency.exponentialRampToValueAtTime(freq*.45,t+.3);
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(vol,t+.025);
+      g.gain.exponentialRampToValueAtTime(.001,t+.65);
+      o.start(t);o.stop(t+.7);
+      const o2=ctx.createOscillator(),g2=ctx.createGain();
+      o2.connect(g2);g2.connect(ctx.destination);
+      o2.type='sine';o2.frequency.setValueAtTime(freq*.5,t);
+      o2.frequency.exponentialRampToValueAtTime(freq*.2,t+.3);
+      g2.gain.setValueAtTime(0,t);g2.gain.linearRampToValueAtTime(vol*.65,t+.03);
+      g2.gain.exponentialRampToValueAtTime(.001,t+.55);
+      o2.start(t);o2.stop(t+.6);
+    }
+    const now=ctx.currentTime;
+    thump(now,90,.8);
+    thump(now+.23,70,.6);
+  }
+
+  let started=false,startTime=null,logoShown=false;
+  const TOTAL=2700,ECG_DONE=1100,LOGO_START=850;
+
+  function animLoop(ts){
+    if(!startTime)startTime=ts;
+    const el=ts-startTime;
+    drawP();
+    const ep=Math.min(el/ECG_DONE,1);
+    const W=ec.width,H=ec.height,totalPts=600,cycles=3;
+    const pts=[];
+    for(let i=0;i<=totalPts;i++){
+      const px=i/totalPts;
+      pts.push({x:px*W,y:H*.48+(ecgY((px*cycles)%1)-.5)*H*.78});
+    }
+    ectx.clearRect(0,0,W,H);
+    const ei=Math.floor(ep*totalPts);
+    if(ei>1){
+      ectx.save();
+      ectx.shadowColor='rgba(96,165,250,.8)';ectx.shadowBlur=14;
+      ectx.beginPath();ectx.moveTo(pts[0].x,pts[0].y);
+      for(let i=1;i<=ei;i++)ectx.lineTo(pts[i].x,pts[i].y);
+      ectx.strokeStyle='rgba(96,165,250,.65)';ectx.lineWidth=2;ectx.lineJoin='miter';
+      ectx.stroke();ectx.restore();
+      const d=pts[ei];
+      const grd=ectx.createRadialGradient(d.x,d.y,0,d.x,d.y,22);
+      grd.addColorStop(0,'rgba(96,165,250,.55)');grd.addColorStop(1,'rgba(96,165,250,0)');
+      ectx.fillStyle=grd;ectx.beginPath();ectx.arc(d.x,d.y,22,0,Math.PI*2);ectx.fill();
+      ectx.beginPath();ectx.arc(d.x,d.y,4.5,0,Math.PI*2);
+      ectx.fillStyle='#93C5FD';ectx.fill();
+    }
+    if(el>=LOGO_START&&!logoShown){
+      logoShown=true;
+      const l=document.getElementById('introLogo');
+      l.style.display='block';
+      setTimeout(()=>{l.style.opacity='1';l.style.transform='translateY(0) scale(1)';},30);
+    }
+    if(el>=TOTAL-700){
+      const f=document.getElementById('introFade');
+      const fp=Math.min((el-(TOTAL-700))/700,1);
+      f.style.opacity=String(fp);
+      if(fp>=1){document.getElementById('intro').style.display='none';return;}
+    }
+    requestAnimationFrame(animLoop);
+  }
+
+  function idleLoop(){if(started)return;drawP();requestAnimationFrame(idleLoop);}
+  idleLoop();
+
+  function startIntro(){
+    if(started)return;started=true;
+    playHeartbeat();
+    requestAnimationFrame(animLoop);
+  }
+
+  // Auto-start immediately
+  setTimeout(startIntro, 100);
+
+  // Tap/click to skip
+  document.getElementById('intro').addEventListener('click', function(){
+    if(!started){ startIntro(); } else {
+      // Skip — fade out fast
+      document.getElementById('introFade').style.transition='opacity .4s ease';
+      document.getElementById('introFade').style.opacity='1';
+      setTimeout(()=>{ document.getElementById('intro').style.display='none'; }, 420);
+    }
+  });
+  document.getElementById('intro').addEventListener('touchend',function(e){
+    e.preventDefault();
+    document.getElementById('introFade').style.transition='opacity .4s ease';
+    document.getElementById('introFade').style.opacity='1';
+    setTimeout(()=>{ document.getElementById('intro').style.display='none'; }, 420);
+  },{passive:false});
+})();
+</script>
+
 <nav>
-  <a href="index.html" class="nav-logo">
+  <a href="#" class="nav-logo">
     <span class="logo-cross">&#10010;</span>
     <span class="logo-name">Klinika Kardiologjike <span>Turke</span>
       <svg class="logo-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
@@ -170,218 +1141,1132 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
     </span>
   </a>
   <div class="nav-links">
-    <a href="index.html">Kryefaqja</a>
-    <a href="index.html#doktori">Doktori</a>
-    <a href="index.html#sherbimet">Shërbimet</a>
-    <a href="kontakt.html" class="active">Kontakt</a>
+    <a href="#">Rreth Nesh</a>
+    <a href="#">Shërbimet</a>
+    <a href="#">Doktori</a>
+    <a href="#">Kontakt</a>
   </div>
   <div class="nav-right">
-    <button class="btn-nav">Rezervo Vizitë</button>
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <!-- Language Dropdown -->
+    <div class="lang-dropdown" id="langDropdown">
+      <button class="lang-trigger" onclick="toggleLang(event)" id="langTrigger">
+        <span class="lang-flag" id="triggerFlag">🇦🇱</span>
+        <span class="lang-code" id="triggerCode">SQ</span>
+        <span class="lang-arrow">▲</span>
+      </button>
+      <div class="lang-menu" id="langMenu">
+        <button class="lang-option active" onclick="selectLang('sq','🇦🇱','SQ')">
+          <span class="lo-flag">🇦🇱</span>
+          <span class="lo-texts">
+            <span class="lo-name">Shqip</span>
+            <span class="lo-native">Albanian</span>
+          </span>
+          <span class="lo-check">✓</span>
+        </button>
+        <button class="lang-option" onclick="selectLang('en','🇬🇧','EN')">
+          <span class="lo-flag">🇬🇧</span>
+          <span class="lo-texts">
+            <span class="lo-name">English</span>
+            <span class="lo-native">English</span>
+          </span>
+          <span class="lo-check">✓</span>
+        </button>
+        <button class="lang-option" onclick="selectLang('tr','🇹🇷','TR')">
+          <span class="lo-flag">🇹🇷</span>
+          <span class="lo-texts">
+            <span class="lo-name">Türkçe</span>
+            <span class="lo-native">Turkish</span>
+          </span>
+          <span class="lo-check">✓</span>
+        </button>
+      </div>
+    </div>
+    <div class="nav-sep"></div>
+    <button class="btn-nav" id="nav-cta">Rezervo Vizitë</button>
+    <!-- Mini flags for mobile — hidden, dropdown replaces -->
+    <div class="nav-lang-mini" style="display:none"></div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
-  <a href="index.html" onclick="toggleMenu()">Kryefaqja</a>
-  <a href="index.html#doktori" onclick="toggleMenu()">Doktori</a>
-  <a href="index.html#sherbimet" onclick="toggleMenu()">Shërbimet</a>
-  <a href="kontakt.html" onclick="toggleMenu()">Kontakt</a>
-  <button class="btn-nav-mobile">Rezervo Vizitën Tani</button>
+  <a href="#" onclick="toggleMenu()">Rreth Nesh</a>
+  <a href="#" onclick="toggleMenu()">Shërbimet</a>
+  <a href="#doktori" onclick="toggleMenu()">Doktori</a>
+  <a href="#" onclick="toggleMenu()">Kontakt</a>
+  <div class="mobile-menu-divider"></div>
+  <div class="mobile-lang">
+    <button class="lang-btn active" onclick="selectLang('sq','🇦🇱','SQ');toggleMenu()">🇦🇱 SQ</button>
+    <button class="lang-btn" onclick="selectLang('en','🇬🇧','EN');toggleMenu()">🇬🇧 EN</button>
+    <button class="lang-btn" onclick="selectLang('tr','🇹🇷','TR');toggleMenu()">🇹🇷 TR</button>
+  </div>
+  <button class="btn-nav-mobile" onclick="toggleMenu()">Rezervo Vizitën Tani</button>
 </div>
 
-<!-- HERO -->
-<section class="contact-hero">
-  <div class="hero-inner">
-    <div class="hero-badge">📍 Na Kontaktoni</div>
-    <h1 class="hero-title">Rezervo Vizitën<br>Tënde Sot</h1>
-    <p class="hero-sub">Jemi këtu për të ndihmuar. Na kontaktoni përmes formularit, telefonit ose WhatsApp — dhe do t'ju kthejmë përgjigje sa më shpejt.</p>
+<section class="hero">
+  <canvas id="bgCanvas"></canvas>
+  <div class="hero-overlay"></div>
+  <canvas id="ecgCanvas"></canvas>
+
+  <div class="social-bar">
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/share/1DzCzVTqsb/?mibextid=wwXIfr" target="_blank" class="sc-icon fb" title="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/klinikakardiologjiketurke?igsh=MTJiZm44YjhqY2Uzaw==" target="_blank" class="sc-icon ig" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="white">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+    </a>
+    <!-- WhatsApp -->
+    <a href="https://wa.me/355696042777" target="_blank" class="sc-icon wa" title="WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    </a>
+    <!-- TikTok -->
+    <a href="https://www.tiktok.com/@klinikaturke?_r=1&_t=ZS-95hTcETu1iO" target="_blank" class="sc-icon tt" title="TikTok">
+      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+    </a>
+  </div>
+
+  <div class="h-inner">
+    <div class="h-content">
+      <h1 class="h-title" id="hero-title">Ekspertizë Kardiologjike nga Turqia, Tani në Tiranë</h1>
+      <p class="h-sub" id="hero-sub">Diagnostikim dhe trajtim nga një specialist i trajnuar në Stamboll, me fokus në kujdes të personalizuar për çdo pacient.</p>
+      <div class="h-actions">
+        <button class="btn-p" id="hero-btn1">Rezervo Vizitën Tani</button>
+        <a href="tel:+355681234567" class="btn-ph">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l.95-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Na Telefono
+        </a>
+      </div>
+    </div>
+
+    <div class="h-img-wrap">
+      <div class="chip chip1"><div class="chip-n">15<span>+</span></div><div class="chip-l">Vite Përvojë</div></div>
+      <div class="chip chip2"><div class="chip-n">98<span>%</span></div><div class="chip-l">Kënaqësi</div></div>
+      <div class="dr-shadow"></div>
+      <div class="dr-glow"></div>
+      <div class="dr-rim"></div>
+      <div class="dr-tag"><div class="dr-tag-name">Dr. Mefat<br>Selishta</div></div>
+      <img class="dr-img" src="fati_nobg.png" alt="Dr. Mefat Selishta"/>
+    </div>
   </div>
 </section>
 
-<!-- MAIN -->
-<div class="contact-main">
-  <div class="contact-grid">
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <span class="trust-icon">🎓</span>
+    <div class="trust-text">
+      <strong id="trust-1">Trajnim dhe specializim në Turqi</strong>
+      <span id="trust-1-sub">Diplomuar në Stamboll</span>
+    </div>
+  </div>
+  <div class="trust-sep"></div>
+  <div class="trust-item">
+    <span class="trust-icon">🩺</span>
+    <div class="trust-text">
+      <strong id="trust-2">Kujdes i personalizuar 1-me-1</strong>
+      <span id="trust-2-sub">Çdo pacient, fokus i plotë</span>
+    </div>
+  </div>
+  <div class="trust-sep"></div>
+  <div class="trust-item">
+    <span class="trust-icon">⏱️</span>
+    <div class="trust-text">
+      <strong id="trust-3">Pa pritje, shërbim i shpejtë</strong>
+      <span id="trust-3-sub">Rezervo dhe vij direkt</span>
+    </div>
+  </div>
+</div>
+  <div class="svc-section-label">
+    <span>Shërbimet Tona</span>
+    <h2>Diagnostikim Kardiologjik i Avancuar</h2>
+  </div>
+  <div class="svc-grid">
 
-    <!-- LEFT: Form -->
-    <div>
-      <div class="form-card">
-        <div class="form-title">Dërgo një Mesazh</div>
-        <div class="form-sub">Plotësoni formularin dhe do t'ju kontaktojmë brenda 24 orëve.</div>
-
-        <form id="contactForm" onsubmit="submitForm(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Emri</label>
-              <input type="text" class="form-input" placeholder="Emri juaj" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Mbiemri</label>
-              <input type="text" class="form-input" placeholder="Mbiemri juaj" required>
-            </div>
+    <!-- EKG -->
+    <div class="svc-card">
+      <div class="svc-card-inner">
+        <div class="svc-front">
+          
+          <div class="svc-ico-3d"><svg viewBox="0 0 24 24" fill="none" stroke="#1754B8" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="svc-t">EKG</div>
+          <div class="svc-s">Elektrokardiogram</div>
+          <div class="svc-d">Regjistrim i aktivitetit elektrik të zemrës — i shpejtë, i saktë dhe pa dhimbje.</div>
+          <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <button class="svc-mobile-btn" style="display:none" onclick="openModal('ekg')">Mëso më shumë →</button>
+        </div>
+        <div class="svc-back">
+          <div>
+            <div class="svc-back-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="svc-back-title">Elektrokardiogram</div>
+            <div class="svc-back-desc">Detekton aritmitë, fibrilacionin atrial, shenjat e infarktit dhe bllokimet e zemrës. Analizë e menjëhershme nga specialist. Zgjat vetëm 5–10 minuta.</div>
           </div>
-
-          <div class="form-group">
-            <label class="form-label">Numri i Telefonit</label>
-            <input type="tel" class="form-input" placeholder="+355 6X XXX XXXX" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Email (opsionale)</label>
-            <input type="email" class="form-input" placeholder="email@juaj.com">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Arsyeja e Vizitës</label>
-            <select class="form-select form-input">
-              <option value="">Zgjidhni një opsion...</option>
-              <option>Kontroll i përgjithshëm kardiologjik</option>
-              <option>EKG — Elektrokardiogram</option>
-              <option>EKO — Ekokardiogram</option>
-              <option>Holter — Monitorim 24 orë</option>
-              <option>Test Ushtrimor</option>
-              <option>Konsultë për probleme zemre</option>
-              <option>Tjetër</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Mesazhi juaj</label>
-            <textarea class="form-textarea" placeholder="Shënoni simptomat ose pyetjet tuaja..."></textarea>
-          </div>
-
-          <button type="submit" class="btn-submit">Dërgo Mesazhin →</button>
-        </form>
-
-        <div class="form-success" id="formSuccess">
-          <div class="check">💬</div>
-          <p>Mesazhi u dërgua në WhatsApp!</p>
-          <span>U hap WhatsApp me mesazhin e gatshëm — shtypni "Dërgo" dhe do t'ju kthejmë përgjigje sa më shpejt.</span>
+          <button class="svc-back-btn" onclick="openModal('ekg')">
+            Mëso më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT: Info + Map -->
+    <!-- EKO -->
+    <div class="svc-card">
+      <div class="svc-card-inner">
+        <div class="svc-front">
+          
+          <div class="svc-ico-3d"><svg viewBox="0 0 24 24" fill="none" stroke="#1754B8" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 10 q1.2-3 2.5 0 t2.5 0 t2.5 0" stroke-linecap="round"/></svg></div>
+          <div class="svc-t">EKO</div>
+          <div class="svc-s">Ekokardiogram</div>
+          <div class="svc-d">Imazhe me ultratinguj të zemrës — strukturë, valvula dhe funksion sistolic.</div>
+          <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <button class="svc-mobile-btn" style="display:none" onclick="openModal('eko')">Mëso më shumë →</button>
+        </div>
+        <div class="svc-back">
+          <div>
+            <div class="svc-back-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 10 q1.2-3 2.5 0 t2.5 0 t2.5 0" stroke-linecap="round"/></svg></div>
+            <div class="svc-back-title">Ekokardiogram</div>
+            <div class="svc-back-desc">Vlerëson valvulat, miokardin dhe rrjedhën e gjakut me teknologji Doppler 2D. Pa rrezatim, plotësisht i sigurt. Imazhe në kohë reale.</div>
+          </div>
+          <button class="svc-back-btn" onclick="openModal('eko')">
+            Mëso më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOLTER -->
+    <div class="svc-card">
+      <div class="svc-card-inner">
+        <div class="svc-front">
+          
+          <div class="svc-ico-3d"><svg viewBox="0 0 24 24" fill="none" stroke="#1754B8" stroke-width="1.8"><rect x="4" y="2" width="16" height="20" rx="2"/><polyline points="8 10 10 12 14 8"/><line x1="8" y1="16" x2="16" y2="16"/></svg></div>
+          <div class="svc-t">Holter</div>
+          <div class="svc-s">Monitorim 24/48 orë</div>
+          <div class="svc-d">Regjistrim i pandërprerë i ritmit kardiak gjatë aktiviteteve të përditshme.</div>
+          <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <button class="svc-mobile-btn" style="display:none" onclick="openModal('holter')">Mëso më shumë →</button>
+        </div>
+        <div class="svc-back">
+          <div>
+            <div class="svc-back-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="4" y="2" width="16" height="20" rx="2"/><polyline points="8 10 10 12 14 8"/><line x1="8" y1="16" x2="16" y2="16"/></svg></div>
+            <div class="svc-back-title">Monitorim Holter</div>
+            <div class="svc-back-desc">Identifikon aritmitë sporadike dhe episodet e pavetëdijes. Analizë kompjuterike e mbi 100.000 rrahjeve. Pacienti jeton normalisht gjatë testit.</div>
+          </div>
+          <button class="svc-back-btn" onclick="openModal('holter')">
+            Mëso më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEST USHTRIMOR -->
+    <div class="svc-card">
+      <div class="svc-card-inner">
+        <div class="svc-front">
+          
+          <div class="svc-ico-3d"><svg viewBox="0 0 24 24" fill="none" stroke="#1754B8" stroke-width="1.8"><circle cx="13" cy="6" r="3"/><path d="M5 20c0-3.5 3.1-6.2 7-6.2"/><path d="M15 14l5 5M20 14l-5 5"/></svg></div>
+          <div class="svc-t">Test Ushtrimor</div>
+          <div class="svc-s">Stres Test Kardiak</div>
+          <div class="svc-d">Vlerëson reagimin e zemrës ndaj ngarkesës fizike progresive mbi tapiseri.</div>
+          <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <button class="svc-mobile-btn" style="display:none" onclick="openModal('test')">Mëso më shumë →</button>
+        </div>
+        <div class="svc-back">
+          <div>
+            <div class="svc-back-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="13" cy="6" r="3"/><path d="M5 20c0-3.5 3.1-6.2 7-6.2"/><path d="M15 14l5 5M20 14l-5 5"/></svg></div>
+            <div class="svc-back-title">Stres Test Kardiak</div>
+            <div class="svc-back-desc">Detekton sëmundjen koronare dhe ishemin nën ngarkesë. Monitorim i plotë: EKG + presion + SpO₂ në kohë reale. Standardi i artë kardiologjik.</div>
+          </div>
+          <button class="svc-back-btn" onclick="openModal('test')">
+            Mëso më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<section class="ct wh">
+  <!-- Heartbeat line subtle behind section -->
+  <svg class="ct-hb" viewBox="0 0 1440 80" preserveAspectRatio="none" fill="none">
+    <path d="M0 40 L200 40 L240 40 L260 10 L280 70 L300 20 L320 60 L340 40 L560 40 L600 40 L620 10 L640 70 L660 20 L680 60 L700 40 L900 40 L940 40 L960 10 L980 70 L1000 20 L1020 60 L1040 40 L1440 40"
+      stroke="#1E90FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <div class="s-lbl">Pse Na Zgjidhni</div>
+  <div class="why-g">
     <div>
-      <div class="info-stack">
-
-        <a href="tel:+355696042777" class="info-card">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l.95-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          </div>
-          <div>
-            <div class="info-label">📞 Telefoni</div>
-            <div class="info-val">+355 69 604 2777</div>
-            <div class="info-hint">E Hënë – E Shtunë, 08:00–18:00</div>
-          </div>
-        </a>
-
-        <a href="https://wa.me/355696042777" target="_blank" class="info-card wa-card">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-          </div>
-          <div>
-            <div class="info-label">💬 WhatsApp</div>
-            <div class="info-val">Na Shkruani Direkt</div>
-            <div class="info-hint">Përgjigje e shpejtë — klikoni këtu</div>
-          </div>
-        </a>
-
-        <a href="mailto:info@kardiologjike-turke.al" class="info-card">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <div>
-            <div class="info-label">✉️ Email</div>
-            <div class="info-val">info@kardiologjike-turke.al</div>
-            <div class="info-hint">Për pyetje dhe informacion</div>
-          </div>
-        </a>
-
-        <div class="info-card" style="cursor:default">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3" fill="white" stroke="none"/></svg>
-          </div>
-          <div>
-            <div class="info-label">📍 Adresa</div>
-            <div class="info-val">Rruga Kavajës, Kryqëzimi<br>21 Dhjetori, Tiranë</div>
-          </div>
+      <h2 class="s-ttl">Ekspertizë e nivelit ndërkombëtar në zemrën e Tiranës</h2>
+      <p class="s-txt">Kujdes kardiologjik i avancuar me standarde ndërkombëtare.</p>
+      <div class="why-fs">
+        <div class="wf">
+          <div class="wf-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="wf-t">Pajisje moderne diagnostike</div>
         </div>
-
-      </div>
-
-      <!-- Hours -->
-      <div class="hours-card">
-        <div class="hours-title">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--bm)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Orari i Punës
+        <div class="wf">
+          <div class="wf-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="wf-t">Standarde ndërkombëtare</div>
         </div>
-        <div class="hours-row"><span class="hours-day">E Hënë – E Premte</span><span class="hours-time">08:00 – 18:00 <span class="hours-badge">Hapur</span></span></div>
-        <div class="hours-row"><span class="hours-day">E Shtunë</span><span class="hours-time">09:00 – 14:00 <span class="hours-badge">Hapur</span></span></div>
-        <div class="hours-row"><span class="hours-day">E Diel</span><span class="hours-time"><span class="hours-badge closed">Mbyllur</span></span></div>
-      </div>
-
-      <!-- Map -->
-      <div class="map-section">
-        <div class="map-label">📍 Na Gjeni në Hartë</div>
-        <div class="map-frame">
-          <iframe src="https://maps.google.com/maps?q=41.32614,19.80383&z=17&output=embed&hl=sq" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="wf">
+          <div class="wf-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="wf-t">Plan trajtimi i personalizuar</div>
+        </div>
+        <div class="wf">
+          <div class="wf-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="wf-t">Mbështetje e vazhdueshme</div>
         </div>
       </div>
+    </div>
 
+    <div class="stats-b">
+      <div class="si">
+        <span class="si-icon">⏱</span>
+        <div class="sn">15<sup>+</sup></div>
+        <div class="sl">Vite eksperiencë</div>
+      </div>
+      <div class="si">
+        <span class="si-icon">❤️</span>
+        <div class="sn">1,000<sup>+</sup></div>
+        <div class="sl">Pacientë të trajtuar</div>
+      </div>
+      <div class="si">
+        <span class="si-icon">⭐</span>
+        <div class="sn">98<sup>%</sup></div>
+        <div class="sl">Kënaqësi pacientësh</div>
+      </div>
+      <div class="si">
+        <span class="si-icon">🎓</span>
+        <div class="sn">TR</div>
+        <div class="sl">Specializim në Turqi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DOKTORI ══ -->
+<section class="doc-section" id="doktori">
+  <div class="doc-inner">
+
+    <!-- LEFT: Photo -->
+    <div class="doc-photo-wrap">
+      <div class="doc-photo-bg"></div>
+
+      <!-- Badges row -->
+      <div class="doc-badges-row">
+        <!-- Turkey badge -->
+        <div class="doc-country-badge">
+          <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+            <rect width="30" height="20" fill="#E30A17"/>
+            <circle cx="11" cy="10" r="6" fill="white"/>
+            <circle cx="13" cy="10" r="4.8" fill="#E30A17"/>
+            <polygon points="18.5,10 17,7.5 20,8.8 17.5,8.5 20,11.5 18.5,8.8 20.5,11.5 17.8,11.2 20,8.5" fill="white"/>
+          </svg>
+          <div class="doc-country-text">
+            Specializim në Turqi
+            <span>Stamboll, Turqia</span>
+          </div>
+        </div>
+        <!-- Cert badge -->
+        <div class="doc-cert-badge">
+          <div class="doc-cert-num">15+</div>
+          <div class="doc-cert-lbl">Vite<br>Eksperiencë</div>
+        </div>
+      </div>
+
+      <img class="doc-photo-img" src="fati_nobg.png" alt="Dr. Mefat Selishta — Kardiolog"/>
+    </div>
+
+    <!-- RIGHT: Info -->
+    <div class="doc-info">
+      <div class="doc-label" id="doc-label">Njihuni me Specialistin Tonë</div>
+      <h2 class="doc-name">Dr. Mefat Selishta</h2>
+      <div class="doc-title">Specialist Kardiolog · Diplomuar në Stamboll</div>
+      <div class="doc-divider"></div>
+      <p class="doc-bio" id="doc-bio">I specializuar në kardiologji në Stamboll, Dr. Selishta ofron kujdes profesional me standarde ndërkombëtare. Me fokus në diagnostikim të saktë dhe trajtim efektiv, çdo pacient trajtohet me përkushtim maksimal dhe vëmendje personale.</p>
+
+      <div class="doc-bullets">
+        <div class="doc-bullet">
+          <div class="doc-bullet-icon"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg></div>
+          Diplomuar dhe specializuar në Turqi
+        </div>
+        <div class="doc-bullet">
+          <div class="doc-bullet-icon"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg></div>
+          Eksperiencë në diagnostikim kardiologjik
+        </div>
+        <div class="doc-bullet">
+          <div class="doc-bullet-icon"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg></div>
+          Qasje moderne dhe e personalizuar
+        </div>
+        <div class="doc-bullet">
+          <div class="doc-bullet-icon"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg></div>
+          Kujdes 1-me-1 për çdo pacient
+        </div>
+      </div>
+
+      <a href="tel:+355681234567" class="doc-cta" id="doc-cta">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l.95-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Rezervo Vizitën me Dr. Selishta
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="testi-section">
+  <div class="testi-label">Çfarë Thonë Pacientët</div>
+  <h2 class="testi-title">Besimi i Tyre, Krenaria Jonë</h2>
+  <div class="testi-grid">
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The best clinic in Tirana for heart problems. Professional, fast and caring — I felt in safe hands from the first minute."</p>
+      <div class="testi-author">
+        <div class="testi-avatar testi-av1">HM</div>
+        <div>
+          <div class="testi-name">Haziz Mani</div>
+          <div class="testi-loc">🇦🇱 Tiranë, Shqipëri</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Trust your heart in safe hands! Dr. Selishta is incredibly knowledgeable and kind. The diagnosis was accurate and the treatment worked perfectly."</p>
+      <div class="testi-author">
+        <div class="testi-avatar testi-av2">FL</div>
+        <div>
+          <div class="testi-name">Fatjon Lami</div>
+          <div class="testi-loc">🇦🇱 Tiranë, Shqipëri</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card testi-card-featured">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Dr. Selishta'yı İstanbul'daki eğitiminden tanıyorum. Tirane'de kliniğini açtığını öğrenince hemen ziyaret ettim. Kalp sorunlarıma yaklaşımı son derece profesyoneldi — teşhisi kesin, tedavisi etkili. Türkiye'deki kalitesini Arnavutluk'a taşımış, bu bölgede nadir bulunan bir uzman."</p>
+      <div class="testi-author">
+        <div class="testi-avatar testi-av3">AK</div>
+        <div>
+          <div class="testi-name">Ahmet Kaya</div>
+          <div class="testi-loc">🇹🇷 İstanbul, Türkiye</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ LOCATION SECTION ══ -->
+<section class="loc-section">
+  <div class="loc-inner">
+
+    <!-- LEFT: Info + CTAs -->
+    <div class="loc-panel">
+      <div class="loc-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Na Kontaktoni
+      </div>
+      <h2 class="loc-title" id="loc-title">Vizitoni Klinikën Tonë në Zemër të Tiranës</h2>
+      <p class="loc-sub" id="loc-sub">Vizitoni klinikën tonë dhe përfitoni nga një konsultë profesionale me specialist të trajnuar në Turqi.</p>
+
+      <div class="loc-cards">
+        <div class="loc-card">
+          <div class="loc-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-label">📍 Adresa</div>
+            <div class="loc-card-val">Rruga Kavajës, Kryqëzimi 21 Dhjetori, Tiranë</div>
+          </div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l.95-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-label">📞 Telefoni</div>
+            <div class="loc-card-val">+355 68 123 4567</div>
+          </div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-label">🕒 Orari</div>
+            <div class="loc-card-val">E Hënë – E Premte: 08:00–18:00 &nbsp;|&nbsp; E Shtunë: 09:00–14:00</div>
+          </div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="loc-card-body">
+            <div class="loc-card-label">✉️ Email</div>
+            <div class="loc-card-val">info@kardiologjike-turke.al</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="loc-btns">
+        <button class="loc-btn-primary" id="loc-btn1">Rezervo Vizitën Tani</button>
+        <a href="https://maps.google.com/?q=41.32614,19.80383" target="_blank" class="loc-btn-secondary">
+          🗺 Hap në Google Maps
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT: Map -->
+    <div class="loc-map-wrap">
+      <div class="loc-map-frame">
+        <iframe
+          src="https://maps.google.com/maps?q=41.32614,19.80383&z=18&output=embed&hl=sq"
+          width="100%" height="100%"
+          style="border:0;border-radius:16px;"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <div class="map-pin-badge">
+          <div class="map-pin-dot"></div>
+          <div class="map-pin-text">
+            <strong>Klinika Kardiologjike Turke</strong>
+            <span>Rruga Kavajës, Tiranë</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<div class="cta">
+  <div class="cta-left">
+    <div class="cta-tag" id="cta-tag">⚠️ &nbsp;Mos e shtyj për nesër</div>
+    <h2 id="cta-h2">Mos e injoro shëndetin e zemrës</h2>
+    <p id="cta-p">Kontrolli i hershëm mund të parandalojë probleme serioze. Rezervo sot dhe merr një vlerësim profesional nga specialist i trajnuar në Stamboll.</p>
+    <div class="cta-badges">
+      <div class="cta-badge" id="cta-badge1">⏱️ Konsultë brenda 24 orëve</div>
+      <div class="cta-badge" id="cta-badge2">✔️ Pa pritje, shërbim i menjëhershëm</div>
+    </div>
+  </div>
+  <div class="cta-right">
+    <button class="btn-cta-primary" id="cta-btn1">Rezervo Vizitën Brenda Sot</button>
+    <a href="tel:+355681234567" class="btn-cta-secondary" id="cta-btn2">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l.95-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Na Telefono Tani
+    </a>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Klinika Kardiologjike Turke &middot; Tiranë, Shqipëri</p>
+  <div class="fl">
+    <a href="#">Privatësia</a>
+    <a href="#">Kushtet</a>
+    <a href="#">GDPR</a>
+  </div>
+</footer>
+
+<!-- Mobile social strip — shown only on mobile at very bottom -->
+<div class="mobile-social-strip">
+  <a href="https://www.facebook.com/share/1DzCzVTqsb/?mibextid=wwXIfr" target="_blank" class="ms-fb" title="Facebook">
+    <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+  </a>
+  <a href="https://www.instagram.com/klinikakardiologjiketurke?igsh=MTJiZm44YjhqY2Uzaw==" target="_blank" class="ms-ig" title="Instagram">
+    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+  </a>
+  <a href="https://wa.me/355696042777" target="_blank" class="ms-wa" title="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+  </a>
+  <a href="https://www.tiktok.com/@klinikaturke?_r=1&_t=ZS-95hTcETu1iO" target="_blank" class="ms-tt" title="TikTok">
+    <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+  </a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// BACKGROUND CANVAS — rich layered medical bg
+// ═══════════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, t = 0;
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function drawBg() {
+    // #0A2540 → #1E90FF → #EAF4FF diagonal gradient
+    const g = ctx.createLinearGradient(0, H, W, 0);
+    g.addColorStop(0,    '#0A2540');
+    g.addColorStop(0.35, '#0D3560');
+    g.addColorStop(0.62, '#1E6FCC');
+    g.addColorStop(0.82, '#4AABFF');
+    g.addColorStop(1,    '#EAF4FF');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawRadialGlow() {
+    // Glow i lehtë pas doktorit — blu elektrik
+    const cx = W * 0.65, cy = H * 0.44;
+    const r  = Math.min(W, H) * 0.52;
+    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    grd.addColorStop(0,    'rgba(30,144,255,0.28)');
+    grd.addColorStop(0.25, 'rgba(30,144,255,0.18)');
+    grd.addColorStop(0.5,  'rgba(74,171,255,0.10)');
+    grd.addColorStop(0.75, 'rgba(234,244,255,0.05)');
+    grd.addColorStop(1,    'rgba(234,244,255,0)');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, W, H);
+
+    // Accent glow top-right corner
+    const gr2 = ctx.createRadialGradient(W*0.88, H*0.08, 0, W*0.88, H*0.08, W*0.32);
+    gr2.addColorStop(0,   'rgba(74,171,255,0.2)');
+    gr2.addColorStop(1,   'rgba(74,171,255,0)');
+    ctx.fillStyle = gr2;
+    ctx.fillRect(0, 0, W, H);
+
+    // Bottom dark anchor
+    const gr3 = ctx.createRadialGradient(W*0.15, H*0.9, 0, W*0.15, H*0.9, W*0.35);
+    gr3.addColorStop(0,   'rgba(10,37,64,0.4)');
+    gr3.addColorStop(1,   'rgba(10,37,64,0)');
+    ctx.fillStyle = gr3;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawConcentricRings() {
+    // Sonar/heartbeat concentric rings — key template feature
+    const cx = W * 0.62, cy = H * 0.48;
+    const maxR = Math.max(W, H) * 0.7;
+    const numRings = 9;
+
+    for (let i = 0; i < numRings; i++) {
+      const frac = (i + 1) / numRings;
+      const r = frac * maxR;
+      // Animate rings subtly — breathe in/out
+      const pulse = 1 + Math.sin(t * 0.3 + i * 0.6) * 0.012;
+      const alpha = (1 - frac) * 0.09 * (0.7 + 0.3 * Math.sin(t * 0.2 + i));
+
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, r * pulse * 1.15, r * pulse * 0.85, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(30,144,255,${alpha})`;
+      ctx.lineWidth = frac < 0.4 ? 1.2 : 0.7;
+      ctx.stroke();
+    }
+  }
+
+  function drawMedicalGrid() {
+    // Subtle medical grid in center-right area
+    const gridSize = 32;
+    const alpha = 0.055;
+
+    ctx.strokeStyle = `rgba(30,144,255,${alpha})`;
+    ctx.lineWidth = 0.5;
+
+    // Only in center zone
+    const x0 = W * 0.35, x1 = W * 0.95;
+    const y0 = H * 0.05, y1 = H * 0.92;
+
+    for (let x = x0; x <= x1; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, y0);
+      ctx.lineTo(x, y1);
+      ctx.stroke();
+    }
+    for (let y = y0; y <= y1; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x0, y);
+      ctx.lineTo(x1, y);
+      ctx.stroke();
+    }
+
+    // Cross markers at intersections (medical look)
+    ctx.strokeStyle = `rgba(30,144,255,${alpha * 1.4})`;
+    ctx.lineWidth = 0.8;
+    for (let x = x0; x <= x1; x += gridSize * 3) {
+      for (let y = y0; y <= y1; y += gridSize * 3) {
+        const sz = 4;
+        ctx.beginPath(); ctx.moveTo(x-sz,y); ctx.lineTo(x+sz,y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(x,y-sz); ctx.lineTo(x,y+sz); ctx.stroke();
+      }
+    }
+  }
+
+  function drawFloatingParticles() {
+    // Tiny glowing particles drifting upward
+    const particles = 22;
+    for (let i = 0; i < particles; i++) {
+      const seed = i * 137.5;
+      const px = (seed % W);
+      const speed = 0.15 + (i % 5) * 0.06;
+      const py = (H - ((t * speed * 30 + i * (H / particles)) % H));
+      const sz = 1 + (i % 3) * 0.8;
+      const alpha = 0.12 + Math.sin(t * 0.5 + i) * 0.06;
+      const pulse = 1 + Math.sin(t * 0.8 + i * 0.4) * 0.3;
+
+      ctx.beginPath();
+      ctx.arc(px, py, sz * pulse, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(120,185,240,${alpha})`;
+      ctx.fill();
+    }
+  }
+
+  function drawLightRays() {
+    // Subtle light rays from top-right (like studio light in template)
+    const sx = W * 0.78, sy = -H * 0.1;
+    const numRays = 6;
+
+    for (let i = 0; i < numRays; i++) {
+      const angle = (Math.PI * 0.55) + (i / numRays) * (Math.PI * 0.35);
+      const len = Math.max(W, H) * 1.4;
+      const spread = 0.018 + i * 0.006;
+      const alpha = (0.025 - i * 0.003) * (0.8 + 0.2 * Math.sin(t * 0.15 + i));
+
+      const ex1 = sx + Math.cos(angle - spread) * len;
+      const ey1 = sy + Math.sin(angle - spread) * len;
+      const ex2 = sx + Math.cos(angle + spread) * len;
+      const ey2 = sy + Math.sin(angle + spread) * len;
+
+      const rayGrad = ctx.createLinearGradient(sx, sy, (ex1+ex2)/2, (ey1+ey2)/2);
+      rayGrad.addColorStop(0,   `rgba(220,240,255,${alpha * 2})`);
+      rayGrad.addColorStop(0.3, `rgba(210,235,255,${alpha})`);
+      rayGrad.addColorStop(1,   `rgba(200,230,255,0)`);
+
+      ctx.beginPath();
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(ex1, ey1);
+      ctx.lineTo(ex2, ey2);
+      ctx.closePath();
+      ctx.fillStyle = rayGrad;
+      ctx.fill();
+    }
+  }
+
+  function render() {
+    t += 0.016;
+    ctx.clearRect(0, 0, W, H);
+    drawBg();
+    drawLightRays();
+    drawConcentricRings();
+    drawMedicalGrid();
+    drawRadialGlow();
+    drawFloatingParticles();
+    requestAnimationFrame(render);
+  }
+  render();
+})();
+
+// ═══════════════════════════════════════════
+// ECG CANVAS — dot follows actual curve path
+// ═══════════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('ecgCanvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, t  = 0;
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); });
+
+    // Sharp angular ECG — real heartbeat, no smooth curves
+    function ecgShape(p) {
+      if (p < 0.30) return 0.5;
+      if (p < 0.33) return 0.5 - 0.06 * ((p-0.30)/0.03);   // P up
+      if (p < 0.36) return 0.44 + 0.06 * ((p-0.33)/0.03);  // P down
+      if (p < 0.40) return 0.5;
+      if (p < 0.42) return 0.5 + 0.12 * ((p-0.40)/0.02);   // Q dip
+      if (p < 0.44) return 0.62 - 0.90 * ((p-0.42)/0.02);  // R sharp up
+      if (p < 0.46) return -0.28 + 0.90 * ((p-0.44)/0.02); // R sharp down
+      if (p < 0.49) return 0.62 - 0.12 * ((p-0.46)/0.03);  // S back
+      if (p < 0.52) return 0.5;
+      if (p < 0.58) return 0.5 - 0.10 * ((p-0.52)/0.06);   // T up straight
+      if (p < 0.64) return 0.40 + 0.10 * ((p-0.58)/0.06);  // T down straight
+      return 0.5;
+    }
+
+  // Build the full multi-cycle ECG path across the width
+  function getEcgPoints(numCycles, yCenter, amplitude) {
+    const pts = [];
+    const totalPts = 600;
+    for (let i = 0; i <= totalPts; i++) {
+      const px = i / totalPts;           // 0..1 horizontal
+      const cycle = (px * numCycles) % 1; // position within current beat
+      const shape = ecgShape(cycle);
+      const x = px * W;
+      const y = yCenter + (shape - 0.5) * amplitude;
+      pts.push({ x, y });
+    }
+    return pts;
+  }
+
+  function render() {
+    t += 0.008;
+    ctx.clearRect(0, 0, W, H);
+
+    const yCenter  = H * 0.48;
+    const amplitude = H * 0.72;
+    const numCycles = 3;
+    const pts = getEcgPoints(numCycles, yCenter, amplitude);
+
+    // Draw straight baseline
+    ctx.beginPath();
+    ctx.moveTo(0, yCenter);
+    ctx.lineTo(W, yCenter);
+    ctx.strokeStyle = 'rgba(220, 10, 30, 0.12)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Moving dot
+    const progress = (t * 0.18) % 1;
+    // Find the point at this progress
+    const idx = Math.min(Math.floor(progress * (pts.length - 1)), pts.length - 1);
+    const pt  = pts[idx];
+
+    // Glow behind dot
+    const grd = ctx.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, 18);
+    grd.addColorStop(0,   'rgba(232,0,29,0.45)');
+    grd.addColorStop(0.4, 'rgba(232,0,29,0.15)');
+    grd.addColorStop(1,   'rgba(232,0,29,0)');
+    ctx.fillStyle = grd;
+    ctx.beginPath();
+    ctx.arc(pt.x, pt.y, 18, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Inner bright dot
+    ctx.beginPath();
+    ctx.arc(pt.x, pt.y, 4.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#E8001D';
+    ctx.shadowColor = 'rgba(232,0,29,0.8)';
+    ctx.shadowBlur = 10;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Trailing tail — draws the ECG shape behind the dot
+    const tailLen = 120;
+    const tailStart = Math.max(0, idx - tailLen);
+    if (idx > tailStart) {
+      ctx.beginPath();
+      ctx.moveTo(pts[tailStart].x, pts[tailStart].y);
+      for (let i = tailStart + 1; i <= idx; i++) {
+        ctx.lineTo(pts[i].x, pts[i].y);
+      }
+      const tailGrd = ctx.createLinearGradient(pts[tailStart].x, 0, pt.x, 0);
+      tailGrd.addColorStop(0,   'rgba(232,0,29,0)');
+      tailGrd.addColorStop(0.6, 'rgba(232,0,29,0.35)');
+      tailGrd.addColorStop(1,   'rgba(232,0,29,0.75)');
+      ctx.strokeStyle = tailGrd;
+      ctx.lineWidth = 2.2;
+      ctx.lineJoin = 'miter';
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(render);
+  }
+  render();
+})();
+</script>
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-backdrop"></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-icon" id="modal-icon"></div>
+      <div class="modal-head-text">
+        <div class="modal-title" id="modal-title"></div>
+        <div class="modal-sub" id="modal-sub"></div>
+      </div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-body">
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-points" id="modal-points"></div>
+      <button class="modal-cta" onclick="closeModal()">Rezervo Vizitë &rarr;</button>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <p>&copy; 2025 Klinika Kardiologjike Turke &middot; Tiranë, Shqipëri</p>
-  <div class="footer-social">
-    <a href="https://www.facebook.com/share/1DzCzVTqsb/?mibextid=wwXIfr" target="_blank" class="footer-sc fb"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-    <a href="https://www.instagram.com/klinikakardiologjiketurke?igsh=MTJiZm44YjhqY2Uzaw==" target="_blank" class="footer-sc ig"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-    <a href="https://wa.me/355696042777" target="_blank" class="footer-sc wa"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
-    <a href="https://www.tiktok.com/@klinikaturke" target="_blank" class="footer-sc tt"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
-  </div>
-</footer>
-
 <script>
-function toggleMenu(){
-  document.getElementById('mobile-menu').classList.toggle('open');
-  document.getElementById('hamburger').classList.toggle('open');
+const services = {
+  ekg: {
+    title: 'EKG — Elektrokardiogram',
+    sub: 'Diagnostikim i shpejtë dhe pa dhimbje',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+    desc: 'Elektrokardiogrami (EKG) është një test thelbësor që regjistron aktivitetin elektrik të zemrës. Është procedurë e shpejtë, e painshme dhe shumë e rëndësishme për diagnostikimin e problemeve kardiake. Brenda disa minutash, ne mund të identifikojmë çrregullime të ritmit, shenja të infarktit ose probleme të tjera serioze.',
+    points: [
+      'Procedurë e painshme — zgjat vetëm 5-10 minuta',
+      'Detekton aritmitë, fibrilacionin atrial dhe bllokimet',
+      'Identifikon shenjat e hershme të infarktit të miokardit',
+      'Analizë e menjëhershme nga kardiologue të specializuar',
+      'Raport i detajuar me rekomandime terapeutike'
+    ]
+  },
+  eko: {
+    title: 'EKO — Ekokardiogram',
+    sub: 'Imazhe me ultratinguj të zemrës suaj',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 10 q1.2-3 2.5 0 t2.5 0 t2.5 0" stroke-linecap="round"/></svg>',
+    desc: 'Ekokardiografia është ekzaminimi me ultratinguj (echo) i zemrës, që jep imazhe të detajuara të strukturës dhe funksionit të saj. Me teknologjinë më të re 2D dhe Doppler, vlerësojmë valvulat, miokardin dhe rrjedhën e gjakut me precizion të lartë.',
+    points: [
+      'Imazhe në kohë reale të strukturës së zemrës',
+      'Vlerësim i funksionit të valvulave (mitrale, aortike, trikuspide)',
+      'Matje e fraksionit të ejeksionit dhe funksionit sistolic',
+      'Detektim i lëngjeve perikardiale dhe trombeve',
+      'Plotësisht i sigurt — pa rrezatim, pa efekte anësore'
+    ]
+  },
+  holter: {
+    title: 'Holter — Monitorim 24/48 orë',
+    sub: 'Regjistrim i vazhdueshëm i ritmit kardiak',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><rect x="4" y="2" width="16" height="20" rx="2"/><polyline points="8 10 10 12 14 8"/><line x1="8" y1="16" x2="16" y2="16"/></svg>',
+    desc: 'Monitorimi Holter është një EKG i vazhdueshëm që regjistron aktivitetin kardiak gjatë 24 deri në 48 orëve, ndërkohë që pacienti kryen aktivitetet e tij normale. Kjo lejon identifikimin e aritmive intermitente që mund të shpëtojnë gjatë një EKG-je të zakonshme.',
+    points: [
+      'Regjistrim i pandërprerë për 24 ose 48 orë',
+      'Pacienti jeton normalisht gjatë monitorimit',
+      'Identifikon aritmitë sporadike dhe episodet e fikjes',
+      'Korrelacion me simptomat — ditari i pacientit',
+      'Analizë kompjuterike e mbi 100.000 rrahjeve të zemrës'
+    ]
+  },
+  test: {
+    title: 'Test Ushtrimor — Stres Test',
+    sub: 'Vlerësim i zemrës nën ngarkesë fizike',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="13" cy="6" r="3"/><path d="M5 20c0-3.5 3.1-6.2 7-6.2"/><path d="M15 14l5 5M20 14l-5 5"/></svg>',
+    desc: 'Testi ushtrimor (Stress Test) vlerëson si reagon zemra juaj ndaj ngarkesës fizike progresive. Realizohet mbi tapiseri lëvizëse ose biçikletë stacionare, ndërkohë monitorojmë EKG-në, presionin e gjakut dhe saturacionin e oksigjenit. Është standardi i artë për diagnostikimin e sëmundjes koronare.',
+    points: [
+      'Detektim i sëmundjes arteriale koronare',
+      'Vlerësim i kapacitetit funksional kardio-pulmonar',
+      'Identifikon isheminë e miokarduit nën ngarkesë',
+      'Guidon programin e rehabilitimit kardiak',
+      'Monitorim i plotë: EKG + presion + SpO₂ në kohë reale'
+    ]
+  }
+};
+
+function openModal(key) {
+  const s = services[key];
+  document.getElementById('modal-icon').innerHTML  = s.icon;
+  document.getElementById('modal-title').textContent = s.title;
+  document.getElementById('modal-sub').textContent   = s.sub;
+  document.getElementById('modal-desc').textContent  = s.desc;
+
+  const pts = document.getElementById('modal-points');
+  pts.innerHTML = s.points.map(p => `
+    <div class="modal-point">
+      <div class="modal-point-dot">
+        <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <span>${p}</span>
+    </div>`).join('');
+
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
-document.addEventListener('click',function(e){
-  const m=document.getElementById('mobile-menu');
-  const h=document.getElementById('hamburger');
-  if(m.classList.contains('open')&&!m.contains(e.target)&&!h.contains(e.target)){
-    m.classList.remove('open');h.classList.remove('open');
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal') || e.target.classList.contains('modal-backdrop')) {
+    closeModal();
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+<script>
+// ═══════════════════════════════════════════
+// LANGUAGE SWITCHER
+// ═══════════════════════════════════════════
+const translations = {
+  sq: {
+    'nav-cta':        'Rezervo Vizitë',
+    'hero-title':     'Ekspertizë Kardiologjike nga Turqia, Tani në Tiranë',
+    'hero-sub':       'Diagnostikim dhe trajtim nga një specialist i trajnuar në Stamboll, me fokus në kujdes të personalizuar për çdo pacient.',
+    'hero-btn1':      'Rezervo Vizitën Tani',
+    'hero-btn2':      'Na Telefono',
+    'trust-1':        '🎓 Trajnim dhe specializim në Turqi',
+    'trust-1-sub':    'Diplomuar në Stamboll',
+    'trust-2':        '🩺 Kujdes i personalizuar 1-me-1',
+    'trust-2-sub':    'Çdo pacient, fokus i plotë',
+    'trust-3':        '⏱️ Pa pritje, shërbim i shpejtë',
+    'trust-3-sub':    'Rezervo dhe vij direkt',
+    'doc-label':      'Njihuni me Specialistin Tonë',
+    'doc-bio':        'I specializuar në kardiologji në Stamboll, Dr. Selishta ofron kujdes profesional me standarde ndërkombëtare. Me fokus në diagnostikim të saktë dhe trajtim efektiv, çdo pacient trajtohet me përkushtim maksimal dhe vëmendje personale.',
+    'doc-cta':        'Rezervo Vizitën me Dr. Selishta',
+    'cta-tag':        '⚠️ \u00a0Mos e shtyj për nesër',
+    'cta-h2':         'Mos e injoro shëndetin e zemrës',
+    'cta-p':          'Kontrolli i hershëm mund të parandalojë probleme serioze. Rezervo sot dhe merr një vlerësim profesional nga specialist i trajnuar në Stamboll.',
+    'cta-btn1':       'Rezervo Vizitën Brenda Sot',
+    'cta-btn2':       'Na Telefono Tani',
+    'cta-badge1':     '⏱️ Konsultë brenda 24 orëve',
+    'cta-badge2':     '✔️ Pa pritje, shërbim i menjëhershëm',
+    'loc-title':      'Vizitoni Klinikën Tonë në Zemër të Tiranës',
+    'loc-sub':        'Vizitoni klinikën tonë dhe përfitoni nga një konsultë profesionale me specialist të trajnuar në Turqi.',
+    'loc-btn1':       'Rezervo Vizitën Tani',
+    'loc-btn2':       '🗺 Hap në Google Maps',
+  },
+  en: {
+    'nav-cta':        'Book Appointment',
+    'hero-title':     'Cardiology Expertise from Turkey, Now in Tirana',
+    'hero-sub':       'Diagnosis and treatment by a specialist trained in Istanbul, focused on personalized care for every patient.',
+    'hero-btn1':      'Book Your Visit Now',
+    'hero-btn2':      'Call Us',
+    'trust-1':        '🎓 Training & specialization in Turkey',
+    'trust-1-sub':    'Graduated in Istanbul',
+    'trust-2':        '🩺 Personalized 1-on-1 care',
+    'trust-2-sub':    'Every patient, full focus',
+    'trust-3':        '⏱️ No waiting, fast service',
+    'trust-3-sub':    'Book and come right in',
+    'doc-label':      'Meet Our Specialist',
+    'doc-bio':        'Specialized in cardiology in Istanbul, Dr. Selishta delivers professional care to international standards. With a focus on accurate diagnosis and effective treatment, every patient receives maximum dedication and personal attention.',
+    'doc-cta':        'Book with Dr. Selishta',
+    'cta-tag':        '⚠️ \u00a0Don\'t wait until tomorrow',
+    'cta-h2':         'Don\'t ignore your heart health',
+    'cta-p':          'Early screening can prevent serious problems. Book today and get a professional assessment from a specialist trained in Istanbul.',
+    'cta-btn1':       'Book Your Visit Today',
+    'cta-btn2':       'Call Us Now',
+    'cta-badge1':     '⏱️ Consultation within 24 hours',
+    'cta-badge2':     '✔️ No waiting, immediate service',
+    'loc-title':      'Visit Our Clinic in the Heart of Tirana',
+    'loc-sub':        'Visit our clinic and benefit from a professional consultation with a specialist trained in Turkey.',
+    'loc-btn1':       'Book Your Visit Now',
+    'loc-btn2':       '🗺 Open in Google Maps',
+  },
+  tr: {
+    'nav-cta':        'Randevu Al',
+    'hero-title':     'Türkiye\'den Kardiyoloji Uzmanlığı, Artık Tiran\'da',
+    'hero-sub':       'İstanbul\'da eğitim almış bir uzman tarafından tanı ve tedavi, her hastaya kişiselleştirilmiş bakım odaklı.',
+    'hero-btn1':      'Hemen Randevu Al',
+    'hero-btn2':      'Bizi Arayın',
+    'trust-1':        '🎓 Türkiye\'de eğitim ve uzmanlık',
+    'trust-1-sub':    'İstanbul\'da mezun',
+    'trust-2':        '🩺 Birebir kişiselleştirilmiş bakım',
+    'trust-2-sub':    'Her hasta, tam odak',
+    'trust-3':        '⏱️ Bekleme yok, hızlı hizmet',
+    'trust-3-sub':    'Randevu al ve gel',
+    'doc-label':      'Uzmanımızla Tanışın',
+    'doc-bio':        'İstanbul\'da kardiyoloji uzmanlaşması yapan Dr. Selishta, uluslararası standartlarda profesyonel bakım sunmaktadır. Doğru tanı ve etkili tedaviye odaklanarak her hastaya maksimum özveri ve kişisel ilgi gösterilmektedir.',
+    'doc-cta':        'Dr. Selishta ile Randevu Al',
+    'cta-tag':        '⚠️ \u00a0Yarına bırakmayın',
+    'cta-h2':         'Kalbinizin sağlığını görmezden gelmeyin',
+    'cta-p':          'Erken kontrol ciddi sorunları önleyebilir. Bugün randevu alın ve İstanbul\'da eğitim almış bir uzmandan profesyonel değerlendirme alın.',
+    'cta-btn1':       'Bugün Randevu Alın',
+    'cta-btn2':       'Şimdi Arayın',
+    'cta-badge1':     '⏱️ 24 saat içinde konsültasyon',
+    'cta-badge2':     '✔️ Bekleme yok, anında hizmet',
+    'loc-title':      'Tiran\'ın Kalbindeki Kliniğimizi Ziyaret Edin',
+    'loc-sub':        'Kliniğimizi ziyaret edin ve Türkiye\'de eğitim almış bir uzmanla profesyonel konsültasyondan yararlanın.',
+    'loc-btn1':       'Hemen Randevu Al',
+    'loc-btn2':       '🗺 Google Haritalar\'da Aç',
+  }
+};
+
+function toggleLang(e) {
+  e.stopPropagation();
+  document.getElementById('langDropdown').classList.toggle('open');
+}
+
+function selectLang(lang, flag, code) {
+  // Update trigger button
+  document.getElementById('triggerFlag').textContent = flag;
+  document.getElementById('triggerCode').textContent = code;
+  // Update active state on options
+  document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  // Close dropdown
+  document.getElementById('langDropdown').classList.remove('open');
+  // Apply translations
+  setLang(lang);
+  // Sync mobile menu lang buttons
+  document.querySelectorAll('.mobile-menu .lang-btn').forEach(b => b.classList.remove('active'));
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  const dd = document.getElementById('langDropdown');
+  if(dd && !dd.contains(e.target)) dd.classList.remove('open');
+});
+
+function toggleMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const ham  = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  ham.classList.toggle('open');
+}
+
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('mobile-menu');
+  const ham  = document.getElementById('hamburger');
+  if(!menu || !ham) return;
+  if(menu.classList.contains('open') && !menu.contains(e.target) && !ham.contains(e.target)){
+    menu.classList.remove('open');
+    ham.classList.remove('open');
   }
 });
 
-function submitForm(e){
-  e.preventDefault();
-  const f = e.target;
-  const emri    = f.querySelector('input[placeholder="Emri juaj"]').value.trim();
-  const mbiemri = f.querySelector('input[placeholder="Mbiemri juaj"]').value.trim();
-  const tel     = f.querySelector('input[type="tel"]').value.trim();
-  const email   = f.querySelector('input[type="email"]').value.trim();
-  const arsyeja = f.querySelector('select').value;
-  const msg     = f.querySelector('textarea').value.trim();
+// Show mobile buttons on small screens
+function checkMobile() {
+  const isMobile = window.innerWidth <= 900;
+  document.querySelectorAll('.svc-mobile-btn').forEach(btn => {
+    btn.style.display = isMobile ? 'flex' : 'none';
+  });
+}
+checkMobile();
+window.addEventListener('resize', checkMobile);
 
-  const text =
-    `🏥 *Kërkesë e Re — Klinika Kardiologjike Turke*\n\n` +
-    `👤 *Emri:* ${emri} ${mbiemri}\n` +
-    `📞 *Telefoni:* ${tel}\n` +
-    (email ? `✉️ *Email:* ${email}\n` : '') +
-    (arsyeja ? `🩺 *Arsyeja:* ${arsyeja}\n` : '') +
-    (msg ? `\n💬 *Mesazhi:*\n${msg}` : '');
+function setLang(lang) {
+  const t = translations[lang];
 
-  const waUrl = `https://wa.me/355696042777?text=${encodeURIComponent(text)}`;
-  window.open(waUrl, '_blank');
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll(`.lang-btn[onclick*="setLang('${lang}')"]`).forEach(b => b.classList.add('active'));
 
-  // Show success
-  f.style.display = 'none';
-  document.getElementById('formSuccess').style.display = 'block';
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
+
+  set('nav-cta',    t['nav-cta']);
+  set('hero-title', t['hero-title']);
+  set('hero-sub',   t['hero-sub']);
+  set('hero-btn1',  t['hero-btn1']);
+  set('hero-btn2',  t['hero-btn2']);
+  set('trust-1',    t['trust-1']);
+  set('trust-1-sub',t['trust-1-sub']);
+  set('trust-2',    t['trust-2']);
+  set('trust-2-sub',t['trust-2-sub']);
+  set('trust-3',    t['trust-3']);
+  set('trust-3-sub',t['trust-3-sub']);
+  set('doc-label',  t['doc-label']);
+  set('doc-bio',    t['doc-bio']);
+  set('doc-cta',    t['doc-cta']);
+  set('cta-tag',    t['cta-tag']);
+  set('cta-h2',     t['cta-h2']);
+  set('cta-p',      t['cta-p']);
+  set('cta-btn1',   t['cta-btn1']);
+  set('cta-btn2',   t['cta-btn2']);
+  set('cta-badge1', t['cta-badge1']);
+  set('cta-badge2', t['cta-badge2']);
+  set('loc-title',  t['loc-title']);
+  set('loc-sub',    t['loc-sub']);
+  set('loc-btn1',   t['loc-btn1']);
+  set('loc-btn2',   t['loc-btn2']);
 }
 </script>
 </body>
