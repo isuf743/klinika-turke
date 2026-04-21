@@ -230,7 +230,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   <div class="diag-grid">
 
     <!-- EKG -->
-    <div class="diag-card">
+    <div class="diag-card" id="ekg">
       <div class="diag-card-head">
         <div class="diag-icon" style="background:linear-gradient(135deg,#2563EB,#1D4ED8)">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -257,7 +257,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
     </div>
 
     <!-- EKO -->
-    <div class="diag-card">
+    <div class="diag-card" id="eko">
       <div class="diag-card-head">
         <div class="diag-icon" style="background:linear-gradient(135deg,#0891B2,#0E7490)">
           <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 10 q1.5-3 3 0 t3 0 t3 0" stroke-linecap="round"/></svg>
@@ -284,7 +284,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
     </div>
 
     <!-- HOLTER -->
-    <div class="diag-card">
+    <div class="diag-card" id="holter">
       <div class="diag-card-head">
         <div class="diag-icon" style="background:linear-gradient(135deg,#7C3AED,#6D28D9)">
           <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><polyline points="8 10 10 12 14 8"/><line x1="8" y1="16" x2="16" y2="16"/></svg>
@@ -311,7 +311,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
     </div>
 
     <!-- TEST USHTRIMOR -->
-    <div class="diag-card">
+    <div class="diag-card" id="test">
       <div class="diag-card-head">
         <div class="diag-icon" style="background:linear-gradient(135deg,#DC2626,#B91C1C)">
           <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -496,7 +496,33 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   </div>
 </footer>
 
+
+</body>
+</html>
+
 <script>
+// Scroll to anchor with offset for fixed nav
+window.addEventListener('load', function(){
+  const hash = window.location.hash;
+  if(hash){
+    const el = document.querySelector(hash);
+    if(el){
+      setTimeout(()=>{
+        const offset = 80;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({top, behavior:'smooth'});
+        // Highlight card briefly
+        el.style.transition='box-shadow .3s,border-color .3s';
+        el.style.boxShadow='0 0 0 3px rgba(37,99,235,.4)';
+        el.style.borderColor='rgba(37,99,235,.5)';
+        setTimeout(()=>{
+          el.style.boxShadow='';
+          el.style.borderColor='';
+        }, 2000);
+      }, 300);
+    }
+  }
+});
 function toggleMenu(){
   document.getElementById('mobile-menu').classList.toggle('open');
   document.getElementById('hamburger').classList.toggle('open');
@@ -509,5 +535,3 @@ document.addEventListener('click',function(e){
   }
 });
 </script>
-</body>
-</html>
