@@ -975,14 +975,15 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   <canvas id="introEcg" style="position:absolute;bottom:38%;left:0;width:100%;height:120px;pointer-events:none"></canvas>
 
   <div id="introPulse" style="position:relative;z-index:3;text-align:center;animation:introPulseAnim 2s ease-in-out infinite">
-    <div style="width:70px;height:70px;border-radius:50%;
-      background:rgba(96,165,250,.15);border:2px solid rgba(96,165,250,.4);
+    <div style="
       display:flex;align-items:center;justify-content:center;
-      margin:0 auto 1.2rem;box-shadow:0 0 30px rgba(96,165,250,.2)">
-      <span style="font-size:1.8rem;color:#60A5FA">✚</span>
+      margin:0 auto 1.2rem;
+      filter:drop-shadow(0 0 18px rgba(220,38,38,.7)) drop-shadow(0 0 40px rgba(220,38,38,.3));
+    ">
+      <span style="font-size:72px;line-height:1">🫀</span>
     </div>
-    <div style="font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:500;
-      color:rgba(255,255,255,.5);letter-spacing:.18em;text-transform:uppercase">
+    <div style="font-family:'Poppins',sans-serif;font-size:.75rem;font-weight:500;
+      color:rgba(255,255,255,.45);letter-spacing:.2em;text-transform:uppercase">
       Tap to enter
     </div>
   </div>
@@ -1009,7 +1010,10 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 </div>
 
 <style>
-@keyframes introPulseAnim{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.04);opacity:.75}}
+@keyframes introPulseAnim{
+  0%,100%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.1);opacity:.85}
+}
 </style>
 
 <script>
