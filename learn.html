@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mëso Me Ne — Klinika Kardiologjike Turke</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --primary:#2563EB;--pd:#1D4ED8;--pl:#EFF6FF;
+  --bg:#F9FAFB;--text:#111827;--sec:#6B7280;--bd:#0A2540;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 4%;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(30,93,184,.08),0 4px 24px rgba(13,43,94,.06)}
+.nav-logo{display:flex;align-items:center;gap:6px;text-decoration:none}
+.logo-cross{color:var(--primary);font-size:1.55rem;font-weight:900;line-height:1}
+.logo-name{font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:800;color:var(--bd);display:flex;align-items:center;gap:5px}
+.logo-name span{color:var(--primary)}
+.logo-flag{width:22px;height:15px}
+.nav-links{display:flex;align-items:center;gap:.1rem}
+.nav-links a{font-size:.875rem;font-weight:600;color:var(--text);text-decoration:none;padding:.38rem .9rem;border-radius:7px;transition:color .2s,background .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--primary);background:var(--pl)}
+.nav-right{display:flex;align-items:center;gap:.9rem}
+.btn-nav{background:var(--primary);color:#fff;border:none;padding:.58rem 1.35rem;border-radius:8px;font-size:.875rem;font-family:'Poppins',sans-serif;font-weight:700;cursor:pointer;transition:background .2s;text-decoration:none}
+.btn-nav:hover{background:var(--bd)}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;top:66px;left:0;right:0;background:#fff;z-index:299;padding:0 5%;border-bottom:1px solid #E5E7EB;box-shadow:0 8px 30px rgba(0,0,0,.08);flex-direction:column;gap:.3rem;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;display:flex}
+.mobile-menu.open{max-height:400px;padding:1rem 5% 1.5rem}
+.mobile-menu a{font-size:1rem;font-weight:600;color:var(--text);text-decoration:none;padding:.9rem 1rem;border-radius:10px;display:block;border-bottom:1px solid #F9FAFB}
+.mobile-menu .btn-nav-m{background:var(--primary);color:#fff;border:none;padding:1rem;border-radius:10px;font-size:.95rem;font-family:'Poppins',sans-serif;font-weight:700;cursor:pointer;text-align:center;width:100%;margin-top:.5rem;text-decoration:none;display:block}
+
+/* HERO */
+.hero{
+  padding-top:66px;
+  background:linear-gradient(120deg,#060E1C 0%,#0A2540 40%,#0D3A6E 70%,#1254B0 100%);
+  padding-bottom:4rem;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 80% 50%,rgba(37,99,235,.12) 0%,transparent 70%)}
+.hero-inner{position:relative;z-index:1;padding:4rem 5% 2rem;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:.35rem .9rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:1.2rem}
+.hero h1{font-family:'Poppins',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:.9rem}
+.hero h1 span{color:#60A5FA}
+.hero p{font-size:1rem;color:rgba(255,255,255,.7);max-width:560px;line-height:1.75;margin:0 auto 2rem}
+
+/* FILTER TABS */
+.filter-wrap{background:#fff;border-bottom:1px solid #E5E7EB;position:sticky;top:66px;z-index:100;padding:.75rem 5%;display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none}
+.filter-wrap::-webkit-scrollbar{display:none}
+.filter-btn{flex-shrink:0;padding:.45rem 1rem;border-radius:100px;border:1.5px solid #E5E7EB;background:#fff;font-size:.78rem;font-weight:600;color:var(--sec);cursor:pointer;transition:all .18s;font-family:'Poppins',sans-serif;white-space:nowrap}
+.filter-btn:hover{border-color:var(--primary);color:var(--primary)}
+.filter-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* ARTICLES GRID */
+.articles-wrap{padding:3rem 5%;max-width:1200px;margin:0 auto}
+.articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+/* ARTICLE CARD */
+.card{background:#fff;border-radius:18px;border:1.5px solid #E5E7EB;overflow:hidden;transition:transform .22s,box-shadow .22s,border-color .22s;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(37,99,235,.1);border-color:rgba(37,99,235,.2)}
+.card-visual{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex-shrink:0}
+.card-emoji{font-size:4.5rem;filter:drop-shadow(0 4px 12px rgba(0,0,0,.15));position:relative;z-index:1}
+.card-tag{position:absolute;top:10px;left:10px;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .65rem;border-radius:100px;z-index:2}
+.card-body{padding:1.3rem;flex:1;display:flex;flex-direction:column}
+.card-title{font-family:'Poppins',sans-serif;font-size:1rem;font-weight:800;color:var(--bd);margin-bottom:.5rem;line-height:1.3}
+.card-desc{font-size:.82rem;color:var(--sec);line-height:1.65;flex:1}
+.card-footer{margin-top:1rem;padding-top:.8rem;border-top:1px solid #F3F4F6;display:flex;align-items:center;justify-content:space-between}
+.card-read{font-size:.72rem;font-weight:700;color:var(--primary);display:flex;align-items:center;gap:4px}
+.card-read svg{width:12px;height:12px;stroke:var(--primary);fill:none;stroke-width:2.5}
+.card-likes{font-size:.72rem;color:var(--sec);display:flex;align-items:center;gap:4px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(4px)}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:#fff;border-radius:20px;max-width:620px;width:100%;max-height:88vh;overflow-y:auto;position:relative;transform:translateY(16px) scale(.97);transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1)}
+.modal-visual{height:200px;display:flex;align-items:center;justify-content:center;position:relative;border-radius:20px 20px 0 0;overflow:hidden}
+.modal-emoji{font-size:6rem;filter:drop-shadow(0 6px 20px rgba(0,0,0,.2))}
+.modal-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.25);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;z-index:10;transition:background .2s}
+.modal-close:hover{background:rgba(0,0,0,.45)}
+.modal-body{padding:1.8rem 2rem 2rem}
+.modal-tag{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;display:inline-block;padding:.22rem .65rem;border-radius:100px}
+.modal-title{font-family:'Poppins',sans-serif;font-size:1.4rem;font-weight:900;color:var(--bd);margin-bottom:1rem;line-height:1.25}
+.modal-content{font-size:.9rem;color:var(--sec);line-height:1.85}
+.modal-content p{margin-bottom:.9rem}
+.modal-content p:last-child{margin-bottom:0}
+.modal-content strong{color:var(--text);font-weight:700}
+.modal-content .highlight{background:var(--pl);border-left:3px solid var(--primary);padding:.7rem 1rem;border-radius:0 8px 8px 0;margin:.8rem 0;font-size:.85rem;color:var(--bd);font-weight:500}
+.modal-content .stat{display:inline-flex;align-items:center;gap:6px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:.35rem .75rem;font-size:.82rem;font-weight:700;color:#15803D;margin:.3rem .2rem}
+.modal-cta{margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap}
+.modal-cta a{padding:.75rem 1.4rem;border-radius:10px;font-size:.85rem;font-family:'Poppins',sans-serif;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s}
+.modal-cta .btn-p{background:var(--primary);color:#fff;box-shadow:0 4px 16px rgba(37,99,235,.3)}
+.modal-cta .btn-p:hover{background:var(--pd);transform:translateY(-1px)}
+.modal-cta .btn-g{background:var(--pl);color:var(--primary);border:1.5px solid rgba(37,99,235,.2)}
+.modal-cta .btn-g:hover{background:#DBEAFE}
+
+/* CTA BOTTOM */
+.bottom-cta{background:linear-gradient(110deg,#060F1E 0%,#0A2540 40%,#1040A0 75%,#2563EB 100%);padding:4rem 5%;text-align:center;position:relative;overflow:hidden}
+.bottom-cta h2{font-family:'Poppins',sans-serif;font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:800;color:#fff;margin-bottom:.7rem}
+.bottom-cta p{font-size:.95rem;color:rgba(255,255,255,.7);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7}
+.bottom-cta a{display:inline-flex;align-items:center;gap:7px;padding:.95rem 2.2rem;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:800;font-size:.95rem;text-decoration:none;transition:all .22s}
+.bottom-cta .bp{background:#fff;color:var(--bd);margin-right:.6rem;box-shadow:0 6px 24px rgba(0,0,0,.15)}
+.bottom-cta .bp:hover{transform:translateY(-2px)}
+.bottom-cta .bg{background:transparent;color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.3)}
+.bottom-cta .bg:hover{border-color:#fff;color:#fff}
+
+/* FOOTER */
+footer{background:var(--bd);padding:1.5rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
+.footer-social{display:flex;gap:.6rem}
+.footer-sc{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .2s}
+.footer-sc:hover{transform:scale(1.1)}
+.footer-sc svg{width:15px;height:15px;fill:#fff}
+.footer-sc.fb{background:#1877F2}.footer-sc.ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}.footer-sc.wa{background:#25D366}.footer-sc.tt{background:#000}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav-links{display:none}.btn-nav{display:none}.hamburger{display:flex}
+  .articles-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:580px){
+  .articles-grid{grid-template-columns:1fr}
+  .articles-wrap{padding:2rem 4%}
+  .modal-body{padding:1.4rem 1.4rem 1.8rem}
+  .modal-overlay{padding:.8rem}
+  .modal-box{border-radius:16px}
+  .modal-visual{height:160px}
+  nav{height:60px;padding:0 4%}
+  .logo-name{font-size:.78rem}
+  .mobile-menu{top:60px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="logo-cross">&#10010;</span>
+    <span class="logo-name">Klinika Kardiologjike <span>Turke</span>
+      <svg class="logo-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+        <rect width="30" height="20" fill="#E30A17"/>
+        <circle cx="11" cy="10" r="6" fill="white"/>
+        <circle cx="13" cy="10" r="4.8" fill="#E30A17"/>
+        <polygon points="18.5,10 17,7.5 20,8.8 17.5,8.5 20,11.5 18.5,8.8 20.5,11.5 17.8,11.2 20,8.5" fill="white"/>
+      </svg>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Kryefaqja</a>
+    <a href="doktori.html">Doktori</a>
+    <a href="learn.html" class="active">Learn With Us</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+  <div class="nav-right">
+    <a href="kontakt.html" class="btn-nav">Rezervo Vizitë</a>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" onclick="toggleMenu()">Kryefaqja</a>
+  <a href="doktori.html" onclick="toggleMenu()">Doktori</a>
+  <a href="learn.html" onclick="toggleMenu()">Learn With Us</a>
+  <a href="kontakt.html" onclick="toggleMenu()">Kontakt</a>
+  <a href="kontakt.html" class="btn-nav-m">Rezervo Vizitën Tani</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">📚 Edukim Kardiologjik</div>
+    <h1>Mëso Më Shumë<br>Rreth <span>Zemrës Tënde</span></h1>
+    <p>Njohuri të thjeshta dhe të dobishme për shëndetin kardiovaskular — drejtpërdrejt nga Dr. Mefat Selishta.</p>
+  </div>
+</section>
+
+<!-- FILTER -->
+<div class="filter-wrap">
+  <button class="filter-btn active" onclick="filterCards('all',this)">Të gjitha</button>
+  <button class="filter-btn" onclick="filterCards('zemra',this)">❤️ Zemra</button>
+  <button class="filter-btn" onclick="filterCards('aritmi',this)">⚡ Aritmia</button>
+  <button class="filter-btn" onclick="filterCards('shendeti',this)">🏃 Shëndeti</button>
+  <button class="filter-btn" onclick="filterCards('diagnostikim',this)">🔬 Diagnostikim</button>
+  <button class="filter-btn" onclick="filterCards('rreziku',this)">⚠️ Faktorët e Rrezikut</button>
+</div>
+
+<!-- ARTICLES -->
+<div class="articles-wrap">
+  <div class="articles-grid" id="grid"></div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>Keni Pyetje për Zemrën Tuaj?</h2>
+  <p>Mos e lini për nesër. Një kontroll i hershëm mund të parandalojë probleme serioze.</p>
+  <div>
+    <a href="kontakt.html" class="bp">📅 Rezervo Vizitë</a>
+    <a href="https://wa.me/355696042777" target="_blank" class="bg">💬 WhatsApp</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 Klinika Kardiologjike Turke &middot; Tiranë, Shqipëri</p>
+  <div class="footer-social">
+    <a href="https://www.facebook.com/share/1DzCzVTqsb/?mibextid=wwXIfr" target="_blank" class="footer-sc fb"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+    <a href="https://www.instagram.com/klinikakardiologjiketurke" target="_blank" class="footer-sc ig"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+    <a href="https://wa.me/355696042777" target="_blank" class="footer-sc wa"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+    <a href="https://www.tiktok.com/@klinikaturke" target="_blank" class="footer-sc tt"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-visual" id="modalVisual">
+      <div class="modal-emoji" id="modalEmoji"></div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tag" id="modalTag"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-content" id="modalContent"></div>
+      <div class="modal-cta">
+        <a href="kontakt.html" class="btn-p">📅 Rezervo Vizitë</a>
+        <a href="https://wa.me/355696042777" target="_blank" class="btn-g">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const articles = [
+  {
+    id:1, cat:'zemra',
+    emoji:'❤️‍🔬', bg:'linear-gradient(135deg,#FFF1F2,#FFE4E6)',
+    tagColor:'#FCA5A5', tagBg:'#FFF1F2',
+    tag:'Anatomia e Zemrës',
+    title:'EF – Fuqia e Zemrës',
+    desc:'Sa % të gjakut zemra pompon me çdo rrahje? Ky tregues quhet Fraksioni i Ejeksionit.',
+    likes:114,
+    content:`<p><strong>Fraksioni i Ejeksionit (EF)</strong> tregon sa përqind të gjakut zemra pompon me çdo rrahje — dhe është një nga treguesit më të rëndësishëm të shëndetit kardiak.</p>
+    <div class="highlight">✅ Normal: <strong>55–70%</strong> — Matet me EKO Zemre</div>
+    <p>Nëse EF-ja është nën 55%, mund të jetë shenjë e <strong>dobësimit të zemrës (Insuficiencës Kardiake)</strong>.</p>
+    <p>EF maten gjatë ekzaminimit EKO (ekokardiogramit) — një procedurë e shpejtë, pa dhimbje dhe shumë informative.</p>
+    <p>Nëse keni simptoma si lodhje, frymëmarrje e vështirë apo ënjtje të këmbëve — kontrolli i EF-së është hapi i parë i duhur.</p>`
+  },
+  {
+    id:2, cat:'shendeti',
+    emoji:'🥗', bg:'linear-gradient(135deg,#F0FDF4,#DCFCE7)',
+    tagColor:'#16A34A', tagBg:'#DCFCE7',
+    tag:'Jetesa e Shëndetshme',
+    title:'Si të kujdesemi për shëndetin e zemrës?',
+    desc:'Formula është e thjeshtë — varet sa e zbatojmë: ushqim, mendim, lëvizje.',
+    likes:157,
+    content:`<p>Shëndeti i zemrës nuk është vetëm çështje gjenetike — <strong>80% e sëmundjeve kardiake mund të parandalohen</strong> me stilin e jetës.</p>
+    <div class="highlight">🥗 <strong>Ushqehu shëndetshëm</strong> — Stop duhanin, alkolin dhe lëndët narkotike. Dieta mesdhetare është ajo që zemra do.</div>
+    <div class="highlight">🧠 <strong>Mendo shëndetshëm</strong> — Stresi menaxhohet dhe kurohet. Zemra dhe mendja janë të lidhura ngushtë.</div>
+    <div class="highlight">🏃 <strong>Aktivitet fizik i rregullt</strong> — Jo i tepruar. 30 minuta ecje në ditë bëjnë mrekulli.</div>
+    <p>Nuk ka nevojë për ndryshime drastike — hapat e vegjël dhe të vazhdueshëm japin rezultate të mëdha.</p>`
+  },
+  {
+    id:3, cat:'rreziku',
+    emoji:'🚭', bg:'linear-gradient(135deg,#FFF7ED,#FFEDD5)',
+    tagColor:'#EA580C', tagBg:'#FFEDD5',
+    tag:'Faktorët e Rrezikut',
+    title:'Alkooli, Duhani dhe Zemra',
+    desc:'Alkooli, duhani dhe substancat stimuluese rrisin rrezikun për aritmi, hipertension dhe dëmtime kardiake.',
+    likes:39,
+    content:`<p>Shumë njerëz nënvlerësojnë ndikimin e alkoolit dhe duhanit mbi zemrën. Realiteti është i qartë:</p>
+    <p><strong>Duhani</strong> dëmton muret e enëve të gjakut, rrit presionin dhe përshpejton arteriosklerozën — bllokimin e arterieve.</p>
+    <p><strong>Alkooli</strong>, edhe në sasi të moderuara, mund të provokojë aritmie — veçanërisht Fibrilacionin Atrial.</p>
+    <div class="highlight">🚫 Rrisin rrezikun për: <strong>Aritmi · Hipertension · Dëmtime kardiake</strong></div>
+    <p><strong>Substancat stimuluese</strong> si kafeja e tepërt, energjikët dhe droga rrisin frekuencën kardiake dhe mund të shkaktojnë kriza.</p>
+    <p>❤️ <em>Kujdesu për zemrën ashtu siç kujdeset ajo për ty — pa pushim, 24/7.</em></p>`
+  },
+  {
+    id:4, cat:'rreziku',
+    emoji:'🩺', bg:'linear-gradient(135deg,#EFF6FF,#DBEAFE)',
+    tagColor:'#2563EB', tagBg:'#DBEAFE',
+    tag:'Hipertensioni',
+    title:'Komplikacionet e Hipertensionit Arterial',
+    desc:'Pse duhet ta vlerësojmë edhe nëse nuk kemi shqetësime të dukshme — hipertensioni është "vrasësi i heshtur".',
+    likes:32,
+    content:`<p><strong>Hipertensioni arterial</strong> quhet "vrasësi i heshtur" — sepse shumicës nuk u dhemb asgjë, por dëmi po ndodh nga brenda.</p>
+    <p>Nëse nuk kontrollohet, mund të çojë në komplikacione serioze:</p>
+    <div class="highlight">⚠️ <strong>Aneurizma e Aortes</strong> — zgjerimi patologjik i arterjes kryesore</div>
+    <div class="highlight">⚠️ <strong>Trashje e mureve të zemrës</strong> — e detyron zemrën të punojë më shumë</div>
+    <div class="highlight">⚠️ <strong>Aritmi</strong> — çrregullim i ritmit kardiak</div>
+    <div class="highlight">⚠️ <strong>Infarkti i miokardit</strong> — dëmtim i muskujve të zemrës</div>
+    <p>Kontrolli i rregullt i presionit të gjakut është investimi më i lirë dhe më i rëndësishëm për shëndetin tuaj.</p>`
+  },
+  {
+    id:5, cat:'zemra',
+    emoji:'💓', bg:'linear-gradient(135deg,#FDF2F8,#FCE7F3)',
+    tagColor:'#DB2777', tagBg:'#FCE7F3',
+    tag:'Fakte për Zemrën',
+    title:'Zemra Rreh 100.000 Herë në Ditë',
+    desc:'Çdo rrahje, një jetë... dhe shpesh nuk e kuptojmë, as nuk e ndjejmë, as nuk e falënderojmë.',
+    likes:86,
+    content:`<p>Zemra juaj rreh rreth <strong>100.000 herë çdo ditë</strong> — pa pushim, pa u lodhur, nga para lindjes deri në fund të jetës.</p>
+    <p>Ajo pompë rreth <strong>7.500 litra gjak çdo ditë</strong> — mjafton për të mbushur rreth 50 banja.</p>
+    <div class="highlight">💡 Nëse do jetoni 80 vite, zemra juaj do ketë rrahur rreth <strong>3 miliardë herë</strong>.</div>
+    <p>Dhe shpesh nuk e kuptojmë. As nuk e ndjejmë. As nuk e falënderojmë...</p>
+    <p>Deri sa diçka nuk shkon.</p>
+    <p>Mos prisni atë moment. Kontrolli i hershëm kardiologjik mund t'ju shpëtojë jetën — dhe cilësinë e saj.</p>`
+  },
+  {
+    id:6, cat:'aritmi',
+    emoji:'⚡', bg:'linear-gradient(135deg,#F0FDFA,#CCFBF1)',
+    tagColor:'#0D9488', tagBg:'#CCFBF1',
+    tag:'Ritmi Kardiak',
+    title:'Zemra nuk e Pëlqen Monotoninë — HRV',
+    desc:'A e dini se një ritëm zemre që ndryshon në mënyrë të natyrshme është shenjë e shëndetit të mirë?',
+    likes:85,
+    content:`<p>Shumë njerëz mendojnë se zemra duhet të rrahë "si orë" — njëlloj, çdo herë. Por e vërteta është e kundërt!</p>
+    <p><strong>HRV (Heart Rate Variability)</strong> — Ndryshueshmëria e Rrahjeve të Zemrës — tregon sa mirë i përshtatet zemra juaj stresit, gjumit, ushqimit dhe emocioneve.</p>
+    <div class="highlight">📈 Sa më e lartë HRV-ja → aq më elastik dhe i shëndetshëm është sistemi juaj nervor autonom.</div>
+    <p>HRV e ulët shoqërohet me:</p>
+    <p>🔴 Stres kronik &nbsp; 🔴 Mungesë gjumi &nbsp; 🔴 Kondicion të dobët fizik &nbsp; 🔴 Sëmundje kardiake</p>
+    <p>HRV matet gjatë Holterit 24/48 orë — dhe jep informacion të çmuar për gjendjen tuaj kardiake.</p>`
+  },
+  {
+    id:7, cat:'zemra',
+    emoji:'⚡❤️', bg:'linear-gradient(135deg,#1a1a2e,#0A2540)',
+    tagColor:'#60A5FA', tagBg:'rgba(96,165,250,.15)',
+    tag:'Elektrofizologjia',
+    title:'Zemra Prodhon Elektricitetin Vetë',
+    desc:'Zemra nuk e merr elektricitetin nga truri — por e prodhon vetë. Në këtë aspekt, është plotësisht e pavarur.',
+    likes:95,
+    content:`<p>Një fakt që habis shumë njerëz: <strong>zemra nuk kontrollohet nga truri</strong> për të rrahur.</p>
+    <p>Ajo ka sistemin e vet elektrik të brendshëm — të quajtur <strong>sistemi i conducksionit kardiak</strong> — që prodhon impulset elektrike dhe i përcjell ato nëpër të gjithë muskujt e zemrës.</p>
+    <div class="highlight">⚡ Nodi Sinoatrial (SA) — "çelësi kryesor" i zemrës — gjendet në atriumin e djathtë dhe gjeneron rreth 60-100 impulse në minutë.</div>
+    <p>Kjo është arsyeja pse <strong>zemra mund të vazhdojë të rrahë edhe jashtë trupit</strong> — siç ndodh gjatë transplanteve kardiake!</p>
+    <p>Truri ndikon ritmin (e ngadalëson ose e shpejton), por nuk e nis. Zemra është, në këtë aspekt, <em>plotësisht e pavarur</em>.</p>`
+  },
+  {
+    id:8, cat:'aritmi',
+    emoji:'💥', bg:'linear-gradient(135deg,#FFF1F2,#FFE4E6)',
+    tagColor:'#E11D48', tagBg:'#FFE4E6',
+    tag:'Aritmia',
+    title:'Ekstrasistolat Ventrikulare (PVC)',
+    desc:'Shpeshherë ndjehen si "Goditje të forta" dhe sikur Zemra "ndalon" për një moment...',
+    likes:67,
+    content:`<p><strong>Ekstrasistolat Ventrikulare (PVC)</strong> janë rrahje shtesë të zemrës që vijnë nga ventrikuli — dhe janë shumë të zakonshme.</p>
+    <p>Si ndihen? Shumë pacientë i përshkruajnë kështu:</p>
+    <div class="highlight">💬 "Sikur zemra ndalon për një çast"<br>💬 "Goditje të forta në gjoks"<br>💬 "Zemra kërceu"</div>
+    <p>Kjo ndodh sepse pas PVC-së, zemra bën një pushim të shkurtër — dhe pastaj rrahjen tjetër e bën më fort, duke kompensuar.</p>
+    <p><strong>A janë të rrezikshme?</strong> Tek personat e shëndetshëm, PVC-të janë zakonisht të padëmshme. Por nëse janë të shpeshta apo shoqërohen me marrje mendsh — duhet vlerësim kardiologjik.</p>
+    <p>Holteri 24/48 orë është ekzaminimi ideal për të numëruar dhe analizuar PVC-të.</p>`
+  },
+  {
+    id:9, cat:'rreziku',
+    emoji:'🦠❤️', bg:'linear-gradient(135deg,#EFF6FF,#DBEAFE)',
+    tagColor:'#7C3AED', tagBg:'#EDE9FE',
+    tag:'Virozat & Zemra',
+    title:'Virozat dhe Zemra — Perikarditi & Miokarditi',
+    desc:'Nëse virusi prek cipën e zemrës quhet Perikardit. Nëse arrin të prekë muskulin — Miokardit.',
+    likes:126,
+    content:`<p>Jo çdo grip është i parëndësishëm për zemrën. Viruset mund të prekin drejtpërdrejt zemrën në dy mënyra:</p>
+    <div class="highlight">🫀 <strong>Perikarditi</strong> — kur virusi prek <em>cipën</em> rreth zemrës. Shkakton dhimbje gjoksi, shpesh të ngjashme me infarkt.</div>
+    <div class="highlight">💔 <strong>Miokarditi</strong> — kur virusi prek <em>muskulin</em> e zemrës. Mund të dobësojë funksionin kardiak seriozisht.</div>
+    <p>Të dyja zakonisht prekin <strong>moshat e reja</strong> dhe mund të shfaqen 1-3 javë pas një virozi.</p>
+    <p>⚠️ Nëse gjendja gripale shoqërohet me: dhimbje gjoksi, frymëmarrje të vështirë, lodhje të tepruar ose palpitacione — <strong>kërkoni konsultë kardiologjike</strong>.</p>`
+  },
+  {
+    id:10, cat:'aritmi',
+    emoji:'😰', bg:'linear-gradient(135deg,#FAFAFA,#F3F4F6)',
+    tagColor:'#6B7280', tagBg:'#F3F4F6',
+    tag:'Ankthi & Zemra',
+    title:'Ankthi Aritminë apo Aritmia Ankth-in?',
+    desc:'Kur kemi ankth shpeshherë kemi rrahje të shpeshta. Por edhe kur kemi aritmi ndjejmë ankth. Cila vjen e para?',
+    likes:181,
+    content:`<p>Kjo është një nga pyetjet më të shpeshta: "A shkakton ankthi aritminë, apo aritmia ankth-in?"</p>
+    <div class="highlight">🥚🐣 Është si pyetja: "Çfarë erdhi e para — veza apo pula?"</div>
+    <p><strong>Ankthi</strong> stimulon sistemin nervor simpatik → rrit kortizolin → shkakton takikardi dhe palpitacione.</p>
+    <p><strong>Aritmia</strong> nga ana tjetër → shkakton simptoma fizike → të cilat prodhojnë ankth.</p>
+    <p>Ndonjëherë zemra dhe mendja flasin të njëjtën gjuhë — dhe është shumë e rëndësishme të kuptohet zanafilla e problemit.</p>
+    <p>Vetëm me vlerësim kardiologjik + psikologjik të kombinuar mund të gjejmë burimin e vërtetë dhe ta trajtojmë siç duhet.</p>`
+  },
+  {
+    id:11, cat:'rreziku',
+    emoji:'🍷', bg:'linear-gradient(135deg,#FFF7ED,#FFEDD5)',
+    tagColor:'#9A3412', tagBg:'#FFEDD5',
+    tag:'Alkoli & Aritmia',
+    title:'Holiday Heart Syndrome',
+    desc:'Alkoli dhe Aritmia — një studim i realizuar me Holter Ritmi 48h tregon lidhjen e drejtpërdrejtë.',
+    likes:31,
+    content:`<p><strong>"Holiday Heart Syndrome"</strong> — Sindroma e Zemrës së Festave — është fenomeni kur konsumi i tepërt i alkoolit shkakton aritmi akute, veçanërisht Fibrilacion Atrial.</p>
+    <p>Studimi i MunichBREW (2024) me Holter Ritmi 48h tregoi:</p>
+    <div class="highlight">🍺 Gjatë periudhës së konsumit (1-5 orë): <strong>rritje e frekuencës kardiake + Fibrilacion Atrial</strong></div>
+    <div class="highlight">⏰ Gjatë rikuperimit (6-19 orë): sistemi nervor parasimpatik bie — zemra mbetet "e çrregulluar"</div>
+    <p>Edhe sasi të moderuara alkooli mund të shkaktojnë ndryshime të matshme në ritmin kardiak — veçanërisht tek personat predispozuar.</p>
+    <p>Holteri i Ritmit 48h është ekzaminimi ideal nëse dyshoni se alkooli ndikon ritmin tuaj kardiak.</p>`
+  },
+  {
+    id:12, cat:'aritmi',
+    emoji:'🫀⚡', bg:'linear-gradient(135deg,#FFF1F2,#FFE4E6)',
+    tagColor:'#B91C1C', tagBg:'#FFE4E6',
+    tag:'Fibrilacioni Atrial',
+    title:'Fibrilacioni Atrial — Shkaku Kryesor i Trombozës',
+    desc:'Aritmia që është shkaku kryesor i Ishemisë Cerebrale — dhe që zakonisht është e tshehte.',
+    likes:199,
+    content:`<p><strong>Fibrilacioni Atrial (FA)</strong> është aritmia më e zakonshme klinike dhe një nga më të rrezikshmet.</p>
+    <div class="highlight">⚠️ FA është shkaku kryesor i <strong>Ishemisë Cerebrale</strong> (Trombozës në Tru) — dhe shpesh kalon pa u diagnostikuar.</div>
+    <p>Kjo aritmi zakonisht <strong>është e fshehur</strong> — pacienti mund të mos ndiejë asgjë, ose të ndiejë vetëm palpitacione të lehta.</p>
+    <p>Si diagnostikohet? Holteri i Ritmit monitoron zemrën 24 orë ose më gjatë — duke "kapur" episodet e FA edhe kur nuk ka simptoma.</p>
+    <p>Trajtimi me <strong>Antiaritmikë + Hollues Gjaku</strong> parandalon formimin e trombeve dhe mbron trurin.</p>
+    <div class="highlight">✅ "Ishemia Cerebrale" mund të parandalohet lehtësisht — nëse FA diagnostikohet në kohë!</div>`
+  },
+  {
+    id:13, cat:'diagnostikim',
+    emoji:'🔬', bg:'linear-gradient(135deg,#F0FDF4,#DCFCE7)',
+    tagColor:'#15803D', tagBg:'#DCFCE7',
+    tag:'Diagnostikim',
+    title:'Çfarë Zbulohet në EKO Zemre?',
+    desc:'EKO-ja është "syri" i kardiologut brenda zemrës. Ja çfarë mund të zbulojë.',
+    likes:117,
+    content:`<p><strong>Ekokardiografia (EKO)</strong> është ekzaminimi me ultratinguj i zemrës — dhe ndoshta ekzaminimi më i rëndësishëm kardiologjik.</p>
+    <p>Çfarë mund të zbulojë EKO?</p>
+    <div class="highlight">💔 <strong>Insuficienca Kardiake</strong> — dobësimi i zemrës (EF e ulët)</div>
+    <div class="highlight">❤️ <strong>Infarkti i vjetër</strong> — zona të muskujve të dëmtuar</div>
+    <div class="highlight">🫀 <strong>Sëmundjet e valvulave</strong> — stenoza ose insuficienca</div>
+    <div class="highlight">💧 <strong>Efuzioni perikardial</strong> — uji rreth zemrës</div>
+    <div class="highlight">📏 <strong>Dëmet nga hipertensioni</strong> — zgjerimi i aortes, trashja e mureve</div>
+    <div class="highlight">🧬 <strong>Sëmundjet e lindura</strong> të zemrës</div>
+    <p>EKO-ja është e shpejtë (20-30 min), pa dhimbje, pa rrezatim dhe jep informacion të paçmuar. Rekomandohet si ekzaminim bazë për çdo person mbi 40 vjeç.</p>`
+  }
+];
+
+// Render cards
+function renderCards(filter){
+  const grid = document.getElementById('grid');
+  const filtered = filter === 'all' ? articles : articles.filter(a => a.cat === filter);
+  grid.innerHTML = filtered.map(a => `
+    <div class="card" onclick="openModal(${a.id})" data-cat="${a.cat}">
+      <div class="card-visual" style="background:${a.bg}">
+        <div class="card-emoji">${a.emoji}</div>
+        <div class="card-tag" style="color:${a.tagColor};background:${a.tagBg}">${a.tag}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${a.title}</div>
+        <div class="card-desc">${a.desc}</div>
+        <div class="card-footer">
+          <span class="card-read">Lexo më shumë <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="card-likes">❤️ ${a.likes}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCards(cat, btn){
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards(cat);
+}
+
+function openModal(id){
+  const a = articles.find(x => x.id === id);
+  document.getElementById('modalEmoji').textContent = a.emoji;
+  document.getElementById('modalVisual').style.background = a.bg;
+  document.getElementById('modalTag').textContent = a.tag;
+  document.getElementById('modalTag').style.color = a.tagColor;
+  document.getElementById('modalTag').style.background = a.tagBg;
+  document.getElementById('modalTitle').textContent = a.title;
+  document.getElementById('modalContent').innerHTML = a.content;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e){
+  if(e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+function closeModalDirect(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModalDirect(); });
+
+// Nav
+function toggleMenu(){
+  document.getElementById('mobile-menu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const m=document.getElementById('mobile-menu');
+  const h=document.getElementById('hamburger');
+  if(m.classList.contains('open')&&!m.contains(e.target)&&!h.contains(e.target)){
+    m.classList.remove('open');h.classList.remove('open');
+  }
+});
+
+// Init
+renderCards('all');
+</script>
+</body>
+</html>
