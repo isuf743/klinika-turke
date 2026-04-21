@@ -964,6 +964,205 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 </head>
 <body>
 
+<!-- ══ CINEMATIC INTRO ══ -->
+<div id="intro" style="
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#060E1C 0%,#0A2540 40%,#0D3A6E 70%,#0E4A8E 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;
+">
+  <!-- Particles canvas -->
+  <canvas id="introParticles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.6"></canvas>
+
+  <!-- ECG canvas -->
+  <canvas id="introEcg" style="position:absolute;bottom:38%;left:0;width:100%;height:120px;pointer-events:none"></canvas>
+
+  <!-- Logo card — glassmorphism -->
+  <div id="introLogo" style="
+    position:relative;z-index:2;
+    text-align:center;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;
+    padding:2.2rem 3.5rem;
+    backdrop-filter:blur(16px);
+    box-shadow:0 8px 60px rgba(0,0,0,.4),0 0 80px rgba(30,144,255,.08);
+    opacity:0;transform:translateY(14px) scale(.97);
+    transition:opacity .9s ease, transform .9s ease;
+  ">
+    <!-- Cross icon -->
+    <div style="font-size:2rem;color:#60A5FA;margin-bottom:.6rem;line-height:1;letter-spacing:0">✚</div>
+    <div style="font-family:'Poppins',sans-serif;font-size:clamp(1rem,3vw,1.4rem);font-weight:800;color:#fff;letter-spacing:.02em;line-height:1.2">
+      Klinika Kardiologjike <span style="color:#60A5FA">Turke</span>
+    </div>
+    <div style="font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:.55rem;font-family:'Inter',sans-serif;font-weight:400">
+      Kardiologji · Tiranë · Stamboll
+    </div>
+  </div>
+
+  <!-- Fade-out overlay -->
+  <div id="introFade" style="
+    position:absolute;inset:0;z-index:10;
+    background:#fff;opacity:0;pointer-events:none;
+    transition:opacity .7s ease;
+  "></div>
+</div>
+
+<script>
+// ══════════════════════════════════
+// INTRO ANIMATION
+// ══════════════════════════════════
+(function(){
+  // Heartbeat sound (Web Audio API — single soft "dum")
+  function playHeartbeat() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      // Low thump
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(60, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(35, ctx.currentTime + 0.18);
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.28, ctx.currentTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.6);
+    } catch(e) {}
+  }
+
+  // Particles
+  const pc = document.getElementById('introParticles');
+  const pctx = pc.getContext('2d');
+  function resizeP() { pc.width = window.innerWidth; pc.height = window.innerHeight; }
+  resizeP();
+  const particles = Array.from({length:55}, () => ({
+    x: Math.random() * pc.width,
+    y: Math.random() * pc.height,
+    r: Math.random() * 1.4 + .3,
+    vx: (Math.random() - .5) * .25,
+    vy: -Math.random() * .35 - .1,
+    a: Math.random() * .45 + .1
+  }));
+  function drawParticles() {
+    pctx.clearRect(0, 0, pc.width, pc.height);
+    particles.forEach(p => {
+      pctx.beginPath();
+      pctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      pctx.fillStyle = `rgba(150,210,255,${p.a})`;
+      pctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if(p.y < -5) { p.y = pc.height + 5; p.x = Math.random()*pc.width; }
+    });
+  }
+
+  // ECG line
+  const ec = document.getElementById('introEcg');
+  const ectx = ec.getContext('2d');
+  function resizeE() { ec.width = window.innerWidth; ec.height = 120; }
+  resizeE();
+
+  function ecgY(p) {
+    // p = 0..1 within one cycle
+    if(p < .28) return .5;
+    if(p < .32) return .5 - .05 * Math.sin((p-.28)/.04 * Math.PI);
+    if(p < .36) return .5;
+    if(p < .39) return .5 + .1*((p-.36)/.03);
+    if(p < .42) return .6 - .85*((p-.39)/.03);
+    if(p < .45) return -.25 + .85*((p-.42)/.03);
+    if(p < .48) return .6 - .1*((p-.45)/.03);
+    if(p < .52) return .5;
+    if(p < .58) return .5 - .11*Math.sin((p-.52)/.06*Math.PI);
+    return .5;
+  }
+
+  // State
+  let startTime = null;
+  const TOTAL = 2800; // ms total intro
+  const ECG_DONE = 1100; // ms when ECG finishes drawing
+  const LOGO_START = 900;
+  const BEAT_AT = 700;
+  let beatPlayed = false;
+  let logoShown = false;
+
+  function animate(ts) {
+    if(!startTime) startTime = ts;
+    const el = ts - startTime; // elapsed ms
+    const prog = Math.min(el / TOTAL, 1);
+
+    drawParticles();
+
+    // ECG draw
+    const ecgProg = Math.min(el / ECG_DONE, 1);
+    const W = ec.width, H = ec.height;
+    const cycles = 3;
+    const totalPts = 600;
+    const pts = [];
+    for(let i = 0; i <= totalPts; i++) {
+      const px = i / totalPts;
+      const cy = (px * cycles) % 1;
+      pts.push({ x: px * W, y: H*.48 + (ecgY(cy) - .5) * H*.78 });
+    }
+
+    ectx.clearRect(0, 0, W, H);
+
+    // Draw completed portion
+    const endIdx = Math.floor(ecgProg * totalPts);
+    if(endIdx > 1) {
+      // Glow
+      ectx.save();
+      ectx.shadowColor = 'rgba(96,165,250,.7)';
+      ectx.shadowBlur = 12;
+      ectx.beginPath();
+      ectx.moveTo(pts[0].x, pts[0].y);
+      for(let i = 1; i <= endIdx; i++) ectx.lineTo(pts[i].x, pts[i].y);
+      ectx.strokeStyle = 'rgba(96,165,250,.55)';
+      ectx.lineWidth = 1.8;
+      ectx.lineJoin = 'miter';
+      ectx.stroke();
+      ectx.restore();
+
+      // Moving dot + glow
+      const dot = pts[endIdx];
+      const grd = ectx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, 22);
+      grd.addColorStop(0, 'rgba(96,165,250,.5)');
+      grd.addColorStop(1, 'rgba(96,165,250,0)');
+      ectx.fillStyle = grd;
+      ectx.beginPath(); ectx.arc(dot.x, dot.y, 22, 0, Math.PI*2); ectx.fill();
+      ectx.beginPath(); ectx.arc(dot.x, dot.y, 4, 0, Math.PI*2);
+      ectx.fillStyle = '#93C5FD'; ectx.fill();
+    }
+
+    // Heartbeat sound at peak
+    if(el >= BEAT_AT && !beatPlayed) { beatPlayed = true; playHeartbeat(); }
+
+    // Show logo
+    if(el >= LOGO_START && !logoShown) {
+      logoShown = true;
+      const logo = document.getElementById('introLogo');
+      logo.style.opacity = '1';
+      logo.style.transform = 'translateY(0) scale(1)';
+    }
+
+    // Fade out
+    if(el >= TOTAL - 700) {
+      const fadeEl = document.getElementById('introFade');
+      const fadeP = Math.min((el - (TOTAL-700)) / 700, 1);
+      fadeEl.style.opacity = String(fadeP);
+      if(fadeP >= 1) {
+        document.getElementById('intro').style.display = 'none';
+        return;
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+})();
+</script>
+
 <nav>
   <a href="#" class="nav-logo">
     <span class="logo-cross">&#10010;</span>
