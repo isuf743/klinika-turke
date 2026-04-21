@@ -1017,18 +1017,39 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   function playHeartbeat() {
     try {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      // Low thump
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(60, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(35, ctx.currentTime + 0.18);
-      gain.gain.setValueAtTime(0, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.28, ctx.currentTime + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.6);
+
+      function beat(time, freq, vol) {
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const dist = ctx.createWaveShaper();
+
+        // Soft distortion curve for warmth
+        const curve = new Float32Array(256);
+        for(let i = 0; i < 256; i++) {
+          const x = (i * 2) / 256 - 1;
+          curve[i] = (Math.PI + 200) * x / (Math.PI + 200 * Math.abs(x));
+        }
+        dist.curve = curve;
+
+        osc.connect(dist);
+        dist.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, time);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.5, time + 0.25);
+
+        gain.gain.setValueAtTime(0, time);
+        gain.gain.linearRampToValueAtTime(vol, time + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.55);
+
+        osc.start(time);
+        osc.stop(time + 0.6);
+      }
+
+      // "lub-dub" — two quick beats like a real heart
+      beat(ctx.currentTime,       80, 0.6);   // LUB
+      beat(ctx.currentTime + 0.2, 65, 0.45);  // dub
     } catch(e) {}
   }
 
@@ -1086,6 +1107,17 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   let beatPlayed = false;
   let logoShown = false;
 
+  // Browsers block audio until user gesture — unlock on first interaction
+  function unlockAndPlay() {
+    if(!beatPlayed) { beatPlayed = true; playHeartbeat(); }
+    document.removeEventListener('touchstart', unlockAndPlay);
+    document.removeEventListener('click', unlockAndPlay);
+    document.removeEventListener('keydown', unlockAndPlay);
+  }
+  document.addEventListener('touchstart', unlockAndPlay, {once:true});
+  document.addEventListener('click', unlockAndPlay, {once:true});
+  document.addEventListener('keydown', unlockAndPlay, {once:true});
+
   function animate(ts) {
     if(!startTime) startTime = ts;
     const el = ts - startTime; // elapsed ms
@@ -1134,7 +1166,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
       ectx.fillStyle = '#93C5FD'; ectx.fill();
     }
 
-    // Heartbeat sound at peak
+    // Heartbeat — played on first interaction (browser policy)
     if(el >= BEAT_AT && !beatPlayed) { beatPlayed = true; playHeartbeat(); }
 
     // Show logo
