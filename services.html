@@ -58,18 +58,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:66px;display:flex;ali
 .hero-stat-lbl{font-size:.72rem;color:rgba(255,255,255,.55);margin-top:2px;font-weight:500}
 
 /* VIDEO STRIP */
-.video-strip{background:var(--bd);padding:0}
-.video-strip video{display:block;width:100%;max-height:420px;object-fit:cover}
-
-/* INTRO VIDEO SECTION */
-.video-section{background:#000;position:relative;overflow:hidden}
-.video-section video{display:block;width:100%;max-height:440px;object-fit:cover;opacity:.92}
-.video-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,37,64,.7) 0%,rgba(10,37,64,.1) 60%,transparent 100%);display:flex;align-items:center;padding:0 5%}
-.video-text{max-width:400px}
-.video-text h2{font-family:'Poppins',sans-serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;color:#fff;margin-bottom:.7rem;line-height:1.25}
-.video-text p{font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:1.2rem}
-.video-text a{display:inline-flex;align-items:center;gap:7px;background:#fff;color:var(--bd);padding:.75rem 1.4rem;border-radius:10px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.85rem;text-decoration:none;transition:all .2s}
-.video-text a:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.video-section{
+  background:linear-gradient(135deg,#060E1C 0%,#0A2540 50%,#0D3A6E 100%);
+  padding:4rem 5%;
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:4rem;
+  align-items:center;
+}
+.video-text h2{font-family:'Poppins',sans-serif;font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:800;color:#fff;margin-bottom:.8rem;line-height:1.2}
+.video-text p{font-size:.9rem;color:rgba(255,255,255,.72);line-height:1.75;margin-bottom:1.5rem}
+.video-text-badges{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.8rem}
+.video-text-badge{display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:rgba(255,255,255,.8);font-weight:500}
+.video-text-badge span{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.video-btn{display:inline-flex;align-items:center;gap:7px;background:#2563EB;color:#fff;padding:.85rem 1.6rem;border-radius:10px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.88rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 20px rgba(37,99,235,.4)}
+.video-btn:hover{background:#1D4ED8;transform:translateY(-2px)}
+.video-wrap{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.video-wrap video{display:block;width:100%;height:460px;object-fit:cover}
 
 /* SERVICES SECTIONS */
 .svc-section{padding:5rem 5%;max-width:1200px;margin:0 auto}
@@ -160,8 +165,8 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   .cta-banner{grid-template-columns:1fr;gap:2rem}
   .cta-right-btns{flex-direction:row;flex-wrap:wrap}
   .svc-section{padding:3rem 4%}
-  .video-section video{max-height:300px}
-  .video-overlay{background:linear-gradient(to bottom,rgba(10,37,64,.7) 0%,rgba(10,37,64,.5) 100%);align-items:flex-end;padding:0 4% 1.5rem}
+  .video-section{grid-template-columns:1fr;gap:2rem;padding:3rem 4%}
+  .video-wrap video{height:320px}
 }
 @media(max-width:480px){
   nav{height:60px;padding:0 4%}.logo-name{font-size:.78rem}.mobile-menu{top:60px}
@@ -234,15 +239,24 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 
 <!-- VIDEO SECTION -->
 <div class="video-section">
-  <video autoplay muted loop playsinline preload="auto" style="width:100%;max-height:420px;object-fit:cover;display:block;opacity:.9">
-    <source src="intro2.mp4" type="video/mp4">
-  </video>
-  <div class="video-overlay">
-    <div class="video-text">
-      <h2>Klinika Juaj Kardiologjike në Tiranë</h2>
-      <p>Dr. Mefat Selishta dhe ekipi janë këtu për t'ju ofruar kujdesin më të mirë kardiologjik.</p>
-      <a href="kontakt.html">📅 Rezervo Vizitën →</a>
+  <!-- LEFT TEXT -->
+  <div class="video-text">
+    <div class="svc-section-tag" style="margin-bottom:.8rem">🏥 Klinika Jonë</div>
+    <h2>Teknologji Moderne,<br>Kujdes i Personalizuar</h2>
+    <p>Dr. Mefat Selishta dhe ekipi janë këtu për t'ju ofruar diagnostikim kardiologjik të nivelit ndërkombëtar — direkt në Tiranë.</p>
+    <div class="video-text-badges">
+      <div class="video-text-badge"><span>🇹🇷</span> Specializim dhe trajnim në Stamboll, Turqi</div>
+      <div class="video-text-badge"><span>⏱️</span> Pa pritje — me caktim paraprak</div>
+      <div class="video-text-badge"><span>🩺</span> Kujdes 1-me-1, fokus i plotë për çdo pacient</div>
+      <div class="video-text-badge"><span>📊</span> Rezultate të sakta me teknologji moderne</div>
     </div>
+    <a href="kontakt.html" class="video-btn">📅 Rezervo Vizitën Tani →</a>
+  </div>
+  <!-- RIGHT VIDEO -->
+  <div class="video-wrap">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="intro2.mp4" type="video/mp4">
+    </video>
   </div>
 </div>
 
