@@ -974,20 +974,6 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   <canvas id="introParticles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.6"></canvas>
   <canvas id="introEcg" style="position:absolute;bottom:38%;left:0;width:100%;height:120px;pointer-events:none"></canvas>
 
-  <div id="introPulse" style="position:relative;z-index:3;text-align:center;animation:introPulseAnim 2s ease-in-out infinite">
-    <div style="
-      display:flex;align-items:center;justify-content:center;
-      margin:0 auto 1.2rem;
-      filter:drop-shadow(0 0 18px rgba(220,38,38,.7)) drop-shadow(0 0 40px rgba(220,38,38,.3));
-    ">
-      <span style="font-size:72px;line-height:1">🫀</span>
-    </div>
-    <div style="font-family:'Poppins',sans-serif;font-size:.75rem;font-weight:500;
-      color:rgba(255,255,255,.45);letter-spacing:.2em;text-transform:uppercase">
-      Tap to enter
-    </div>
-  </div>
-
   <div id="introLogo" style="
     position:absolute;z-index:2;text-align:center;display:none;
     background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
@@ -1009,12 +995,6 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   <div id="introFade" style="position:absolute;inset:0;z-index:10;background:#fff;opacity:0;pointer-events:none;transition:opacity .7s ease"></div>
 </div>
 
-<style>
-@keyframes introPulseAnim{
-  0%,100%{transform:scale(1);opacity:1}
-  50%{transform:scale(1.1);opacity:.85}
-}
-</style>
 
 <script>
 (function(){
@@ -1123,14 +1103,27 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 
   function startIntro(){
     if(started)return;started=true;
-    document.getElementById('introPulse').style.display='none';
     playHeartbeat();
     requestAnimationFrame(animLoop);
   }
 
-  document.getElementById('intro').addEventListener('click',startIntro);
+  // Auto-start immediately
+  setTimeout(startIntro, 100);
+
+  // Tap/click to skip
+  document.getElementById('intro').addEventListener('click', function(){
+    if(!started){ startIntro(); } else {
+      // Skip — fade out fast
+      document.getElementById('introFade').style.transition='opacity .4s ease';
+      document.getElementById('introFade').style.opacity='1';
+      setTimeout(()=>{ document.getElementById('intro').style.display='none'; }, 420);
+    }
+  });
   document.getElementById('intro').addEventListener('touchend',function(e){
-    e.preventDefault();startIntro();
+    e.preventDefault();
+    document.getElementById('introFade').style.transition='opacity .4s ease';
+    document.getElementById('introFade').style.opacity='1';
+    setTimeout(()=>{ document.getElementById('intro').style.display='none'; }, 420);
   },{passive:false});
 })();
 </script>
