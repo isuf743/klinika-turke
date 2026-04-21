@@ -966,112 +966,168 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 
 <!-- ══ CINEMATIC INTRO ══ -->
 <div id="intro" style="
-  position:fixed;inset:0;z-index:9999;overflow:hidden;
-  background:#060E1C;cursor:pointer;
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#060E1C 0%,#0A2540 40%,#0D3A6E 70%,#0E4A8E 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;cursor:pointer;
 ">
-  <!-- Video fills screen -->
-  <video id="introVideo"
-    src="intro.mp4"
-    playsinline
-    preload="auto"
-    style="
-      position:absolute;inset:0;
-      width:100%;height:100%;
-      object-fit:cover;
-      pointer-events:none;
-    ">
-  </video>
+  <canvas id="introParticles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.6"></canvas>
+  <canvas id="introEcg" style="position:absolute;bottom:38%;left:0;width:100%;height:120px;pointer-events:none"></canvas>
 
-  <!-- Dark overlay for text readability -->
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%);pointer-events:none;z-index:1"></div>
-
-  <!-- Logo overlay at top -->
-  <div id="introLogoOverlay" style="
-    position:absolute;top:0;left:0;right:0;z-index:2;
-    padding:2rem 1.5rem 1.5rem;
-    text-align:center;
-    opacity:0;
-    transition:opacity 1s ease 0.5s;
-  ">
-    <div style="display:inline-flex;align-items:center;gap:8px;
-      background:rgba(0,0,0,.35);backdrop-filter:blur(12px);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:100px;padding:.5rem 1.2rem;
-    ">
-      <span style="color:#60A5FA;font-size:1.1rem;font-weight:900">✚</span>
-      <span style="font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:700;color:#fff;letter-spacing:.02em">
-        Klinika Kardiologjike <span style="color:#60A5FA">Turke</span>
-      </span>
+  <div id="introPulse" style="position:relative;z-index:3;text-align:center;animation:introPulseAnim 2s ease-in-out infinite">
+    <div style="width:70px;height:70px;border-radius:50%;
+      background:rgba(96,165,250,.15);border:2px solid rgba(96,165,250,.4);
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 1.2rem;box-shadow:0 0 30px rgba(96,165,250,.2)">
+      <span style="font-size:1.8rem;color:#60A5FA">✚</span>
+    </div>
+    <div style="font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:500;
+      color:rgba(255,255,255,.5);letter-spacing:.18em;text-transform:uppercase">
+      Tap to enter
     </div>
   </div>
 
-  <!-- Tap hint overlay — replaces video text -->
-  <div id="introTapHint" style="
-    position:absolute;bottom:12%;left:0;right:0;z-index:2;
-    text-align:center;opacity:0;transition:opacity .8s ease;
+  <div id="introLogo" style="
+    position:absolute;z-index:2;text-align:center;display:none;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;padding:2.2rem 3.5rem;
+    backdrop-filter:blur(16px);
+    box-shadow:0 8px 60px rgba(0,0,0,.4);
+    opacity:0;transform:translateY(14px) scale(.97);
+    transition:opacity .9s ease,transform .9s ease;
   ">
-    <div style="font-family:'Poppins',sans-serif;font-size:1.1rem;font-weight:800;
-      color:#fff;letter-spacing:.15em;text-transform:uppercase;
-      text-shadow:0 0 30px rgba(255,255,255,.4);">
-      TAP TO ENTER
+    <div style="font-size:2rem;color:#60A5FA;margin-bottom:.6rem;line-height:1">✚</div>
+    <div style="font-family:'Poppins',sans-serif;font-size:clamp(1rem,3vw,1.4rem);font-weight:800;color:#fff;letter-spacing:.02em;line-height:1.2">
+      Klinika Kardiologjike <span style="color:#60A5FA">Turke</span>
+    </div>
+    <div style="font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:.55rem;font-family:'Inter',sans-serif">
+      Kardiologji · Tiranë · Stamboll
     </div>
   </div>
 
-  <!-- Watermark cover — hide "Veo" watermark -->
-  <div style="position:absolute;bottom:0;right:0;width:80px;height:40px;background:#060E1C;z-index:3"></div>
-
-  <!-- Fade overlay -->
-  <div id="introFadeOut" style="
-    position:absolute;inset:0;z-index:10;
-    background:#fff;opacity:0;pointer-events:none;
-    transition:opacity .8s ease;
-  "></div>
+  <div id="introFade" style="position:absolute;inset:0;z-index:10;background:#fff;opacity:0;pointer-events:none;transition:opacity .7s ease"></div>
 </div>
+
+<style>
+@keyframes introPulseAnim{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.04);opacity:.75}}
+</style>
 
 <script>
 (function(){
-  const vid = document.getElementById('introVideo');
-  const logo = document.getElementById('introLogoOverlay');
-  const tapHint = document.getElementById('introTapHint');
-  const fadeOut = document.getElementById('introFadeOut');
-  const intro = document.getElementById('intro');
-  let dismissed = false;
-
-  // Show logo after 0.3s
-  setTimeout(() => { logo.style.opacity = '1'; }, 300);
-
-  // Show tap hint after 1s
-  setTimeout(() => { tapHint.style.opacity = '1'; }, 1000);
-
-  // Try autoplay with audio first, fallback to muted
-  vid.muted = false;
-  var playPromise = vid.play();
-  if(playPromise !== undefined){
-    playPromise.catch(() => {
-      // Autoplay with audio blocked — play muted
-      vid.muted = true;
-      vid.play();
+  const pc=document.getElementById('introParticles');
+  const pctx=pc.getContext('2d');
+  function resizeP(){pc.width=window.innerWidth;pc.height=window.innerHeight;}
+  resizeP();
+  const particles=Array.from({length:55},()=>({
+    x:Math.random()*pc.width,y:Math.random()*pc.height,
+    r:Math.random()*1.4+.3,vx:(Math.random()-.5)*.25,vy:-Math.random()*.35-.1,a:Math.random()*.4+.1
+  }));
+  function drawP(){
+    pctx.clearRect(0,0,pc.width,pc.height);
+    particles.forEach(p=>{
+      pctx.beginPath();pctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      pctx.fillStyle=`rgba(150,210,255,${p.a})`;pctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.y<-5){p.y=pc.height+5;p.x=Math.random()*pc.width;}
     });
   }
 
-  function dismiss(){
-    if(dismissed) return;
-    dismissed = true;
-    // Unmute if was muted
-    vid.muted = false;
-    // Fade out
-    fadeOut.style.opacity = '1';
-    setTimeout(() => { intro.style.display = 'none'; }, 850);
+  const ec=document.getElementById('introEcg');
+  const ectx=ec.getContext('2d');
+  function resizeE(){ec.width=window.innerWidth;ec.height=120;}
+  resizeE();
+  function ecgY(p){
+    if(p<.28)return.5;if(p<.32)return.5-.05*Math.sin((p-.28)/.04*Math.PI);
+    if(p<.36)return.5;if(p<.39)return.5+.1*((p-.36)/.03);
+    if(p<.42)return.6-.85*((p-.39)/.03);if(p<.45)return-.25+.85*((p-.42)/.03);
+    if(p<.48)return.6-.1*((p-.45)/.03);if(p<.52)return.5;
+    if(p<.58)return.5-.11*Math.sin((p-.52)/.06*Math.PI);return.5;
   }
 
-  // Auto-dismiss when video ends
-  vid.addEventListener('ended', dismiss);
+  function playHeartbeat(){
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    function thump(t,freq,vol){
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.type='sine';
+      o.frequency.setValueAtTime(freq,t);
+      o.frequency.exponentialRampToValueAtTime(freq*.45,t+.3);
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(vol,t+.025);
+      g.gain.exponentialRampToValueAtTime(.001,t+.65);
+      o.start(t);o.stop(t+.7);
+      const o2=ctx.createOscillator(),g2=ctx.createGain();
+      o2.connect(g2);g2.connect(ctx.destination);
+      o2.type='sine';o2.frequency.setValueAtTime(freq*.5,t);
+      o2.frequency.exponentialRampToValueAtTime(freq*.2,t+.3);
+      g2.gain.setValueAtTime(0,t);g2.gain.linearRampToValueAtTime(vol*.65,t+.03);
+      g2.gain.exponentialRampToValueAtTime(.001,t+.55);
+      o2.start(t);o2.stop(t+.6);
+    }
+    const now=ctx.currentTime;
+    thump(now,90,.8);
+    thump(now+.23,70,.6);
+  }
 
-  // Tap/click to skip
-  intro.addEventListener('click', dismiss);
-  intro.addEventListener('touchend', function(e){
-    e.preventDefault(); dismiss();
-  }, {passive:false});
+  let started=false,startTime=null,logoShown=false;
+  const TOTAL=2700,ECG_DONE=1100,LOGO_START=850;
+
+  function animLoop(ts){
+    if(!startTime)startTime=ts;
+    const el=ts-startTime;
+    drawP();
+    const ep=Math.min(el/ECG_DONE,1);
+    const W=ec.width,H=ec.height,totalPts=600,cycles=3;
+    const pts=[];
+    for(let i=0;i<=totalPts;i++){
+      const px=i/totalPts;
+      pts.push({x:px*W,y:H*.48+(ecgY((px*cycles)%1)-.5)*H*.78});
+    }
+    ectx.clearRect(0,0,W,H);
+    const ei=Math.floor(ep*totalPts);
+    if(ei>1){
+      ectx.save();
+      ectx.shadowColor='rgba(96,165,250,.8)';ectx.shadowBlur=14;
+      ectx.beginPath();ectx.moveTo(pts[0].x,pts[0].y);
+      for(let i=1;i<=ei;i++)ectx.lineTo(pts[i].x,pts[i].y);
+      ectx.strokeStyle='rgba(96,165,250,.65)';ectx.lineWidth=2;ectx.lineJoin='miter';
+      ectx.stroke();ectx.restore();
+      const d=pts[ei];
+      const grd=ectx.createRadialGradient(d.x,d.y,0,d.x,d.y,22);
+      grd.addColorStop(0,'rgba(96,165,250,.55)');grd.addColorStop(1,'rgba(96,165,250,0)');
+      ectx.fillStyle=grd;ectx.beginPath();ectx.arc(d.x,d.y,22,0,Math.PI*2);ectx.fill();
+      ectx.beginPath();ectx.arc(d.x,d.y,4.5,0,Math.PI*2);
+      ectx.fillStyle='#93C5FD';ectx.fill();
+    }
+    if(el>=LOGO_START&&!logoShown){
+      logoShown=true;
+      const l=document.getElementById('introLogo');
+      l.style.display='block';
+      setTimeout(()=>{l.style.opacity='1';l.style.transform='translateY(0) scale(1)';},30);
+    }
+    if(el>=TOTAL-700){
+      const f=document.getElementById('introFade');
+      const fp=Math.min((el-(TOTAL-700))/700,1);
+      f.style.opacity=String(fp);
+      if(fp>=1){document.getElementById('intro').style.display='none';return;}
+    }
+    requestAnimationFrame(animLoop);
+  }
+
+  function idleLoop(){if(started)return;drawP();requestAnimationFrame(idleLoop);}
+  idleLoop();
+
+  function startIntro(){
+    if(started)return;started=true;
+    document.getElementById('introPulse').style.display='none';
+    playHeartbeat();
+    requestAnimationFrame(animLoop);
+  }
+
+  document.getElementById('intro').addEventListener('click',startIntro);
+  document.getElementById('intro').addEventListener('touchend',function(e){
+    e.preventDefault();startIntro();
+  },{passive:false});
 })();
 </script>
 
