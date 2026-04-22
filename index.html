@@ -1032,27 +1032,46 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 
   function playHeartbeat(){
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
+
+    // Compressor — pushes overall volume to maximum
+    const comp=ctx.createDynamicsCompressor();
+    comp.threshold.value=-6;
+    comp.knee.value=3;
+    comp.ratio.value=20;
+    comp.attack.value=0.001;
+    comp.release.value=0.1;
+    comp.connect(ctx.destination);
+
     function thump(t,freq,vol){
       const o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
+      o.connect(g);g.connect(comp);
       o.type='sine';
       o.frequency.setValueAtTime(freq,t);
       o.frequency.exponentialRampToValueAtTime(freq*.45,t+.3);
       g.gain.setValueAtTime(0,t);
-      g.gain.linearRampToValueAtTime(vol,t+.025);
+      g.gain.linearRampToValueAtTime(vol,t+.018);
       g.gain.exponentialRampToValueAtTime(.001,t+.65);
       o.start(t);o.stop(t+.7);
+      // Sub bass layer
       const o2=ctx.createOscillator(),g2=ctx.createGain();
-      o2.connect(g2);g2.connect(ctx.destination);
+      o2.connect(g2);g2.connect(comp);
       o2.type='sine';o2.frequency.setValueAtTime(freq*.5,t);
       o2.frequency.exponentialRampToValueAtTime(freq*.2,t+.3);
-      g2.gain.setValueAtTime(0,t);g2.gain.linearRampToValueAtTime(vol*.65,t+.03);
+      g2.gain.setValueAtTime(0,t);g2.gain.linearRampToValueAtTime(vol*.8,t+.02);
       g2.gain.exponentialRampToValueAtTime(.001,t+.55);
       o2.start(t);o2.stop(t+.6);
+      // Mid punch layer for presence on phone speakers
+      const o3=ctx.createOscillator(),g3=ctx.createGain();
+      o3.connect(g3);g3.connect(comp);
+      o3.type='triangle';o3.frequency.setValueAtTime(freq*1.5,t);
+      o3.frequency.exponentialRampToValueAtTime(freq*.8,t+.2);
+      g3.gain.setValueAtTime(0,t);g3.gain.linearRampToValueAtTime(vol*.4,t+.015);
+      g3.gain.exponentialRampToValueAtTime(.001,t+.3);
+      o3.start(t);o3.stop(t+.35);
     }
     const now=ctx.currentTime;
-    thump(now,90,.8);
-    thump(now+.23,70,.6);
+    thump(now,      90, 1.0);   // LUB — max
+    thump(now+.25,  70, 0.85);  // dub — loud
   }
 
   let started=false,startTime=null,logoShown=false;
