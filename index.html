@@ -1143,10 +1143,9 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
     </span>
   </a>
   <div class="nav-links">
-    <a href="index.html">Kryefaqja</a>
+    <a href="learn.html">Meso Me Ne</a>
+    <a href="services.html">Shërbimet</a>
     <a href="doktori.html">Doktori</a>
-	<a href="services.html">Shërbimet</a>
-	<a href="learn.html">Meso Me Ne</a>
     <a href="kontakt.html">Kontakt</a>
   </div>
   <div class="nav-right">
@@ -1196,10 +1195,9 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
-  <a href="index.html" onclick="toggleMenu()">Kryefaqja</a>
+  <a href="learn.html" onclick="toggleMenu()">Meso Me Ne</a>
   <a href="services.html" onclick="toggleMenu()">Shërbimet</a>
   <a href="doktori.html" onclick="toggleMenu()">Doktori</a>
-  <a href="learn.html" onclick="toggleMenu()">Meso Me Ne</a>
   <a href="kontakt.html" onclick="toggleMenu()">Kontakt</a>
   <div class="mobile-menu-divider"></div>
   <div class="mobile-lang">
@@ -1288,8 +1286,8 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   </div>
 </div>
   <div class="svc-section-label">
-    <span>Shërbimet Tona</span>
-    <h2>Diagnostikim Kardiologjik i Avancuar</h2>
+    <span id="svc-label">Shërbimet Tona</span>
+    <h2 id="svc-title">Diagnostikim Kardiologjik i Avancuar</h2>
   </div>
   <div class="svc-grid">
 
@@ -1300,8 +1298,8 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
           
           <div class="svc-ico-3d"><svg viewBox="0 0 24 24" fill="none" stroke="#1754B8" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
           <div class="svc-t">EKG</div>
-          <div class="svc-s">Elektrokardiogram</div>
-          <div class="svc-d">Regjistrim i aktivitetit elektrik të zemrës — i shpejtë, i saktë dhe pa dhimbje.</div>
+          <div class="svc-s" id="ekg-s">Elektrokardiogram</div>
+          <div class="svc-d" id="ekg-d">Regjistrim i aktivitetit elektrik të zemrës — i shpejtë, i saktë dhe pa dhimbje.</div>
           <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           <a class="svc-mobile-btn" style="display:none" href="services.html#ekg">Mëso më shumë →</a>
         </div>
@@ -1323,8 +1321,8 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
           
           <div class="svc-ico-3d"><svg viewBox="0 0 24 24" fill="none" stroke="#1754B8" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 10 q1.2-3 2.5 0 t2.5 0 t2.5 0" stroke-linecap="round"/></svg></div>
           <div class="svc-t">EKO</div>
-          <div class="svc-s">Ekokardiogram</div>
-          <div class="svc-d">Imazhe me ultratinguj të zemrës — strukturë, valvula dhe funksion sistolic.</div>
+          <div class="svc-s" id="eko-s">Ekokardiogram</div>
+          <div class="svc-d" id="eko-d">Imazhe me ultratinguj të zemrës — strukturë, valvula dhe funksion sistolic.</div>
           <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           <a class="svc-mobile-btn" style="display:none" href="services.html#eko">Mëso më shumë →</a>
         </div>
@@ -1346,8 +1344,8 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
           
           <div class="svc-ico-3d"><svg viewBox="0 0 24 24" fill="none" stroke="#1754B8" stroke-width="1.8"><rect x="4" y="2" width="16" height="20" rx="2"/><polyline points="8 10 10 12 14 8"/><line x1="8" y1="16" x2="16" y2="16"/></svg></div>
           <div class="svc-t">Holter</div>
-          <div class="svc-s">Monitorim 24/48 orë</div>
-          <div class="svc-d">Regjistrim i pandërprerë i ritmit kardiak gjatë aktiviteteve të përditshme.</div>
+          <div class="svc-s" id="holter-s">Monitorim 24/48 orë</div>
+          <div class="svc-d" id="holter-d">Regjistrim i pandërprerë i ritmit kardiak gjatë aktiviteteve të përditshme.</div>
           <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           <a class="svc-mobile-btn" style="display:none" href="services.html#holter">Mëso më shumë →</a>
         </div>
@@ -1368,9 +1366,9 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
         <div class="svc-front">
           
           <div class="svc-ico-3d"><svg viewBox="0 0 24 24" fill="none" stroke="#1754B8" stroke-width="1.8"><circle cx="13" cy="6" r="3"/><path d="M5 20c0-3.5 3.1-6.2 7-6.2"/><path d="M15 14l5 5M20 14l-5 5"/></svg></div>
-          <div class="svc-t">Test Ushtrimor</div>
-          <div class="svc-s">Stres Test Kardiak</div>
-          <div class="svc-d">Vlerëson reagimin e zemrës ndaj ngarkesës fizike progresive mbi tapiseri.</div>
+          <div class="svc-t" id="test-t">Test Ushtrimor</div>
+          <div class="svc-s" id="test-s">Stres Test Kardiak</div>
+          <div class="svc-d" id="test-d">Vlerëson reagimin e zemrës ndaj ngarkesës fizike progresive mbi tapiseri.</div>
           <div class="svc-learn-hint">Rrotulloje për më shumë <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           <a class="svc-mobile-btn" style="display:none" href="services.html#test">Mëso më shumë →</a>
         </div>
@@ -1395,7 +1393,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
       stroke="#1E90FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 
-  <div class="s-lbl">Pse Na Zgjidhni</div>
+  <div class="s-lbl" id="why-lbl">Pse Na Zgjidhni</div>
   <div class="why-g">
     <div>
       <h2 class="s-ttl">Ekspertizë e nivelit ndërkombëtar në zemrën e Tiranës</h2>
@@ -2101,6 +2099,18 @@ const translations = {
     'trust-2-sub':    'Çdo pacient, fokus i plotë',
     'trust-3':        '⏱️ Pa pritje, shërbim i shpejtë',
     'trust-3-sub':    'Rezervo dhe vij direkt',
+    'svc-label':      'Shërbimet Tona',
+    'svc-title':      'Diagnostikim Kardiologjik i Avancuar',
+    'ekg-s':          'Elektrokardiogram',
+    'ekg-d':          'Regjistrim i aktivitetit elektrik të zemrës — i shpejtë, i saktë dhe pa dhimbje.',
+    'eko-s':          'Ekokardiogram',
+    'eko-d':          'Imazhe me ultratinguj të zemrës — strukturë, valvula dhe funksion sistolic.',
+    'holter-s':       'Monitorim 24/48 orë',
+    'holter-d':       'Regjistrim i pandërprerë i ritmit kardiak gjatë aktiviteteve të përditshme.',
+    'test-t':         'Test Ushtrimor',
+    'test-s':         'Stres Test Kardiak',
+    'test-d':         'Vlerëson reagimin e zemrës ndaj ngarkesës fizike progresive mbi tapiseri.',
+    'why-lbl':        'Pse Na Zgjidhni',
     'doc-label':      'Njihuni me Specialistin Tonë',
     'doc-bio':        'I specializuar në kardiologji në Stamboll, Dr. Selishta ofron kujdes profesional me standarde ndërkombëtare. Me fokus në diagnostikim të saktë dhe trajtim efektiv, çdo pacient trajtohet me përkushtim maksimal dhe vëmendje personale.',
     'doc-cta':        'Rezervo Vizitën me Dr. Selishta',
@@ -2128,6 +2138,18 @@ const translations = {
     'trust-2-sub':    'Every patient, full focus',
     'trust-3':        '⏱️ No waiting, fast service',
     'trust-3-sub':    'Book and come right in',
+    'svc-label':      'Our Services',
+    'svc-title':      'Advanced Cardiac Diagnostics',
+    'ekg-s':          'Electrocardiogram',
+    'ekg-d':          'Recording of the heart\'s electrical activity — fast, accurate and painless.',
+    'eko-s':          'Echocardiogram',
+    'eko-d':          'Ultrasound imaging of the heart — structure, valves and systolic function.',
+    'holter-s':       '24/48 Hour Monitoring',
+    'holter-d':       'Continuous recording of heart rhythm throughout daily activities.',
+    'test-t':         'Exercise Test',
+    'test-s':         'Cardiac Stress Test',
+    'test-d':         'Evaluates the heart\'s response to progressive physical load on a treadmill.',
+    'why-lbl':        'Why Choose Us',
     'doc-label':      'Meet Our Specialist',
     'doc-bio':        'Specialized in cardiology in Istanbul, Dr. Selishta delivers professional care to international standards. With a focus on accurate diagnosis and effective treatment, every patient receives maximum dedication and personal attention.',
     'doc-cta':        'Book with Dr. Selishta',
@@ -2148,13 +2170,25 @@ const translations = {
     'hero-title':     'Türkiye\'den Kardiyoloji Uzmanlığı, Artık Tiran\'da',
     'hero-sub':       'İstanbul\'da eğitim almış bir uzman tarafından tanı ve tedavi, her hastaya kişiselleştirilmiş bakım odaklı.',
     'hero-btn1':      'Hemen Randevu Al',
-    'hero-btn2':      'Bizimle öğrenin',
+    'hero-btn2':      'Bizimle Öğrenin',
     'trust-1':        '🎓 Türkiye\'de eğitim ve uzmanlık',
     'trust-1-sub':    'İstanbul\'da mezun',
     'trust-2':        '🩺 Birebir kişiselleştirilmiş bakım',
     'trust-2-sub':    'Her hasta, tam odak',
     'trust-3':        '⏱️ Bekleme yok, hızlı hizmet',
     'trust-3-sub':    'Randevu al ve gel',
+    'svc-label':      'Hizmetlerimiz',
+    'svc-title':      'Gelişmiş Kardiyak Tanı Hizmetleri',
+    'ekg-s':          'Elektrokardiyogram',
+    'ekg-d':          'Kalbin elektriksel aktivitesinin kaydı — hızlı, doğru ve ağrısız.',
+    'eko-s':          'Ekokardiyogram',
+    'eko-d':          'Kalbin ultrason görüntülemesi — yapı, kapakçıklar ve sistolik fonksiyon.',
+    'holter-s':       '24/48 Saatlik İzleme',
+    'holter-d':       'Günlük aktiviteler sırasında kalp ritminin kesintisiz kaydı.',
+    'test-t':         'Efor Testi',
+    'test-s':         'Kardiyak Stres Testi',
+    'test-d':         'Kalbin koşu bandında artan fiziksel yüke verdiği yanıtı değerlendirir.',
+    'why-lbl':        'Neden Bizi Seçmelisiniz',
     'doc-label':      'Uzmanımızla Tanışın',
     'doc-bio':        'İstanbul\'da kardiyoloji uzmanlaşması yapan Dr. Selishta, uluslararası standartlarda profesyonel bakım sunmaktadır. Doğru tanı ve etkili tedaviye odaklanarak her hastaya maksimum özveri ve kişisel ilgi gösterilmektedir.',
     'doc-cta':        'Dr. Selishta ile Randevu Al',
@@ -2198,22 +2232,7 @@ document.addEventListener('click', function(e) {
   if(dd && !dd.contains(e.target)) dd.classList.remove('open');
 });
 
-function toggleMenu() {
-  const menu = document.getElementById('mobile-menu');
-  const ham  = document.getElementById('hamburger');
-  menu.classList.toggle('open');
-  ham.classList.toggle('open');
-}
 
-document.addEventListener('click', function(e) {
-  const menu = document.getElementById('mobile-menu');
-  const ham  = document.getElementById('hamburger');
-  if(!menu || !ham) return;
-  if(menu.classList.contains('open') && !menu.contains(e.target) && !ham.contains(e.target)){
-    menu.classList.remove('open');
-    ham.classList.remove('open');
-  }
-});
 
 // Show mobile buttons on small screens
 function checkMobile() {
@@ -2244,6 +2263,18 @@ function setLang(lang) {
   set('trust-2-sub',t['trust-2-sub']);
   set('trust-3',    t['trust-3']);
   set('trust-3-sub',t['trust-3-sub']);
+  set('svc-label',  t['svc-label']);
+  set('svc-title',  t['svc-title']);
+  set('ekg-s',      t['ekg-s']);
+  set('ekg-d',      t['ekg-d']);
+  set('eko-s',      t['eko-s']);
+  set('eko-d',      t['eko-d']);
+  set('holter-s',   t['holter-s']);
+  set('holter-d',   t['holter-d']);
+  set('test-t',     t['test-t']);
+  set('test-s',     t['test-s']);
+  set('test-d',     t['test-d']);
+  set('why-lbl',    t['why-lbl']);
   set('doc-label',  t['doc-label']);
   set('doc-bio',    t['doc-bio']);
   set('doc-cta',    t['doc-cta']);
@@ -2260,5 +2291,6 @@ function setLang(lang) {
   set('loc-btn2',   t['loc-btn2']);
 }
 </script>
+<script src="nav.js"></script>
 </body>
 </html>
