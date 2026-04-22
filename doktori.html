@@ -183,8 +183,9 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   </a>
   <div class="nav-links">
     <a href="index.html">Kryefaqja</a>
-    <a href="doktori.html" class="active">Doktori</a>
-    <a href="index.html#sherbimet">Shërbimet</a>
+	<a href="doktori.html" class="active">Doktori</a>
+    <a href="services.html">Shërbimet</a>
+	<a href="learn.html">Meso Me Ne</a>
     <a href="kontakt.html">Kontakt</a>
   </div>
   <div class="nav-right">
@@ -198,7 +199,8 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 <div class="mobile-menu" id="mobile-menu">
   <a href="index.html" onclick="toggleMenu()">Kryefaqja</a>
   <a href="doktori.html" onclick="toggleMenu()">Doktori</a>
-  <a href="index.html#sherbimet" onclick="toggleMenu()">Shërbimet</a>
+  <a href="services.html" onclick="toggleMenu()">Shërbimet</a>
+  <a href="learn.html" onclick="toggleMenu()">Meso Me NE</a>
   <a href="kontakt.html" onclick="toggleMenu()">Kontakt</a>
   <button class="btn-nav-mobile" onclick="window.location='kontakt.html'">Rezervo Vizitën Tani</button>
 </div>
@@ -379,7 +381,18 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   </div>
 </footer>
 
-
-<script src="nav.js"></script>
+<script>
+function toggleMenu(){
+  document.getElementById('mobile-menu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const m=document.getElementById('mobile-menu');
+  const h=document.getElementById('hamburger');
+  if(m.classList.contains('open')&&!m.contains(e.target)&&!h.contains(e.target)){
+    m.classList.remove('open');h.classList.remove('open');
+  }
+});
+</script>
 </body>
 </html>

@@ -154,7 +154,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   <div class="nav-links">
     <a href="index.html">Kryefaqja</a>
     <a href="doktori.html">Doktori</a>
-    <a href="learn.html" class="active">Learn With Us</a>
+    <a href="learn.html" class="active">Meso ME Ne</a>
     <a href="kontakt.html">Kontakt</a>
   </div>
   <div class="nav-right">
@@ -167,8 +167,8 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
 
 <div class="mobile-menu" id="mobile-menu">
   <a href="index.html" onclick="toggleMenu()">Kryefaqja</a>
+  <a href="learn.html" onclick="toggleMenu()">Meso Me Ne</a>
   <a href="doktori.html" onclick="toggleMenu()">Doktori</a>
-  <a href="learn.html" onclick="toggleMenu()">Learn With Us</a>
   <a href="kontakt.html" onclick="toggleMenu()">Kontakt</a>
   <a href="kontakt.html" class="btn-nav-m">Rezervo Vizitën Tani</a>
 </div>
@@ -487,11 +487,20 @@ function closeModalDirect(){
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModalDirect(); });
 
 // Nav
-
+function toggleMenu(){
+  document.getElementById('mobile-menu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const m=document.getElementById('mobile-menu');
+  const h=document.getElementById('hamburger');
+  if(m.classList.contains('open')&&!m.contains(e.target)&&!h.contains(e.target)){
+    m.classList.remove('open');h.classList.remove('open');
+  }
+});
 
 // Init
 renderCards('all');
 </script>
-<script src="nav.js"></script>
 </body>
 </html>
