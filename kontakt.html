@@ -317,7 +317,8 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--bm)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           Orari i Punës
         </div>
-        <div class="hours-row"><span class="hours-day">E Hënë – E Shtunë</span><span class="hours-time">09:00 – 20:00 <span class="hours-badge">Hapur</span></span></div>
+        <div class="hours-row"><span class="hours-day">E Hënë – E Premte</span><span class="hours-time">08:00 – 18:00 <span class="hours-badge">Hapur</span></span></div>
+        <div class="hours-row"><span class="hours-day">E Shtunë</span><span class="hours-time">09:00 – 14:00 <span class="hours-badge">Hapur</span></span></div>
         <div class="hours-row"><span class="hours-day">E Diel</span><span class="hours-time"><span class="hours-badge closed">Mbyllur</span></span></div>
       </div>
 
@@ -325,7 +326,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
       <div class="map-section">
         <div class="map-label">📍 Na Gjeni në Hartë</div>
         <div class="map-frame">
-          <iframe src="https://maps.google.com/maps?q=41.32610, 19.80387&z=17&output=embed&hl=sq" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="https://maps.google.com/maps?q=41.32614,19.80383&z=17&output=embed&hl=sq" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
 
@@ -344,44 +345,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   </div>
 </footer>
 
-<script>
-function toggleMenu(){
-  document.getElementById('mobile-menu').classList.toggle('open');
-  document.getElementById('hamburger').classList.toggle('open');
-}
-document.addEventListener('click',function(e){
-  const m=document.getElementById('mobile-menu');
-  const h=document.getElementById('hamburger');
-  if(m.classList.contains('open')&&!m.contains(e.target)&&!h.contains(e.target)){
-    m.classList.remove('open');h.classList.remove('open');
-  }
-});
 
-function submitForm(e){
-  e.preventDefault();
-  const f = e.target;
-  const emri    = f.querySelector('input[placeholder="Emri juaj"]').value.trim();
-  const mbiemri = f.querySelector('input[placeholder="Mbiemri juaj"]').value.trim();
-  const tel     = f.querySelector('input[type="tel"]').value.trim();
-  const email   = f.querySelector('input[type="email"]').value.trim();
-  const arsyeja = f.querySelector('select').value;
-  const msg     = f.querySelector('textarea').value.trim();
-
-  const text =
-    `🏥 *Kërkesë e Re — Klinika Kardiologjike Turke*\n\n` +
-    `👤 *Emri:* ${emri} ${mbiemri}\n` +
-    `📞 *Telefoni:* ${tel}\n` +
-    (email ? `✉️ *Email:* ${email}\n` : '') +
-    (arsyeja ? `🩺 *Arsyeja:* ${arsyeja}\n` : '') +
-    (msg ? `\n💬 *Mesazhi:*\n${msg}` : '');
-
-  const waUrl = `https://wa.me/355696042777?text=${encodeURIComponent(text)}`;
-  window.open(waUrl, '_blank');
-
-  // Show success
-  f.style.display = 'none';
-  document.getElementById('formSuccess').style.display = 'block';
-}
-</script>
+<script src="nav.js"></script>
 </body>
 </html>

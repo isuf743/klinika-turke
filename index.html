@@ -2196,22 +2196,7 @@ document.addEventListener('click', function(e) {
   if(dd && !dd.contains(e.target)) dd.classList.remove('open');
 });
 
-function toggleMenu() {
-  const menu = document.getElementById('mobile-menu');
-  const ham  = document.getElementById('hamburger');
-  menu.classList.toggle('open');
-  ham.classList.toggle('open');
-}
 
-document.addEventListener('click', function(e) {
-  const menu = document.getElementById('mobile-menu');
-  const ham  = document.getElementById('hamburger');
-  if(!menu || !ham) return;
-  if(menu.classList.contains('open') && !menu.contains(e.target) && !ham.contains(e.target)){
-    menu.classList.remove('open');
-    ham.classList.remove('open');
-  }
-});
 
 // Show mobile buttons on small screens
 function checkMobile() {
@@ -2258,5 +2243,6 @@ function setLang(lang) {
   set('loc-btn2',   t['loc-btn2']);
 }
 </script>
+<script src="nav.js"></script>
 </body>
 </html>

@@ -379,18 +379,7 @@ footer p{font-size:.77rem;color:rgba(255,255,255,.38)}
   </div>
 </footer>
 
-<script>
-function toggleMenu(){
-  document.getElementById('mobile-menu').classList.toggle('open');
-  document.getElementById('hamburger').classList.toggle('open');
-}
-document.addEventListener('click',function(e){
-  const m=document.getElementById('mobile-menu');
-  const h=document.getElementById('hamburger');
-  if(m.classList.contains('open')&&!m.contains(e.target)&&!h.contains(e.target)){
-    m.classList.remove('open');h.classList.remove('open');
-  }
-});
-</script>
+
+<script src="nav.js"></script>
 </body>
 </html>
