@@ -1,57 +1,19 @@
-# ═══════════════════════════════════════
-# Klinika Kardiologjike Turke — .htaccess
-# ═══════════════════════════════════════
-
 Options -Indexes
+DirectoryIndex index.html
 
-# ── Redirect www → non-www (HTTPS) ──
 RewriteEngine On
+
+# HTTP → HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# www → non-www
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
-# ── Clean URLs (remove .html extension) ──
-RewriteCond %{REQUEST_FILENAME} !-f
+# Hiq .html nga URL
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
 
-# ── Default page ──
-DirectoryIndex index.html
-
-# ── Custom Error Pages ──
 ErrorDocument 404 /index.html
-
-# ── Security Headers ──
-<IfModule mod_headers.c>
-  Header always set X-Content-Type-Options "nosniff"
-  Header always set X-Frame-Options "SAMEORIGIN"
-  Header always set X-XSS-Protection "1; mode=block"
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
-</IfModule>
-
-# ── Cache static assets ──
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType image/jpeg "access plus 1 month"
-  ExpiresByType image/png  "access plus 1 month"
-  ExpiresByType image/webp "access plus 1 month"
-  ExpiresByType video/mp4  "access plus 1 month"
-  ExpiresByType text/css   "access plus 1 week"
-  ExpiresByType text/javascript "access plus 1 week"
-  ExpiresByType application/javascript "access plus 1 week"
-  ExpiresByType text/html  "access plus 1 hour"
-</IfModule>
-
-# ── Compress text files ──
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript
-</IfModule>
-
-# ── Protect sensitive files ──
-<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql)$">
-  Order Allow,Deny
-  Deny from all
-</FilesMatch>
